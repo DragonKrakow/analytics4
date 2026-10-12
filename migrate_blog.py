@@ -1,107 +1,168 @@
 #!/usr/bin/env python3
-"""Fetch the public builder blog and export SEO-friendly static article pages.
-Run from a network-enabled computer; this script never edits the live site.
+"""Import publicly accessible Analytics4 blog articles as static pages.
+No files are written when no articles can be extracted. Review output before publishing.
 """
-import argparse, json, re, time, html
+import argparse
+import hashlib
+import html
+import json
+import re
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+
 import requests
 from bs4 import BeautifulSoup
 
-BASE='https://analytics4.online/'
-ROOT=Path(__file__).resolve().parents[1]
-HEADERS={'User-Agent':'Analytics4Migration/1.0 (+site-owner archival migration)'}
+BASE = 'https://analytics4.online/'
+ROOT = Path(__file__).resolve().parents[1]
+HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; Analytics4SiteMigration/1.0)'}
 
-def get(session,url):
-    r=session.get(url,headers=HEADERS,timeout=30);r.raise_for_status();return r
+def fetch(session, url):
+    response = session.get(url, headers=HEADERS, timeout=35)
+    response.raise_for_status()
+    return response
 
-def clean_slug(url):
-    p=urlparse(url).path.strip('/').split('/')
-    return p[-1] if len(p)>1 else ''
+def discover(soup, page_url):
+    urls = set()
+    for anchor in soup.select('a[href]'):
+        url = urljoin(page_url, anchor['href']).split('#')[0].split('?')[0]
+        parsed = urlparse(url)
+        if parsed.netloc.lower() not in {'analytics4.online', 'www.analytics4.online'}:
+            continue
+        if re.match(r'^/Blog/[^/]+/?$', parsed.path, re.I):
+            slug = parsed.path.strip('/').split('/')[-1]
+            if slug.lower() not in {'page', 'category', 'tag'}:
+                urls.add(url.rstrip('/') + '/')
+    return urls
 
-def article_urls(soup):
-    found={}
-    for a in soup.select('a[href]'):
-        u=urljoin(BASE,a['href']);p=urlparse(u)
-        if p.netloc not in ('analytics4.online','www.analytics4.online'):continue
-        if re.match(r'^/Blog/[^/]+/?$',p.path,re.I):
-            found[p.path.rstrip('/')+'/']=u.split('#')[0].split('?')[0]
-    return found
-
-def find_article(soup):
-    # Builder article body is usually nested under a blog-post widget.
-    selectors=['[data-plugin="BlogPost"]','[data-plugin="Blog"] .post-content','.blog-post-content','.post-content','article','[itemprop="articleBody"]']
-    for sel in selectors:
-        matches=soup.select(sel)
-        matches=[m for m in matches if len(m.get_text(' ',strip=True))>350]
-        if matches:return max(matches,key=lambda x:len(x.get_text(' ',strip=True)))
-    # Fallback: pick smallest substantial parent of the primary article h1.
-    hs=[h for h in soup.select('h1,h2') if len(h.get_text(' ',strip=True))>25]
-    for h in hs:
-        for p in h.parents:
-            if p.name in ('main','body'):break
-            text=p.get_text(' ',strip=True)
-            if 550<len(text)<18000 and len(p.select('p'))>=3:return p
+def body_element(soup):
+    selectors = ['[itemprop="articleBody"]', '.blog-post-content', '.post-content',
+                 '[data-plugin="BlogPost"]', '.wb_blog_post', '.blog-post', 'article']
+    for selector in selectors:
+        matches = [x for x in soup.select(selector) if len(x.get_text(' ', strip=True)) >= 180]
+        if matches:
+            return max(matches, key=lambda x: len(x.get_text(' ', strip=True)))
+    # Site-builder markup fallback: choose a substantial content section, not the full page.
+    for selector in ['.wb_blog_post_content', '.wb-blog-post', '[class*="blog-post"]']:
+        matches = [x for x in soup.select(selector) if len(x.get_text(' ', strip=True)) >= 180]
+        if matches:
+            return max(matches, key=lambda x: len(x.get_text(' ', strip=True)))
     return None
 
-def migrate(session,url,assets_dir,download_assets):
-    soup=BeautifulSoup(get(session,url).text,'html.parser')
-    title=(soup.find('h1') or soup.find('h2'))
-    title=title.get_text(' ',strip=True) if title else (soup.title.get_text(' ',strip=True) if soup.title else clean_slug(url))
-    body=find_article(soup)
-    if body is None:raise ValueError('Could not identify full article body; needs manual extraction')
-    content=BeautifulSoup(str(body),'html.parser')
-    for el in content.select('script,style,form,nav,footer,header,iframe,.wb_cookie_policy') :el.decompose()
-    for el in content.select('[onclick]'):del el['onclick']
-    for el in content.select('a[href]'):el['href']=urljoin(url,el['href'])
-    for img in content.select('img[src]'):
-        src=urljoin(url,img['src']);img['src']=src
-        if download_assets:
+def extract(session, url, download_images):
+    soup = BeautifulSoup(fetch(session, url).text, 'html.parser')
+    body = body_element(soup)
+    if body is None:
+        raise ValueError('Article body not identified safely; requires manual review')
+    title_tag = soup.select_one('article h1, .blog-post h1, h1')
+    title = title_tag.get_text(' ', strip=True) if title_tag else (soup.title.get_text(' ', strip=True) if soup.title else url)
+    content = BeautifulSoup(str(body), 'html.parser')
+    for node in content.select('script, style, form, nav, footer, header, iframe, button'):
+        node.decompose()
+    for node in content.find_all(True):
+        for attr in list(node.attrs):
+            if attr.lower().startswith('on'):
+                del node[attr]
+    for link in content.select('a[href]'):
+        link['href'] = urljoin(url, link['href'])
+    slug = urlparse(url).path.strip('/').split('/')[-1]
+    for img in content.select('img'):
+        original = img.get('src') or img.get('data-src') or img.get('data-original')
+        if not original:
+            continue
+        original = urljoin(url, original)
+        img['src'] = original
+        if download_images:
             try:
-                r=get(session,src)
-                ext=Path(urlparse(src).path).suffix.lower()
-                if ext not in ('.png','.jpg','.jpeg','.webp','.gif','.svg'):ext='.jpg'
-                import hashlib
-                filename=hashlib.sha256(src.encode()).hexdigest()[:16]+ext
-                (assets_dir/filename).write_bytes(r.content)
-                img['src']='/assets/blog/'+filename
-            except Exception as e:print('IMAGE WARNING',src,e)
-    meta=soup.select_one('meta[name="description"]')
-    description=meta.get('content','') if meta else ''
-    published=soup.select_one('time[datetime]')
-    date=published.get('datetime','') if published else ''
-    slug=clean_slug(url)
-    # Retain only article markup and data, not builder scripts.
-    return {'slug':slug,'source_url':url,'path':'/Blog/'+slug+'/','title':title,'description':description,'date':date,'language':'review','html':str(content),'status':'needs_review'}
+                res = fetch(session, original)
+                ext = Path(urlparse(original).path).suffix.lower()
+                if ext not in {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}:
+                    ext = '.jpg'
+                name = hashlib.sha256(original.encode()).hexdigest()[:20] + ext
+                folder = ROOT / 'assets' / 'blog'
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / name).write_bytes(res.content)
+                img['src'] = '../../assets/blog/' + name
+            except Exception as exc:
+                print('IMAGE WARNING', original, str(exc))
+    description = soup.select_one('meta[name="description"]')
+    published = soup.select_one('meta[property="article:published_time"], time[datetime]')
+    language = (soup.html.get('lang', '') if soup.html else '') or 'it'
+    return {'slug': slug, 'source_url': url, 'title': title,
+            'description': description.get('content', '') if description else '',
+            'date': (published.get('content') or published.get('datetime') or '') if published else '',
+            'language': language, 'html': str(content), 'status': 'needs_review'}
 
-def render(post):
-    title=html.escape(post['title']);desc=html.escape(post['description']);canonical=html.escape(post['source_url'],quote=True)
-    return f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Analytics 4</title><meta name="description" content="{desc}"><link rel="canonical" href="{canonical}"><link rel="stylesheet" href="/assets/blog.css"></head><body><header><a class="logo" href="/">Analytics <b>4</b></a><nav><a href="/">Home</a><a href="/Blog/">Blog</a><a href="mailto:stefano@analytics4.online">Contact</a></nav></header><main><p class="eyebrow"><a href="/Blog/">← Blog</a></p><article><h1>{title}</h1>{post['html']}</article></main><footer>© Analytics 4 · <a href="mailto:stefano@analytics4.online">Contact</a></footer></body></html>'''
-
-def index(posts):
-    items=''.join(f'<a class="post" href="{html.escape(p["path"])}"><h2>{html.escape(p["title"])}</h2><p>{html.escape(p["description"][:190])}</p></a>' for p in posts)
-    return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blog | Analytics 4</title><link rel="stylesheet" href="/assets/blog.css"></head><body><header><a class="logo" href="/">Analytics <b>4</b></a><nav><a href="/">Home</a><a href="/Blog/">Blog</a></nav></header><main><h1>Blog & Insights</h1><p>Articoli e approfondimenti di Analytics 4</p><section class="posts">'+items+'</section></main></body></html>'
+def page(title, body, depth, description='', lang='it', canonical=None):
+    root = '../' * depth
+    meta = f'<meta name="description" content="{html.escape(description, quote=True)}">' if description else ''
+    canon = f'<link rel="canonical" href="{html.escape(canonical, quote=True)}">' if canonical else ''
+    return (f'<!doctype html><html lang="{html.escape(lang, quote=True)}"><head><meta charset="utf-8">'
+            f'<meta name="viewport" content="width=device-width, initial-scale=1">'
+            f'<title>{html.escape(title)} | Analytics 4</title>{meta}{canon}'
+            f'<link rel="stylesheet" href="{root}assets/blog.css"></head><body>'
+            f'<header><a class="logo" href="{root}">Analytics <b>4</b></a>'
+            f'<nav><a href="{root}">Home</a><a href="{root}Blog/">Blog</a>'
+            f'<a href="mailto:stefano@analytics4.online">Contact</a></nav></header>'
+            f'<main>{body}</main><footer>© Analytics 4 · '
+            f'<a href="mailto:stefano@analytics4.online">Contact</a></footer></body></html>')
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--pages',type=int,default=5);parser.add_argument('--delay',type=float,default=0.8);parser.add_argument('--download-assets',action='store_true');args=parser.parse_args()
-    session=requests.Session();found={};errors=[]
-    for page in range(1,args.pages+1):
-        url=urljoin(BASE,'Blog/')+(f'?bcpp=4&bpage={page}' if page>1 else '')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pages', type=int, default=12)
+    parser.add_argument('--delay', type=float, default=0.8)
+    parser.add_argument('--download-assets', action='store_true')
+    args = parser.parse_args()
+    session = requests.Session()
+    found, errors = set(), []
+    # Try common SitePro archive pagination conventions; deduplicate resulting URLs.
+    for number in range(1, args.pages + 1):
+        candidates = ([BASE + 'Blog/'] if number == 1 else [
+            BASE + f'Blog/?bpage={number}',
+            BASE + f'Blog/?bcpp=4&bpage={number}',
+        ])
+        for url in candidates:
+            try:
+                found.update(discover(BeautifulSoup(fetch(session, url).text, 'html.parser'), url))
+            except Exception as exc:
+                errors.append({'url': url, 'error': str(exc)})
+            time.sleep(args.delay)
+    print('Discovered unique article URLs:', len(found))
+    if not found:
+        raise SystemExit('No articles found. Existing output preserved; inspect blog archive markup.')
+    posts = []
+    for url in sorted(found):
         try:
-            soup=BeautifulSoup(get(session,url).text,'html.parser');matches=article_urls(soup);found.update(matches)
-            print('ARCHIVE',page,len(matches));time.sleep(args.delay)
-        except Exception as e:errors.append({'url':url,'error':str(e)})
-    posts=[];assets=ROOT/'assets'/'blog';assets.mkdir(parents=True,exist_ok=True)
-    for path,url in sorted(found.items()):
-        try:
-            post=migrate(session,url,assets,args.download_assets);posts.append(post)
-            dest=ROOT/path.lstrip('/')/'index.html';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(render(post),encoding='utf-8')
-            print('OK',url)
-        except Exception as e:errors.append({'url':url,'error':str(e)});print('ERROR',url,e)
+            post = extract(session, url, args.download_assets)
+            posts.append(post)
+            print('EXTRACTED', url)
+        except Exception as exc:
+            errors.append({'url': url, 'error': str(exc)})
+            print('REVIEW REQUIRED', url, exc)
         time.sleep(args.delay)
-    (ROOT/'Blog').mkdir(exist_ok=True)
-    (ROOT/'Blog'/'index.html').write_text(index(posts),encoding='utf-8')
-    (ROOT/'content'/'blog_manifest.json').write_text(json.dumps({'source':BASE+'Blog/','discovered':len(found),'exported':len(posts),'posts':posts,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
-    print(f'Finished: {len(posts)}/{len(found)} exported, {len(errors)} errors. Review content/blog_manifest.json before deployment.')
-    if errors:raise SystemExit(2)
-if __name__=='__main__':main()
+    if not posts:
+        raise SystemExit('No article bodies extracted. Existing output preserved.')
+    for post in posts:
+        dest = ROOT / 'Blog' / post['slug'] / 'index.html'
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        body = (f'<p class="eyebrow"><a href="../">← Blog</a></p>'
+                f'<article><h1>{html.escape(post["title"])}</h1>{post["html"]}</article>')
+        dest.write_text(page(post['title'], body, 2, post['description'], post['language'], post['source_url']), encoding='utf-8')
+    cards = ''.join(f'<a class="post" href="{html.escape(p["slug"] + "/", quote=True)}">'
+                    f'<h2>{html.escape(p["title"])}</h2>'
+                    f'<p>{html.escape(p["description"][:200])}</p></a>' for p in posts)
+    archive = '<h1>Blog & Insights</h1><p>Articoli e approfondimenti di Analytics 4</p><section class="posts">' + cards + '</section>'
+    (ROOT / 'Blog').mkdir(exist_ok=True)
+    (ROOT / 'Blog' / 'index.html').write_text(page('Blog', archive, 1), encoding='utf-8')
+    (ROOT / 'content').mkdir(exist_ok=True)
+    manifest = {'source': BASE + 'Blog/', 'generated_at': datetime.now(timezone.utc).isoformat(),
+                'discovered': len(found), 'exported': len(posts), 'posts': posts, 'errors': errors}
+    (ROOT / 'content' / 'blog_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f'Exported {len(posts)} of {len(found)}. Review content/blog_manifest.json and rendered pages.')
+    if len(posts) < len(found):
+        raise SystemExit(2)
+
+if __name__ == '__main__':
+    main()

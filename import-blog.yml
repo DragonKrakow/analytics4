@@ -1,0 +1,25 @@
+name: Import original blog (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Extract blog and download images
+        run: python scripts/migrate_blog.py --pages 12 --download-assets
+      - name: Commit imported files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Blog/ assets/blog/ content/blog_manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Import original Analytics4 blog articles"
+            git push
+          fi
