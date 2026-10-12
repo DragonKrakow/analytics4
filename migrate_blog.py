@@ -1,26 +1,33 @@
 
 #!/usr/bin/env python3
 """
-Analytics4 Blog Migration
-Original website: https://analytics4.online/
+Analytics4 multilingual blog importer.
 
-Imports Website Builder / SitePro blog articles into
-static HTML pages for GitHub Pages.
+Imports existing public blog articles into GitHub Pages.
 
-Run:
+Supports:
+    Italian: Blog/it/
+    English: Blog/en/
+    Polish:  Blog/pl/
+
+Preserves original article URLs:
+    Blog/<slug>/
+
+Creates:
+    content/blog_manifest.json
+    Blog/index.html
+    Blog/it/index.html
+    Blog/en/index.html
+    Blog/pl/index.html
+
+Usage:
     python migrate_blog.py --pages 12 --download-assets
 
-Generated:
-    Blog/index.html
-    Blog/<slug>/index.html
-    assets/blog/<images>
-    content/blog_manifest.json
-
-All imported pages require review before the domain migration.
+Important:
+    Does not invent or automatically translate articles.
 """
 
 import argparse
-import copy
 import hashlib
 import html
 import json
@@ -38,34 +45,29 @@ from bs4 import BeautifulSoup
 BASE = "https://analytics4.online/"
 ROOT = Path(__file__).resolve().parent
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; Analytics4BlogMigration/3.0)"
-}
-
 HOSTS = {
     "analytics4.online",
     "www.analytics4.online"
 }
 
-IMAGE_EXTENSIONS = {
-    ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"
+LANGUAGES = {
+    "it": "Italiano",
+    "en": "English",
+    "pl": "Polski"
 }
 
-EXCLUDED_SLUGS = {
-    "blog",
-    "page",
-    "category",
-    "tag",
-    "index",
-    "google-ads",
-    "referenze",
-    "hot-news"
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 "
+        "(compatible; Analytics4Migration/3.0)"
+    )
 }
 
+IMAGE_EXTS = {
+    ".jpg", ".jpeg", ".png",
+    ".webp", ".gif", ".svg"
+}
 
-# --------------------------------------------------
-# NETWORK
-# --------------------------------------------------
 
 def fetch(session, url):
     response = session.get(
@@ -77,14 +79,14 @@ def fetch(session, url):
     return response
 
 
-def normalize_url(url, base=BASE):
+def normalize(url, base):
     absolute = urljoin(base, url)
     parsed = urlparse(absolute)
 
-    if parsed.scheme not in ("http", "https"):
+    if parsed.netloc.lower() not in HOSTS:
         return None
 
-    if parsed.netloc.lower() not in HOSTS:
+    if parsed.scheme not in ("http", "https"):
         return None
 
     return urlunparse((
@@ -97,189 +99,264 @@ def normalize_url(url, base=BASE):
     ))
 
 
-# --------------------------------------------------
-# DISCOVER BLOG ARTICLES
-# --------------------------------------------------
-
 def discover(soup, page_url):
     found = set()
 
     for anchor in soup.select("a[href]"):
-        url = normalize_url(anchor["href"], page_url)
+        url = normalize(
+            anchor["href"],
+            page_url
+        )
 
         if not url:
             continue
 
         path = urlparse(url).path
 
-        if not re.fullmatch(
+        if re.fullmatch(
             r"/Blog/[^/]+/?",
             path,
-            flags=re.IGNORECASE
+            re.I
         ):
-            continue
+            slug = path.strip("/").split("/")[-1]
 
-        slug = path.strip("/").split("/")[-1]
-
-        if slug.lower() in EXCLUDED_SLUGS:
-            continue
-
-        found.add(url.rstrip("/") + "/")
+            if slug.lower() not in {
+                "page", "category", "tag",
+                "index", "it", "en", "pl"
+            }:
+                found.add(url.rstrip("/") + "/")
 
     return found
 
 
-# --------------------------------------------------
-# WEBSITE BUILDER ARTICLE EXTRACTION
-# --------------------------------------------------
+def text_size(node):
+    return len(node.get_text(" ", strip=True))
 
-def article_container(soup):
-    """
-    Actual structure verified from original Analytics4 HTML:
 
-    [data-plugin="Blog"]
-      .wb-blog
-        [itemtype="https://schema.org/BlogPosting"]
-        div[style*="overflow: hidden"]
-          h1
-          p
-          images
-          ...
-    """
+def strip_noise(node):
+    selectors = (
+        "script, style, form, nav, footer, "
+        "header, iframe, button, "
+        ".wb-menu, .wb_cookie_policy, "
+        '[data-plugin="Menu"], '
+        '[data-plugin="Languages"], '
+        ".wb_sbg"
+    )
 
-    for plugin in soup.select('[data-plugin="Blog"]'):
-        for blog in plugin.select(".wb-blog"):
+    for item in list(node.select(selectors)):
+        item.decompose()
 
-            metadata = blog.select_one(
-                '[itemtype="https://schema.org/BlogPosting"]'
-            )
-
-            if metadata is None:
-                continue
-
-            for child in blog.find_all(
-                "div",
-                recursive=False
+    for tag in node.find_all(True):
+        for attr in list(tag.attrs):
+            if (
+                attr.lower().startswith("on")
+                or attr.lower() in {
+                    "style", "contenteditable"
+                }
             ):
-                style = re.sub(
-                    r"\s+",
-                    "",
-                    child.get("style", "").lower()
-                )
+                del tag[attr]
 
-                if "overflow:hidden" not in style:
-                    continue
+    return node
 
-                if len(
-                    child.get_text(" ", strip=True)
-                ) >= 180:
-                    return child, metadata
 
-    # Fallback for other blog layouts.
-    selectors = [
+def body_element(soup):
+    selectors = (
         '[itemprop="articleBody"]',
         ".blog-post-content",
         ".post-content",
         ".wb_blog_post_content",
+        ".wb_blog_post",
+        ".wb-blog-post",
+        '[data-plugin="BlogPost"]',
         "article"
-    ]
-
-    for selector in selectors:
-        for element in soup.select(selector):
-            if len(
-                element.get_text(" ", strip=True)
-            ) >= 180:
-                return element, None
-
-    return None, None
-
-
-def meta_value(element, selector, attribute="content"):
-    if element is None:
-        return ""
-
-    node = element.select_one(selector)
-
-    if node is None:
-        return ""
-
-    return node.get(attribute, "").strip()
-
-
-def clean_content(element):
-    content = BeautifulSoup(
-        str(element),
-        "html.parser"
     )
 
-    for node in list(content.select(
-        "script, style, iframe, form, nav, "
-        "footer, header, button, noscript"
-    )):
-        node.decompose()
+    for selector in selectors:
+        matches = [
+            element
+            for element in soup.select(selector)
+            if text_size(element) >= 180
+        ]
 
-    for node in content.find_all(True):
-        for attribute in list(node.attrs):
+        if matches:
+            return max(matches, key=text_size)
 
-            if attribute.lower().startswith("on"):
-                del node[attribute]
+    main = (
+        soup.select_one('[id^="wb_main_"]')
+        or soup.select_one("#wb_main")
+    )
 
-            elif attribute.lower() in {
-                "contenteditable"
-            }:
-                del node[attribute]
+    if not main:
+        return None
 
-        # Remove embedded editor controls.
-        if node.has_attr("data-_"):
-            del node["data-_"]
+    blocks = main.select(
+        '[data-plugin="TextArea"]'
+    )
 
-    return content
+    if not blocks or not main.select_one("h1, h2"):
+        return None
 
+    result = BeautifulSoup(
+        '<div class="imported-article"></div>',
+        "html.parser"
+    ).div
 
-# --------------------------------------------------
-# IMAGES
-# --------------------------------------------------
+    for block in blocks:
+        if text_size(block) < 2:
+            continue
 
-def download_image(session, image_url):
-    try:
-        response = fetch(session, image_url)
-
-        content_type = response.headers.get(
-            "Content-Type", ""
-        ).split(";")[0].lower()
-
-        if not content_type.startswith("image/"):
-            raise ValueError(
-                "Downloaded resource is not an image"
+        for child in list(block.contents):
+            result.append(
+                BeautifulSoup(
+                    str(child),
+                    "html.parser"
+                )
             )
 
+    if text_size(result) < 180:
+        return None
+
+    return result
+
+
+def detect_language(soup, title, content):
+    """
+    Detect language conservatively.
+
+    Use explicit article metadata first.
+    If the website uses a generic language
+    setting, inspect the actual article text.
+    """
+
+    explicit = []
+
+    for selector, attribute in (
+        ('meta[property="og:locale"]', "content"),
+        ('article[lang]', "lang"),
+        ('[itemprop="articleBody"][lang]', "lang")
+    ):
+        element = soup.select_one(selector)
+
+        if element:
+            value = element.get(attribute, "")
+            explicit.append(value.lower()[:2])
+
+    for value in explicit:
+        if value in LANGUAGES:
+            return value
+
+    sample = (
+        title + " " + content.get_text(" ", strip=True)
+    ).lower()
+
+    tokens = re.findall(
+        r"[a-ząćęłńóśźżàèéìòù]+",
+        sample
+    )
+
+    token_set = set(tokens)
+
+    markers = {
+        "pl": {
+            "jest", "oraz", "które", "który",
+            "możesz", "dzięki", "strona",
+            "firmy", "klientów", "twojej",
+            "jak", "się", "nie", "dla",
+            "przez", "więcej", "google"
+        },
+        "it": {
+            "della", "delle", "degli",
+            "come", "sono", "perché",
+            "questo", "questa", "anche",
+            "con", "che", "gli", "una",
+            "nel", "dei", "per", "più"
+        },
+        "en": {
+            "the", "with", "your",
+            "this", "that", "from",
+            "how", "why", "which",
+            "their", "website", "and",
+            "for", "you", "are"
+        }
+    }
+
+    scores = {
+        lang: sum(
+            1 for token in tokens
+            if token in words
+        )
+        for lang, words in markers.items()
+    }
+
+    if any(
+        char in sample
+        for char in "ąćęłńśźż"
+    ):
+        scores["pl"] += 8
+
+    ranking = sorted(
+        scores,
+        key=scores.get,
+        reverse=True
+    )
+
+    winner = ranking[0]
+    runner_up = ranking[1]
+
+    if (
+        scores[winner] >= 3
+        and scores[winner] >= scores[runner_up] + 2
+    ):
+        return winner
+
+    html_lang = (
+        soup.html.get("lang", "")[:2].lower()
+        if soup.html else ""
+    )
+
+    if html_lang in LANGUAGES:
+        return html_lang
+
+    # Flag uncertain articles for manual review.
+    return "unknown"
+
+
+def download_image(session, url):
+    try:
+        response = fetch(session, url)
+
+        content_type = response.headers.get(
+            "content-type", ""
+        ).lower()
+
+        if not content_type.startswith("image/"):
+            return None
+
+        if len(response.content) > 12000000:
+            return None
+
         extension = Path(
-            urlparse(image_url).path
+            urlparse(url).path
         ).suffix.lower()
 
-        if extension not in IMAGE_EXTENSIONS:
-            extension = {
-                "image/png": ".png",
-                "image/jpeg": ".jpg",
-                "image/gif": ".gif",
-                "image/webp": ".webp",
-                "image/svg+xml": ".svg"
-            }.get(content_type, ".jpg")
+        if extension not in IMAGE_EXTS:
+            extension = ".jpg"
 
         filename = (
             hashlib.sha256(
-                image_url.encode("utf-8")
+                url.encode("utf-8")
             ).hexdigest()[:20]
             + extension
         )
 
-        folder = ROOT / "assets" / "blog"
-        folder.mkdir(
+        destination = (
+            ROOT / "assets" / "blog" / filename
+        )
+
+        destination.parent.mkdir(
             parents=True,
             exist_ok=True
         )
-
-        destination = folder / filename
 
         if not destination.exists():
             destination.write_bytes(
@@ -291,62 +368,14 @@ def download_image(session, image_url):
     except Exception as exc:
         print(
             "IMAGE WARNING:",
-            image_url,
+            url,
             str(exc),
             flush=True
         )
-        return image_url
+        return None
 
 
-def process_images(
-    session,
-    content,
-    source_url,
-    download_assets
-):
-    for image in content.select("img"):
-
-        original = (
-            image.get("data-src")
-            or image.get("data-original")
-            or image.get("src")
-        )
-
-        if not original:
-            continue
-
-        absolute = urljoin(
-            BASE,
-            original
-        )
-
-        if not absolute.startswith(
-            ("https://", "http://")
-        ):
-            continue
-
-        if download_assets:
-            image["src"] = download_image(
-                session,
-                absolute
-            )
-        else:
-            image["src"] = absolute
-
-        # Avoid stale source-site responsive images.
-        image.attrs.pop("srcset", None)
-        image.attrs.pop("data-srcset", None)
-
-
-# --------------------------------------------------
-# EXTRACT COMPLETE ARTICLE
-# --------------------------------------------------
-
-def extract_article(
-    session,
-    url,
-    download_assets
-):
+def extract(session, url, download_assets):
     response = fetch(session, url)
 
     soup = BeautifulSoup(
@@ -354,215 +383,158 @@ def extract_article(
         "html.parser"
     )
 
-    body, metadata = article_container(soup)
+    main = (
+        soup.select_one('[id^="wb_main_"]')
+        or soup.select_one("#wb_main")
+    )
+
+    body = body_element(soup)
 
     if body is None:
         raise ValueError(
             "Article body not identified safely"
         )
 
-    # Use the structured-data title first.
-    title = meta_value(
-        metadata,
-        '[itemprop="headline"]'
+    heading = (
+        main.select_one("h1")
+        if main else None
+    ) or soup.select_one("article h1, h1")
+
+    title = (
+        heading.get_text(" ", strip=True)
+        if heading else ""
     )
 
-    if not title:
-        heading = body.select_one("h1, h2")
+    if len(title) < 5:
+        raise ValueError("Article heading missing")
 
-        if heading:
-            title = heading.get_text(
-                " ",
-                strip=True
-            )
-
-    if not title:
-        og_title = soup.select_one(
-            'meta[property="og:title"]'
-        )
-        if og_title:
-            title = og_title.get(
-                "content", ""
-            ).strip()
-
-    if not title or len(title) < 5:
-        raise ValueError(
-            "Article title missing"
-        )
-
-    content = clean_content(body)
-
-    text_length = len(
-        content.get_text(
-            " ",
-            strip=True
-        )
+    content = BeautifulSoup(
+        str(body),
+        "html.parser"
     )
 
-    if text_length < 180:
+    strip_noise(content)
+
+    if text_size(content) < 180:
         raise ValueError(
             "Article content too short"
         )
 
-    # The original website uses a root <base href>.
-    # Resolve relative links against the website root.
-    for link in content.select("a[href]"):
+    language = detect_language(
+        soup, title, content
+    )
 
-        href = link.get("href", "").strip()
+    slug = (
+        urlparse(url)
+        .path.strip("/")
+        .split("/")[-1]
+    )
+
+    for link in content.select("a[href]"):
+        href = link["href"]
 
         if href.lower().startswith(
             ("javascript:", "data:")
         ):
             del link["href"]
+        else:
+            link["href"] = urljoin(url, href)
 
-        elif href.startswith("#"):
+    for img in content.select("img"):
+        original = (
+            img.get("data-src")
+            or img.get("src")
+            or img.get("data-original")
+        )
+
+        if not original:
             continue
 
-        else:
-            link["href"] = urljoin(
-                BASE,
-                href
+        original = urljoin(url, original)
+
+        if not original.startswith(
+            ("https://", "http://")
+        ):
+            continue
+
+        img["src"] = original
+
+        if download_assets:
+            local = download_image(
+                session, original
             )
 
-    process_images(
-        session,
-        content,
-        url,
-        download_assets
-    )
+            if local:
+                img["src"] = local
 
-    slug = urlparse(
-        url
-    ).path.strip("/").split("/")[-1]
-
-    description_tag = soup.select_one(
+    description = soup.select_one(
         'meta[name="description"]'
     )
 
-    description = (
-        description_tag.get("content", "")
-        if description_tag
-        else ""
+    published = soup.select_one(
+        'meta[property="article:published_time"], '
+        "time[datetime]"
     )
 
-    published = meta_value(
-        metadata,
-        '[itemprop="datePublished"]'
-    )
+    date = ""
 
-    modified = meta_value(
-        metadata,
-        '[itemprop="dateModified"]'
-    )
-
-    if not published:
-        published_tag = soup.select_one(
-            'meta[property="article:published_time"],'
-            'time[datetime]'
+    if published:
+        date = (
+            published.get("content")
+            or published.get("datetime")
+            or ""
         )
-
-        if published_tag:
-            published = (
-                published_tag.get("content")
-                or published_tag.get("datetime")
-                or ""
-            )
-
-    language = (
-        soup.html.get("lang", "it")
-        if soup.html
-        else "it"
-    )
-
-    # Featured image from schema.org or Open Graph.
-    featured_image = ""
-
-    if metadata:
-        image_tag = metadata.select_one(
-            '[itemprop="image"]'
-        )
-
-        if image_tag:
-            featured_image = (
-                image_tag.get("href")
-                or image_tag.get("content")
-                or image_tag.get("src")
-                or ""
-            )
-
-    if not featured_image:
-        og_image = soup.select_one(
-            'meta[property="og:image"]'
-        )
-
-        if og_image:
-            featured_image = og_image.get(
-                "content", ""
-            )
-
-    if featured_image:
-        featured_image = urljoin(
-            BASE,
-            featured_image
-        )
-
-    local_featured_image = featured_image
-
-    if featured_image and download_assets:
-        local_featured_image = download_image(
-            session,
-            featured_image
-        )
-
-    # Preserve language alternative URLs in manifest.
-    alternates = {}
-
-    for link in soup.select(
-        'link[rel="alternate"][hreflang]'
-    ):
-        lang = link.get("hreflang")
-        href = link.get("href")
-
-        if lang and href:
-            alternates[lang] = urljoin(
-                BASE,
-                href
-            )
 
     return {
         "slug": slug,
         "source_url": url,
         "title": title,
-        "description": description,
-        "date": published,
-        "modified": modified,
+        "description": (
+            description.get("content", "")
+            if description else ""
+        ),
+        "date": date,
         "language": language,
-        "featured_image": local_featured_image,
-        "original_featured_image": featured_image,
-        "alternates": alternates,
         "html": str(content),
-        "text_length": text_length,
         "status": "needs_review"
     }
 
 
-# --------------------------------------------------
-# HTML TEMPLATE
-# --------------------------------------------------
+def language_switcher(active):
+    links = []
 
-def make_page(
+    for code, label in LANGUAGES.items():
+        selected = (
+            ' aria-current="page"'
+            if code == active else ""
+        )
+
+        links.append(
+            f'<a href="BLOGROOT{code}/"'
+            f' data-lang="{code}"'
+            f'{selected}>{label}</a>'
+        )
+
+    return (
+        '<div class="blog-languages">'
+        + " | ".join(links)
+        + "</div>"
+    )
+
+
+def page(
     title,
     body,
     depth,
     description="",
-    language="it"
+    lang="it"
 ):
     root = "../" * depth
 
-    meta_description = ""
+    meta = ""
 
     if description:
-        meta_description = (
+        meta = (
             '<meta name="description" content="'
             + html.escape(
                 description,
@@ -571,132 +543,73 @@ def make_page(
             + '">'
         )
 
-    return f"""<!DOCTYPE html>
-<html lang="{html.escape(language, quote=True)}">
+    switcher = language_switcher(lang).replace(
+        "BLOGROOT",
+        root + "Blog/"
+    )
+
+    return f"""<!doctype html>
+<html lang="{html.escape(lang)}">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
 <title>{html.escape(title)} | Analytics 4</title>
-{meta_description}
-<link rel="stylesheet" href="{root}assets/blog.css">
+{meta}
+<link rel="stylesheet"
+      href="{root}assets/blog.css">
 <style>
-body {{
-    margin: 0;
-    background: #101010;
-    color: #f4f4f4;
-    font-family: Arial, sans-serif;
-    line-height: 1.7;
-}}
-header {{
-    background: #080808;
-    border-bottom: 1px solid #333;
-    padding: 22px 6%;
+.blog-languages {{
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 12px;
+    align-items: center;
+    margin: 20px 0;
 }}
-header a, nav a {{
-    color: white;
+.blog-languages a {{
+    color: #ff8c32;
+    font-weight: 600;
     text-decoration: none;
 }}
-.logo {{
-    font-size: 24px;
-    font-weight: bold;
+.blog-languages a[aria-current="page"] {{
+    text-decoration: underline;
 }}
-.logo b {{
-    color: #ff7900;
-}}
-nav {{
-    display: flex;
-    gap: 22px;
-}}
-main {{
-    max-width: 950px;
-    margin: 45px auto;
-    padding: 0 22px;
-}}
-article {{
-    overflow-wrap: anywhere;
-}}
-article img {{
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}}
-article a {{
-    color: #ff9500;
-}}
-h1, h2, h3 {{
-    line-height: 1.3;
-}}
-h1 {{
-    font-size: clamp(30px, 5vw, 44px);
-}}
-.post {{
-    display: block;
-    padding: 24px;
-    margin: 15px 0;
-    border: 1px solid #333;
-    border-radius: 12px;
-    color: white;
-    text-decoration: none;
-    background: #191919;
-}}
-.post:hover {{
-    border-color: #ff7900;
-}}
-.post img {{
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    border-radius: 8px;
-}}
-.post h2 {{
-    color: #ff9500;
-}}
-.date {{
-    color: #aaa;
-    font-size: 14px;
-}}
-footer {{
-    border-top: 1px solid #333;
-    text-align: center;
-    padding: 30px;
-    color: #aaa;
+.blog-notice {{
+    padding: 12px 16px;
+    border-left: 3px solid #ff8c32;
+    margin: 20px 0;
 }}
 </style>
 </head>
 <body>
 <header>
-<a class="logo" href="{root}">Analytics <b>4</b></a>
+<a class="logo" href="{root}">
+Analytics <b>4</b>
+</a>
 <nav>
 <a href="{root}">Home</a>
 <a href="{root}Blog/">Blog</a>
-<a href="mailto:stefano@analytics4.online">Contact</a>
+<a href="mailto:stefano@analytics4.online">
+Contact
+</a>
 </nav>
 </header>
 <main>
+{switcher}
 {body}
 </main>
-<footer>
-© Analytics 4
-</footer>
+<footer>© Analytics 4</footer>
 </body>
 </html>"""
 
 
-# --------------------------------------------------
-# GENERATE ARTICLE PAGES
-# --------------------------------------------------
+def create_article(post):
+    slug = post["slug"]
+    language = post["language"]
 
-def generate_article(post):
     destination = (
-        ROOT
-        / "Blog"
-        / post["slug"]
-        / "index.html"
+        ROOT / "Blog" / slug / "index.html"
     )
 
     destination.parent.mkdir(
@@ -704,108 +617,119 @@ def generate_article(post):
         exist_ok=True
     )
 
-    date_html = ""
-
-    if post["date"]:
-        date_html = (
-            '<p class="date">'
-            + html.escape(post["date"][:10])
-            + "</p>"
-        )
-
-    # Keep article's original internal headings.
-    # Add a title only if its body has no heading.
-    article_html = post["html"]
-
-    parsed = BeautifulSoup(
-        article_html,
-        "html.parser"
+    back = (
+        '<p class="eyebrow">'
+        '<a href="../">← Blog</a>'
+        '</p>'
     )
 
-    if not parsed.select_one("h1"):
-        article_html = (
-            "<h1>"
-            + html.escape(post["title"])
-            + "</h1>"
-            + article_html
-        )
+    body = (
+        back
+        + "<article>"
+        + "<h1>"
+        + html.escape(post["title"])
+        + "</h1>"
+        + post["html"]
+        + "</article>"
+    )
 
-    body = f"""
-<p><a href="../">← Back to Blog</a></p>
-{date_html}
-<article>
-{article_html}
-</article>
-"""
+    # For uncertain language, avoid declaring
+    # the article as a verified translation.
+    page_lang = (
+        language
+        if language in LANGUAGES
+        else "und"
+    )
 
     destination.write_text(
-        make_page(
+        page(
             post["title"],
             body,
             2,
             post["description"],
-            post["language"]
+            page_lang
         ),
         encoding="utf-8"
     )
 
 
-# --------------------------------------------------
-# GENERATE BLOG ARCHIVE
-# --------------------------------------------------
+def create_archive(posts, language=None):
+    if language:
+        selected = [
+            post for post in posts
+            if post["language"] == language
+        ]
 
-def generate_archive(posts):
+        destination = (
+            ROOT / "Blog" / language / "index.html"
+        )
+
+        heading = (
+            "Blog — " + LANGUAGES[language]
+        )
+
+        depth = 2
+    else:
+        selected = posts
+
+        destination = (
+            ROOT / "Blog" / "index.html"
+        )
+
+        heading = "Blog & Insights"
+        depth = 1
+
+    selected.sort(
+        key=lambda post: post.get("date", ""),
+        reverse=True
+    )
+
     cards = []
 
-    for post in posts:
+    for post in selected:
+        slug = post["slug"]
 
-        image_html = ""
+        # Relative link to the preserved
+        # original article path.
+        href = (
+            "../" + slug + "/"
+            if language else slug + "/"
+        )
 
-        if post["featured_image"]:
-            image_html = (
-                '<img src="'
-                + html.escape(
-                    post["featured_image"],
-                    quote=True
-                )
-                + '" alt="'
-                + html.escape(
-                    post["title"],
-                    quote=True
-                )
-                + '">'
-            )
+        title = html.escape(post["title"])
 
-        date_html = ""
+        description = html.escape(
+            post.get("description", "")[:220]
+        )
 
-        if post["date"]:
-            date_html = (
-                '<p class="date">'
-                + html.escape(
-                    post["date"][:10]
-                )
-                + "</p>"
-            )
+        date = html.escape(
+            post.get("date", "")[:10]
+        )
 
-        card = f"""
-<a class="post" href="{html.escape(post['slug'], quote=True)}/">
-{image_html}
-{date_html}
-<h2>{html.escape(post['title'])}</h2>
-<p>{html.escape(post['description'][:220])}</p>
-</a>
-"""
-        cards.append(card)
+        cards.append(
+            '<a class="post" href="'
+            + html.escape(href, quote=True)
+            + '">'
+            + "<h2>" + title + "</h2>"
+            + "<small>" + date + "</small>"
+            + "<p>" + description + "</p>"
+            + "</a>"
+        )
 
-    body = """
-<h1>Blog & Insights</h1>
-<p>Articoli e approfondimenti di Analytics 4.</p>
-<section class="posts">
-""" + "\n".join(cards) + """
-</section>
-"""
+    if not cards:
+        cards.append(
+            '<p class="blog-notice">'
+            'No verified articles are available '
+            'in this language yet.'
+            '</p>'
+        )
 
-    destination = ROOT / "Blog" / "index.html"
+    archive = (
+        "<h1>" + html.escape(heading) + "</h1>"
+        + '<section class="posts">'
+        + "".join(cards)
+        + "</section>"
+    )
 
     destination.parent.mkdir(
         parents=True,
@@ -813,18 +737,15 @@ def generate_archive(posts):
     )
 
     destination.write_text(
-        make_page(
-            "Blog",
-            body,
-            1
+        page(
+            heading,
+            archive,
+            depth,
+            lang=language or "it"
         ),
         encoding="utf-8"
     )
 
-
-# --------------------------------------------------
-# MAIN MIGRATION
-# --------------------------------------------------
 
 def main():
     parser = argparse.ArgumentParser()
@@ -854,30 +775,28 @@ def main():
     errors = []
 
     print(
-        "Starting Analytics4 blog migration...",
+        "Discovering Analytics4 blog articles...",
         flush=True
     )
 
-    # Discover articles from archive pagination.
-    for number in range(1, args.pages + 1):
-
+    for number in range(
+        1, args.pages + 1
+    ):
         if number == 1:
             candidates = [
                 BASE + "Blog/"
             ]
-
         else:
             candidates = [
                 BASE + f"Blog/?bpage={number}",
-                BASE + f"Blog/?bcpp=4&bpage={number}"
+                BASE + (
+                    f"Blog/?bcpp=4&bpage={number}"
+                )
             ]
 
         for url in candidates:
             try:
-                response = fetch(
-                    session,
-                    url
-                )
+                response = fetch(session, url)
 
                 soup = BeautifulSoup(
                     response.text,
@@ -891,40 +810,22 @@ def main():
             except Exception as exc:
                 errors.append({
                     "url": url,
-                    "error": str(exc),
-                    "type": "archive"
+                    "error": str(exc)
                 })
-
-                print(
-                    "ARCHIVE WARNING",
-                    url,
-                    exc,
-                    flush=True
-                )
 
             time.sleep(args.delay)
 
     print(
-        "Discovered article URLs:",
+        "Discovered:",
         len(found),
         flush=True
     )
 
     posts = []
 
-    # Extract every discovered article.
-    for index, url in enumerate(
-        sorted(found),
-        start=1
-    ):
-        print(
-            f"[{index}/{len(found)}] Importing:",
-            url,
-            flush=True
-        )
-
+    for url in sorted(found):
         try:
-            post = extract_article(
+            post = extract(
                 session,
                 url,
                 args.download_assets
@@ -933,7 +834,8 @@ def main():
             posts.append(post)
 
             print(
-                "EXTRACTED:",
+                "IMPORTED:",
+                post["language"],
                 post["title"],
                 flush=True
             )
@@ -941,8 +843,7 @@ def main():
         except Exception as exc:
             errors.append({
                 "url": url,
-                "error": str(exc),
-                "type": "article"
+                "error": str(exc)
             })
 
             print(
@@ -954,13 +855,14 @@ def main():
 
         time.sleep(args.delay)
 
-    # Prefer newest articles first when dates exist.
-    posts.sort(
-        key=lambda post: post.get("date", ""),
-        reverse=True
-    )
+    if not posts:
+        print(
+            "No articles imported. "
+            "Existing blog pages were not replaced.",
+            flush=True
+        )
+        return 1
 
-    # Always write an import report.
     report = {
         "source": BASE + "Blog/",
         "generated_at": datetime.now(
@@ -968,25 +870,38 @@ def main():
         ).isoformat(),
         "discovered": len(found),
         "exported": len(posts),
-        "failed_articles": len(found) - len(posts),
+        "failed_articles": len([
+            error for error in errors
+            if "/Blog/" in error["url"]
+            and "bpage=" not in error["url"]
+        ]),
+        "languages": {
+            code: sum(
+                post["language"] == code
+                for post in posts
+            )
+            for code in LANGUAGES
+        },
+        "unknown_language": sum(
+            post["language"] == "unknown"
+            for post in posts
+        ),
         "posts": posts,
-        "errors": errors,
-        "review_required": True
+        "errors": errors
     }
 
-    report_folder = ROOT / "content"
+    content_dir = ROOT / "content"
 
-    report_folder.mkdir(
+    content_dir.mkdir(
         parents=True,
         exist_ok=True
     )
 
-    report_path = (
-        report_folder
-        / "blog_manifest.json"
+    manifest = (
+        content_dir / "blog_manifest.json"
     )
 
-    report_path.write_text(
+    manifest.write_text(
         json.dumps(
             report,
             ensure_ascii=False,
@@ -995,78 +910,53 @@ def main():
         encoding="utf-8"
     )
 
-    # Never overwrite blog pages when extraction fails.
-    if not posts:
-        print(
-            "REPORT: 0 articles exported.",
-            flush=True
-        )
-
-        print(
-            "No article pages were written.",
-            flush=True
-        )
-
-        print(
-            "Check content/blog_manifest.json",
-            flush=True
-        )
-
-        return 1
-
-    # Write successfully extracted articles.
     for post in posts:
-        generate_article(post)
+        create_article(post)
 
-    generate_archive(posts)
+    create_archive(posts)
 
-    print("", flush=True)
-    print("=" * 55, flush=True)
-    print("ANALYTICS4 BLOG MIGRATION REPORT", flush=True)
-    print("=" * 55, flush=True)
+    for code in LANGUAGES:
+        create_archive(posts, code)
+
+    print("")
+    print("MULTILINGUAL IMPORT REPORT")
+    print("--------------------------")
 
     print(
         "Discovered:",
-        len(found),
-        flush=True
+        len(found)
     )
 
     print(
-        "Exported:",
-        len(posts),
-        flush=True
+        "Imported:",
+        len(posts)
+    )
+
+    for code, label in LANGUAGES.items():
+        print(
+            label + ":",
+            report["languages"][code]
+        )
+
+    print(
+        "Unknown language:",
+        report["unknown_language"]
     )
 
     print(
-        "Failed:",
-        len(found) - len(posts),
-        flush=True
+        "Errors:",
+        len(errors)
     )
 
     print(
-        "Other warnings:",
-        len([
-            e for e in errors
-            if e["type"] != "article"
-        ]),
-        flush=True
+        "Manifest:",
+        manifest
     )
 
     print(
-        "Report:",
-        "content/blog_manifest.json",
-        flush=True
+        "Article URLs preserved."
     )
 
-    print(
-        "Review imported content before launch.",
-        flush=True
-    )
-
-    print("=" * 55, flush=True)
-
-    # A partial import can be committed so missing
-    # articles are visible in the migration report.
     return 0
 
 
