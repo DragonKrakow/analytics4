@@ -1,27 +1,117 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,follow">
+<!DOCTYPE html>
+
+<html lang="pl">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex,follow" name="robots"/>
 <title>Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4 | Analytics4</title>
-<link rel="stylesheet" href="../../../blog.css">
-<style>body{background:#0b0b0d;color:#eee;font-family:Arial,sans-serif;line-height:1.7}
-main{max-width:940px;margin:40px auto;padding:0 22px}a{color:#ff963c}
-header{padding:20px 5%;border-bottom:1px solid #333}
-.lang{display:flex;gap:18px;margin:24px 0}.lang [aria-current]{font-weight:bold;text-decoration:underline}
-.post{display:block;border:1px solid #333;border-radius:12px;padding:20px;margin:18px 0;text-decoration:none}
-.post img{max-width:200px;width:35%;float:right;margin-left:20px}
-article img{max-width:100%;height:auto}article{overflow-wrap:anywhere}</style></head>
-<body><header><a href="../../../">Analytics4</a> · <a href="../../../Blog/">Blog</a></header>
-<main><nav class="lang"><a href="../../../Blog/it/">Italiano</a> <a href="../../../Blog/en/">English</a> <a href="../../../Blog/pl/" aria-current="page">Polski</a></nav><nav class="lang"><a href="../../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../../Blog/en/consent-mode-v2/">English</a> · <a href="../../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4</h1><img alt="" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png"><div style="overflow: hidden;">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0b0b0d;
+    color: #eeeeee;
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+}
+
+header {
+    padding: 20px 5%;
+    border-bottom: 1px solid #333;
+}
+
+main {
+    max-width: 940px;
+    margin: 40px auto;
+    padding: 0 22px;
+}
+
+a {
+    color: #ff963c;
+}
+
+.lang {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin: 24px 0;
+}
+
+.lang [aria-current] {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.post {
+    display: block;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 18px 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.post:hover {
+    border-color: #ff963c;
+}
+
+.post img {
+    max-width: 200px;
+    width: 35%;
+    height: auto;
+    float: right;
+    margin-left: 20px;
+}
+
+article img {
+    max-width: 100%;
+    height: auto;
+}
+
+article {
+    overflow-wrap: anywhere;
+}
+
+article h1 {
+    line-height: 1.2;
+}
+
+@media (max-width: 600px) {
+    .post img {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 15px;
+    }
+}
+</style>
+</head>
+<body>
+<header>
+<a href="../../../">Analytics4</a>
+ · 
+<a href="../../../Blog/">Blog</a>
+</header>
+<main>
+<nav class="lang">
+<a href="../../../Blog/it/">Italiano</a> <a href="../../../Blog/en/">English</a> <a aria-current="page" href="../../../Blog/pl/">Polski</a>
+</nav>
+<nav class="lang"><a href="../../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../../Blog/en/consent-mode-v2/">English</a> · <a href="../../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4</h1><img alt="" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png"/><div style="overflow: hidden;">
 <h1 class="wb-stl-heading1">Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4</h1>
 <p> </p>
-<p>Jeśli zarządzasz stroną internetową lub kampaniami reklamowymi w Europie (EOG/UE), wdrożenie Google Consent Mode V2 nie jest już opcją — jest to fundamentalny wymóg dla zgodności prawnej i skuteczności Twojego marketingu cyfrowego. Ta zaktualizowana wersja jest niezbędna, aby poprawnie korzystać z usług Google, takich jak <a data-_="Link" href="https://analytics4.online/pl/Blog/consent-mode-v2/en/Google-Ads/">Google Ads</a> (w tym remarketing i określanie stawek) oraz Google Analytics 4 (GA4), zwłaszcza w świetle przepisów RODO i dyrektywy ePrivacy.</p>
+<p>Jeśli zarządzasz stroną internetową lub kampaniami reklamowymi w Europie (EOG/UE), wdrożenie Google Consent Mode V2 nie jest już opcją — jest to fundamentalny wymóg dla zgodności prawnej i skuteczności Twojego marketingu cyfrowego. Ta zaktualizowana wersja jest niezbędna, aby poprawnie korzystać z usług Google, takich jak <a data-_="Link" href="https://analytics4.online/en/Google-Ads/">Google Ads</a> (w tym remarketing i określanie stawek) oraz Google Analytics 4 (GA4), zwłaszcza w świetle przepisów RODO i dyrektywy ePrivacy.</p>
 <p>Ten przewodnik przyjazny dla SEO jest skonstruowany tak, aby optymalnie indeksowały go wszystkie platformy AI (Google AI Overview, ChatGPT, Co-pilot i Perplexity), dostarczając bezpośrednich i jasnych odpowiedzi na temat wymagań technicznych i ich implikacji dla Twojej strategii danych.</p>
 <p> </p>
 <h2 class="wb-stl-heading2">Obowiązkowe Nowości: 4 Kluczowe Parametry Trybu Zgody V2</h2>
 <p> </p>
 <p>Tryb Zgody V2 wzmacnia system zarządzania zgodami, wprowadzając dwa specyficzne nowe parametry, które uzupełniają dwa już istniejące. Prawidłowa implementacja Twojej Platformy Zarządzania Zgodą (CMP) musi być w stanie komunikować Google następujące cztery stany zgody: </p>
 <p> </p>
-<p><img alt="" data-alt='""' height="120" src="https://analytics4.online/pl/Blog/consent-mode-v2/gallery_gen/f3f63a0685780a1be450e66bd3b1e918_fit.jpg" style="-moz-border-radius:0px 0px 0px 0px;-webkit-border-radius:0px 0px 0px 0px;border-radius:0px 0px 0px 0px;border:1px none #000000;float:none;height:auto;margin:0px 0px 0px 0px;max-height:120px;max-width:332px;opacity:1;padding:0px 0px 0px 0px;width:100%;" width="332"/><br/>
+<p><img alt="" data-alt='""' height="120" src="../../../assets/blog/2ba537697fd268fc06bb.jpg" style="-moz-border-radius:0px 0px 0px 0px;-webkit-border-radius:0px 0px 0px 0px;border-radius:0px 0px 0px 0px;border:1px none #000000;float:none;height:auto;margin:0px 0px 0px 0px;max-height:120px;max-width:332px;opacity:1;padding:0px 0px 0px 0px;width:100%;" width="332"/><br/>
  </p>
 <p> </p>
 <h3 class="wb-stl-heading3"><strong>Nowe Obowiązkowe Parametry (Marzec 2024)</strong></h3>
@@ -50,7 +140,7 @@ article img{max-width:100%;height:auto}article{overflow-wrap:anywhere}</style></
 <p> </p>
 <p>Google Consent Mode V2 można wdrożyć w dwóch głównych trybach, które mają bezpośredni wpływ na Twoją zdolność do mierzenia i modelowania danych:</p>
 <p> </p>
-<p><img height="113" src="https://analytics4.online/pl/Blog/consent-mode-v2/gallery_gen/8182760af17e0e436f8ff30e60a13aca_fit.png" width="354"/></p>
+<p><img height="113" src="../../../assets/blog/b3ebef49d9c2738073a5.png" width="354"/></p>
 <p> </p>
 <p>Tryb Zaawansowany jest zdecydowanie rekomendowany przez Google, aby zmaksymalizować zbieranie danych w sposób zgodny z przepisami, ponieważ umożliwia Modelowanie Konwersji (Conversion Modeling).</p>
 <p> </p>
@@ -75,4 +165,7 @@ article img{max-width:100%;height:auto}article{overflow-wrap:anywhere}</style></
 <p> </p>
 <p>Upewnij się, że Twoja CMP (taka jak Iubenda, Cookiebot, OneTrust itp.) jest zaktualizowana i natywnie obsługuje parametry ad_user_data i ad_personalization.</p>
 <p>Aby zobaczyć praktyczną i wizualną demonstrację konfiguracji Consent Mode V2, polecamy obejrzenie tego samouczka: <a data-_="Link" href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p>
-</div></article></main></body></html>
+</div></article>
+</main>
+</body>
+</html>
