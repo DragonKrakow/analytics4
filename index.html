@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -554,6 +555,13 @@
       color: var(--orange);
     }
 
+    /* Imported blog cards — existing homepage palette and grid retained */
+    .case-img.blog-photo { display:block; width:100%; height:190px; object-fit:cover; background:#ececec; }
+    .case-img.blog-placeholder { height:190px; background:linear-gradient(135deg,#FF6A00,#FF8C33); }
+    .case-date { display:block; font-size:.78rem; color:var(--gray-500); margin-bottom:10px; }
+    .case-body h3 { line-height:1.4; }
+    .case-body p { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+
     /* CTA Final */
     .cta-final {
       background: var(--black);
@@ -1108,31 +1116,8 @@
           <h2 data-i18n="cases_title">Casi studio e buone pratiche</h2>
           <p data-i18n="cases_subtitle">Articoli, approfondimenti e risultati reali dei nostri clienti.</p>
         </div>
-        <div class="cases-grid">
-          <a href="#" class="case-card" onclick="showPage('cases')">
-            <div class="case-img">Case Study</div>
-            <div class="case-body">
-              <h3 data-i18n="case_1_title">Come abbiamo aumentato il ROAS del 180%</h3>
-              <p data-i18n="case_1_desc">Strategia Performance Max + ottimizzazione feed Merchant Center per un e-commerce moda.</p>
-              <span class="case-link" data-i18n="card_link">Leggi l'articolo →</span>
-            </div>
-          </a>
-          <a href="#" class="case-card" onclick="showPage('cases')">
-            <div class="case-img">Guida</div>
-            <div class="case-body">
-              <h3 data-i18n="case_2_title">Setup GA4 corretto: errori da evitare</h3>
-              <p data-i18n="case_2_desc">I 7 errori più comuni nel tracking e come risolverli per dati affidabili.</p>
-              <span class="case-link" data-i18n="card_link">Leggi l'articolo →</span>
-            </div>
-          </a>
-          <a href="#" class="case-card" onclick="showPage('cases')">
-            <div class="case-img">AI + Ads</div>
-            <div class="case-body">
-              <h3 data-i18n="case_3_title">Come l’AI sta cambiando Google Ads</h3>
-              <p data-i18n="case_3_desc">Dalla predizione delle audience all’ottimizzazione automatica delle creatività.</p>
-              <span class="case-link" data-i18n="card_link">Leggi l'articolo →</span>
-            </div>
-          </a>
+        <div class="cases-grid" id="latestBlogCards" aria-live="polite">
+          <p id="blogLoading">Caricamento degli articoli…</p>
         </div>
         <div style="text-align:center; margin-top:40px;">
           <a href="Blog/" class="btn btn-primary" data-i18n="cases_all">Vedi tutti gli articoli</a>
@@ -1653,6 +1638,7 @@
       });
 
       document.documentElement.lang = lang;
+      document.querySelectorAll('.blog-read-link').forEach(el => { el.textContent = {it:'Leggi l’articolo →',en:'Read article →',pl:'Czytaj artykuł →'}[lang]; });
     }
 
     document.querySelectorAll('.lang-switch span').forEach(span => {
@@ -1691,6 +1677,70 @@
       window.scrollTo(0, 0);
       closeMenu();
     }
+
+    // ========== LATEST REAL BLOG ARTICLES ==========
+    // Uses the importer-generated JSON. No fabricated posts or broken hardcoded paths.
+    async function loadLatestBlog() {
+      const grid = document.getElementById('latestBlogCards');
+      if (!grid) return;
+      try {
+        const response = await fetch('content/blog_cards.json', {cache:'no-store'});
+        if (!response.ok) throw new Error('Blog cards not generated yet');
+        const posts = await response.json();
+        if (!Array.isArray(posts) || !posts.length) throw new Error('No imported posts');
+        const sorted = posts.slice().sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+        grid.replaceChildren();
+        sorted.slice(0,3).forEach(post => {
+          const card = document.createElement('a');
+          card.className = 'case-card';
+          const path = String(post.url || '');
+          // Links must remain inside the published Blog/ directory.
+          if (!/^Blog\/[a-zA-Z0-9_-]+\/$/.test(path)) return;
+          card.href = path;
+          if (post.image && /^assets\/blog\/[a-zA-Z0-9._-]+$/.test(post.image)) {
+            const img = document.createElement('img');
+            img.className = 'case-img blog-photo';
+            img.src = post.image;
+            img.alt = post.title || '';
+            img.loading = 'lazy';
+            img.onerror = () => { const fallback=document.createElement('div'); fallback.className='case-img blog-placeholder'; fallback.textContent='Analytics 4'; img.replaceWith(fallback); };
+            card.append(img);
+          } else {
+            const fallback = document.createElement('div');
+            fallback.className = 'case-img blog-placeholder';
+            fallback.textContent = 'Analytics 4';
+            card.append(fallback);
+          }
+          const body = document.createElement('div');
+          body.className = 'case-body';
+          if (post.date) {
+            const date = document.createElement('time');
+            date.className = 'case-date';
+            date.textContent = post.date.slice(0,10);
+            body.append(date);
+          }
+          const title = document.createElement('h3');
+          title.textContent = post.title || 'Article';
+          body.append(title);
+          const description = document.createElement('p');
+          description.textContent = post.description || '';
+          body.append(description);
+          const link = document.createElement('span');
+          link.className = 'case-link blog-read-link';
+          link.textContent = {it:'Leggi l’articolo →',en:'Read article →',pl:'Czytaj artykuł →'}[currentLang] || 'Read article →';
+          body.append(link);
+          card.append(body);
+          grid.append(card);
+        });
+      } catch(error) {
+        grid.replaceChildren();
+        const note = document.createElement('p');
+        note.textContent = 'Gli articoli saranno disponibili dopo l’importazione del blog.';
+        grid.append(note);
+        console.warn('Blog homepage:',error.message);
+      }
+    }
+    loadLatestBlog();
 
     // ========== WHATSAPP CHATBOT ==========
     const waFloat = document.getElementById('waFloat');
