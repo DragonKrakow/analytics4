@@ -1,118 +1,21 @@
 <!DOCTYPE html>
-
-<html lang="it">
-<head>
-<meta charset="utf-8"/>
+<html lang="it"><head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="noindex,follow" name="robots"/>
-<title>Consent Mode V2: L'Obbligo per GA4, Ads e GDPR [Guida] | Analytics 4</title>
-<meta content="Da marzo 2024, il Consent Mode V2 è vitale. Scopri i parametri ad_user_data e ad_personalization, le differenze tra Basic e Advanced e come salvare i tuoi dati in GA4." name="description"/>
-<link href="../../assets/blog.css" rel="stylesheet"/>
-<style>
-body {
-    margin: 0;
-    background: #101010;
-    color: #f4f4f4;
-    font-family: Arial, sans-serif;
-    line-height: 1.7;
-}
-header {
-    background: #080808;
-    border-bottom: 1px solid #333;
-    padding: 22px 6%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-header a, nav a {
-    color: white;
-    text-decoration: none;
-}
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-.logo b {
-    color: #ff7900;
-}
-nav {
-    display: flex;
-    gap: 22px;
-}
-main {
-    max-width: 950px;
-    margin: 45px auto;
-    padding: 0 22px;
-}
-article {
-    overflow-wrap: anywhere;
-}
-article img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-article a {
-    color: #ff9500;
-}
-h1, h2, h3 {
-    line-height: 1.3;
-}
-h1 {
-    font-size: clamp(30px, 5vw, 44px);
-}
-.post {
-    display: block;
-    padding: 24px;
-    margin: 15px 0;
-    border: 1px solid #333;
-    border-radius: 12px;
-    color: white;
-    text-decoration: none;
-    background: #191919;
-}
-.post:hover {
-    border-color: #ff7900;
-}
-.post img {
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.post h2 {
-    color: #ff9500;
-}
-.date {
-    color: #aaa;
-    font-size: 14px;
-}
-footer {
-    border-top: 1px solid #333;
-    text-align: center;
-    padding: 30px;
-    color: #aaa;
-}
-</style>
-</head>
-<body>
-<header>
-<a class="logo" href="../../">Analytics <b>4</b></a>
-<nav>
-<a href="../../">Home</a>
-<a href="../../Blog/">Blog</a>
-<a href="mailto:stefano@analytics4.online">Contact</a>
-</nav>
-</header>
-<main>
-<p><a href="../">← Back to Blog</a></p>
-<p class="date">2025-09-30</p>
-<article>
-<div style="overflow: hidden;">
-<h1 class="wb-stl-heading1"><a href="https://analytics4.online/en/Blog/">Google Consent Mode V2</a>: Guida Obbligatoria per Conformità GDPR, GTM e GA4</h1>
+<title>Google Consent Mode V2 : Guida Obbligatoria per Conformità GDPR, GTM e GA4 | Analytics4</title>
+<link href="../../blog.css" rel="stylesheet"/>
+<style>body{background:#0b0b0d;color:#eee;font-family:Arial,sans-serif;line-height:1.7}
+main{max-width:940px;margin:40px auto;padding:0 22px}a{color:#ff963c}
+header{padding:20px 5%;border-bottom:1px solid #333}
+.lang{display:flex;gap:18px;margin:24px 0}.lang [aria-current]{font-weight:bold;text-decoration:underline}
+.post{display:block;border:1px solid #333;border-radius:12px;padding:20px;margin:18px 0;text-decoration:none}
+.post img{max-width:200px;width:35%;float:right;margin-left:20px}
+article img{max-width:100%;height:auto}article{overflow-wrap:anywhere}</style></head>
+<body><header><a href="../../">Analytics4</a> · <a href="../../Blog/">Blog</a></header>
+<main><nav class="lang"><a aria-current="page" href="../../Blog/it/">Italiano</a> <a href="../../Blog/en/">English</a> <a href="../../Blog/pl/">Polski</a></nav><nav class="lang"><a href="../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../Blog/en/consent-mode-v2/">English</a> · <a href="../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2 : Guida Obbligatoria per Conformità GDPR, GTM e GA4</h1><img alt="" src="../../assets/blog/6d40e9f74e22ea3c5ec2.png"/><div style="overflow: hidden;">
+<h1 class="wb-stl-heading1"><a data-_="Link" href="https://analytics4.online/Blog/consent-mode-v2/en/Blog/">Google Consent Mode V2</a>: Guida Obbligatoria per Conformità GDPR, GTM e GA4</h1>
 <p> </p>
-<p>Se gestisci un sito web o campagne pubblicitarie in Europa (EEA/UE), l'implementazione del Google <strong>Consent Mode V2</strong> non è più un'opzione, ma un <strong>requisito fondamentale</strong> per la conformità legale e l'efficacia del tuo marketing digitale. Questa versione aggiornata è essenziale per continuare a usare correttamente servizi Google come<a href="https://analytics4.online/en/Google-Ads/"> <strong>Google Ads</strong></a> (inclusi remarketing e bidding) e <strong>Google Analytics 4 (GA4)</strong>, soprattutto in seguito alle normative come il GDPR e l'ePrivacy.</p>
+<p>Se gestisci un sito web o campagne pubblicitarie in Europa (EEA/UE), l'implementazione del Google <strong>Consent Mode V2</strong> non è più un'opzione, ma un <strong>requisito fondamentale</strong> per la conformità legale e l'efficacia del tuo marketing digitale. Questa versione aggiornata è essenziale per continuare a usare correttamente servizi Google come<a data-_="Link" href="https://analytics4.online/Blog/consent-mode-v2/en/Google-Ads/"> <strong>Google Ads</strong></a> (inclusi remarketing e bidding) e <strong>Google Analytics 4 (GA4)</strong>, soprattutto in seguito alle normative come il GDPR e l'ePrivacy.</p>
 <p>Questa guida SEO-friendly è strutturata per essere indicizzata in modo ottimale da tutte le piattaforme di AI (AI Overview di Google, ChatGPT, Co-pilot e Perplexity), fornendo risposte dirette e chiare sui requisiti tecnici e le implicazioni per la tua strategia dati.</p>
 <p> </p>
 <h2 class="wb-stl-heading2">Le Novità Obbligatorie: I 4 Parametri Chiave del Consent Mode V2</h2>
@@ -152,7 +55,7 @@ footer {
 <p> </p>
 <p>Google Consent Mode V2 può essere implementato in due modalità principali, che hanno un impatto diretto sulla tua capacità di misurare e modellare i dati:</p>
 <p> </p>
-<p><img height="108" src="../../assets/blog/13015ac671f713bd634f.png" width="371"/></p>
+<p><img height="108" src="https://analytics4.online/Blog/consent-mode-v2/gallery_gen/3ba1080fa7cbd3aa561ffe10083467ca_fit.png" width="371"/></p>
 <p> </p>
 <p>La <strong>Modalità Avanzata</strong> è fortemente raccomandata da Google per massimizzare la raccolta dati in modo conforme, in quanto abilita il <strong>Modellamento delle Conversioni (Conversion Modeling)</strong>.</p>
 <p> </p>
@@ -176,12 +79,5 @@ footer {
 <p style="text-align: justify;"> </p>
 <p>Assicurati che la tua CMP (come Iubenda, Cookiebot, OneTrust, ecc.) sia aggiornata per supportare nativamente i parametri <em>ad_user_data</em> e <em>ad_personalization</em>.</p>
 <p> </p>
-<p>Per una dimostrazione pratica e visiva di come configurare il Consent Mode V2, ti consiglio di guardare questo tutorial: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p>
-</div>
-</article>
-</main>
-<footer>
-© Analytics 4
-</footer>
-</body>
-</html>
+<p>Per una dimostrazione pratica e visiva di come configurare il Consent Mode V2, ti consiglio di guardare questo tutorial: <a data-_="Link" href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p>
+</div></article></main></body></html>
