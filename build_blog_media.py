@@ -1,420 +1,451 @@
 
 #!/usr/bin/env python3
-"""
-Analytics4 blog media repair.
-
-Reads:
-    content/blog_manifest.json
-
-Repairs:
-    Blog/<slug>/index.html
-    Blog/index.html
-
-Creates:
-    content/blog_cards.json
-
-Requires:
-    requests
-    beautifulsoup4
-"""
+"""Analytics4 multilingual blog image repair and card builder."""
 
 import hashlib
 import json
-import mimetypes
 import re
-
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, unquote
 
 import requests
 from bs4 import BeautifulSoup
 
-
 ROOT = Path(__file__).resolve().parent
-MANIFEST = ROOT / "content" / "blog_manifest.json"
-OUT = ROOT / "content" / "blog_cards.json"
+BASE = "https://analytics4.online"
+CONTENT = ROOT / "content"
+ASSETS = ROOT / "assets" / "blog"
+
+LANGS = ("it", "en", "pl")
 
 SESSION = requests.Session()
-SESSION.headers["User-Agent"] = (
-    "Mozilla/5.0 (compatible; Analytics4Blog/1.0)"
-)
+SESSION.headers.update({
+    "User-Agent": "Mozilla/5.0 Analytics4BlogMedia/3.0"
+})
 
-EXTS = {
+EXTENSIONS = (
     ".jpg", ".jpeg", ".png",
     ".webp", ".gif", ".svg"
-}
+)
 
 
-def download(url):
-    """Download a real image into assets/blog."""
+def load_json(path, default):
+    if not path.exists():
+        return default
+    return json.loads(path.read_text(encoding="utf-8"))
 
-    try:
-        response = SESSION.get(url, timeout=25)
-        response.raise_for_status()
 
-        content_type = response.headers.get(
-            "content-type", ""
-        ).split(";")[0].lower()
-
-        if not content_type.startswith("image/"):
-            return None
-
-        if len(response.content) > 12_000_000:
-            return None
-
-        extension = Path(
-            urlparse(url).path
-        ).suffix.lower()
-
-        if extension not in EXTS:
-            extension = (
-                mimetypes.guess_extension(content_type)
-                or ".jpg"
-            )
-
-        if extension == ".jpe":
-            extension = ".jpg"
-
-        filename = (
-            hashlib.sha256(
-                url.encode("utf-8")
-            ).hexdigest()[:20]
-            + extension
-        )
-
-        destination = (
-            ROOT / "assets" / "blog" / filename
-        )
-
-        destination.parent.mkdir(
-            parents=True,
-            exist_ok=True
-        )
-
-        if not destination.exists():
-            destination.write_bytes(
-                response.content
-            )
-
-        return "assets/blog/" + filename
-
-    except Exception as exc:
-        print(
-            "IMAGE WARNING:",
-            url,
-            str(exc),
-            flush=True
-        )
-        return None
-
-
-def candidate_urls(node, base):
-    """Find possible image URLs."""
-
-    if node is None:
-        return []
-
-    values = []
-
-    for key in (
-        "data-src",
-        "data-original",
-        "data-lazy-src",
-        "src"
-    ):
-        if node.get(key):
-            values.append(node[key])
-
-    if node.get("srcset"):
-        values.extend(
-            item.strip().split(" ")[0]
-            for item in node["srcset"].split(",")
-        )
-
-    return [
-        urljoin(base, value)
-        for value in values
-        if value and not value.startswith("data:")
-    ]
-
-
-def main():
-
-    if not MANIFEST.exists():
-        raise SystemExit(
-            "Missing content/blog_manifest.json. "
-            "Run the blog importer first."
-        )
-
-    data = json.loads(
-        MANIFEST.read_text(encoding="utf-8")
-    )
-
-    cards = []
-
-    for post in data.get("posts", []):
-
-        slug = post.get("slug", "")
-        source = post.get("source_url", "")
-
-        if not re.fullmatch(r"[\w-]+", slug):
-            continue
-
-        article = (
-            ROOT / "Blog" / slug / "index.html"
-        )
-
-        if not article.exists():
-            print(
-                "ARTICLE MISSING:",
-                slug,
-                flush=True
-            )
-            continue
-
-        print(
-            "Processing:",
-            slug,
-            flush=True
-        )
-
-        soup = BeautifulSoup(
-            article.read_text(encoding="utf-8"),
-            "html.parser"
-        )
-
-        original = BeautifulSoup(
-            post.get("html", ""),
-            "html.parser"
-        )
-
-        original_imgs = original.select("img")
-        page_imgs = soup.select("article img")
-
-        remote_soup = None
-
-        try:
-            if source:
-                response = SESSION.get(
-                    source,
-                    timeout=25
-                )
-
-                if response.ok:
-                    remote_soup = BeautifulSoup(
-                        response.text,
-                        "html.parser"
-                    )
-
-        except Exception as exc:
-            print(
-                "SOURCE WARNING:",
-                source,
-                str(exc),
-                flush=True
-            )
-
-        remote_imgs = []
-
-        if remote_soup:
-            remote_imgs = remote_soup.select(
-                'article img, '
-                '[itemprop="articleBody"] img, '
-                '[id^="wb_main_"] img'
-            )
-
-        cover = None
-
-        # Repair images inside article pages.
-        for i, img in enumerate(page_imgs):
-
-            existing = img.get("src", "")
-
-            local_path = None
-
-            if existing.startswith(
-                "../../assets/blog/"
-            ):
-                relative = existing[6:]
-
-                if (ROOT / relative).exists():
-                    local_path = relative
-
-            if not local_path:
-
-                candidates = []
-
-                if i < len(original_imgs):
-                    candidates += candidate_urls(
-                        original_imgs[i],
-                        source
-                    )
-
-                if i < len(remote_imgs):
-                    candidates += candidate_urls(
-                        remote_imgs[i],
-                        source
-                    )
-
-                candidates += candidate_urls(
-                    img,
-                    source
-                )
-
-                for url in dict.fromkeys(candidates):
-
-                    if not url.startswith("http"):
-                        continue
-
-                    local_path = download(url)
-
-                    if local_path:
-                        break
-
-            if local_path:
-
-                img["src"] = "../../" + local_path
-
-                for attr in (
-                    "srcset",
-                    "data-src",
-                    "data-original",
-                    "data-lazy-src"
-                ):
-                    img.attrs.pop(attr, None)
-
-                if cover is None:
-                    cover = local_path
-
-        # Recover the article's featured image.
-        if not cover and remote_soup:
-
-            meta = remote_soup.select_one(
-                'meta[property="og:image"], '
-                'meta[name="twitter:image"]'
-            )
-
-            candidates = []
-
-            if meta and meta.get("content"):
-                candidates.append(
-                    urljoin(
-                        source,
-                        meta["content"]
-                    )
-                )
-
-            for image in remote_imgs[:6]:
-                candidates += candidate_urls(
-                    image,
-                    source
-                )
-
-            for url in dict.fromkeys(candidates):
-
-                cover = download(url)
-
-                if cover:
-                    break
-
-        article.write_text(
-            str(soup),
-            encoding="utf-8"
-        )
-
-        cards.append({
-            "slug": slug,
-            "title": post.get("title", ""),
-            "description": post.get(
-                "description", ""
-            ),
-            "date": post.get("date", ""),
-            "image": cover or "",
-            "url": "Blog/" + slug + "/"
-        })
-
-    # Save data for homepage article cards.
-    OUT.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    OUT.write_text(
-        json.dumps(
-            cards,
-            ensure_ascii=False,
-            indent=2
-        ),
+def save_json(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
 
-    # Repair images in the Blog archive.
-    archive = ROOT / "Blog" / "index.html"
 
-    if archive.exists():
+def candidates(value, source=""):
+    if not value:
+        return []
 
-        soup = BeautifulSoup(
-            archive.read_text(encoding="utf-8"),
-            "html.parser"
-        )
+    if value.startswith(("data:", "javascript:", "#")):
+        return []
 
-        byslug = {
-            card["slug"]: card
-            for card in cards
-        }
+    if value.startswith("assets/blog/"):
+        return []
 
-        for anchor in soup.select("a[href]"):
+    if value.startswith(("../assets/blog/", "../../assets/blog/",
+                         "../../../assets/blog/")):
+        return []
 
-            slug = urlparse(
-                anchor["href"]
-            ).path.strip("/").split("/")[-1]
+    result = []
 
-            item = byslug.get(slug)
+    absolute = urljoin(source or BASE + "/", value)
+    parsed = urlparse(absolute)
+    path = unquote(parsed.path)
 
-            if not item:
+    # SitePro gallery URLs are normally root-relative.
+    for folder in ("gallery_gen/", "gallery/"):
+        if folder in path:
+            suffix = path.split(folder, 1)[1]
+            result.append(BASE + "/" + folder + suffix)
+
+    result.append(absolute)
+
+    return list(dict.fromkeys(result))
+
+
+def download(url):
+    ASSETS.mkdir(parents=True, exist_ok=True)
+
+    for candidate in candidates(url):
+        try:
+            response = SESSION.get(candidate, timeout=25)
+            response.raise_for_status()
+
+            content_type = response.headers.get(
+                "content-type", ""
+            ).split(";")[0].lower()
+
+            if not content_type.startswith("image/"):
                 continue
 
-            image = anchor.select_one("img")
+            if len(response.content) > 12_000_000:
+                continue
 
-            if image:
+            ext = Path(urlparse(candidate).path).suffix.lower()
 
-                if item["image"]:
+            if ext not in EXTENSIONS:
+                if "webp" in content_type:
+                    ext = ".webp"
+                elif "png" in content_type:
+                    ext = ".png"
+                elif "gif" in content_type:
+                    ext = ".gif"
+                else:
+                    ext = ".jpg"
 
-                    image["src"] = (
-                        "../" + item["image"]
+            name = (
+                hashlib.sha256(candidate.encode()).hexdigest()[:20]
+                + ext
+            )
+
+            destination = ASSETS / name
+
+            if not destination.exists():
+                destination.write_bytes(response.content)
+
+            return "assets/blog/" + name
+
+        except requests.RequestException:
+            continue
+
+    return None
+
+
+def local_asset(value):
+    if not value:
+        return None
+
+    match = re.search(
+        r"assets/blog/([a-zA-Z0-9_.-]+)",
+        value
+    )
+
+    if not match:
+        return None
+
+    path = "assets/blog/" + match.group(1)
+
+    if (ROOT / path).is_file():
+        return path
+
+    return None
+
+
+def image_sources(img, source):
+    values = []
+
+    for attr in (
+        "data-src", "data-original",
+        "data-lazy-src", "src"
+    ):
+        if img.get(attr):
+            values.append(img[attr])
+
+    if img.get("srcset"):
+        values.extend(
+            item.strip().split()[0]
+            for item in img["srcset"].split(",")
+            if item.strip()
+        )
+
+    result = []
+
+    for value in values:
+        result.extend(candidates(value, source))
+
+    return list(dict.fromkeys(result))
+
+
+def repair_article(post, lang):
+    slug = post.get("slug", "")
+
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", slug):
+        return None
+
+    if lang == "it":
+        article = ROOT / "Blog" / slug / "index.html"
+        prefix = "../../"
+        url = "Blog/" + slug + "/"
+    else:
+        article = ROOT / "Blog" / lang / slug / "index.html"
+        prefix = "../../../"
+        url = "Blog/" + lang + "/" + slug + "/"
+
+    if not article.exists():
+        print("MISSING ARTICLE:", lang, slug)
+        return None
+
+    soup = BeautifulSoup(
+        article.read_text(encoding="utf-8"),
+        "html.parser"
+    )
+
+    source = post.get("source_url", "")
+    original = BeautifulSoup(
+        post.get("html", ""),
+        "html.parser"
+    )
+
+    images = soup.select("article img")
+    original_images = original.select("img")
+
+    cover = local_asset(post.get("image", ""))
+
+    # Repair article images, keeping existing working files.
+    for index, img in enumerate(images):
+        current = img.get("src", "")
+        path = local_asset(current)
+
+        if not path:
+            sources = []
+
+            if index < len(original_images):
+                sources.extend(
+                    image_sources(original_images[index], source)
+                )
+
+            sources.extend(image_sources(img, source))
+
+            for candidate in dict.fromkeys(sources):
+                path = download(candidate)
+                if path:
+                    break
+
+        if path:
+            img["src"] = prefix + path
+
+            for attr in (
+                "srcset", "data-src",
+                "data-original", "data-lazy-src"
+            ):
+                img.attrs.pop(attr, None)
+
+            if not cover:
+                cover = path
+
+    # Recover featured image from original article metadata.
+    if not cover:
+        sources = []
+
+        for value in (
+            post.get("image", ""),
+            post.get("cover", "")
+        ):
+            sources.extend(candidates(value, source))
+
+        try:
+            if source:
+                response = SESSION.get(source, timeout=25)
+
+                if response.ok:
+                    remote = BeautifulSoup(
+                        response.text, "html.parser"
                     )
 
-                    for attr in (
-                        "srcset",
-                        "data-src",
-                        "data-original",
-                        "data-lazy-src"
+                    for selector, attribute in (
+                        ('meta[property="og:image"]', "content"),
+                        ('link[itemprop="image"]', "href"),
+                        ('meta[itemprop="image"]', "content")
                     ):
-                        image.attrs.pop(attr, None)
+                        node = remote.select_one(selector)
 
-                else:
-                    image.decompose()
+                        if node and node.get(attribute):
+                            sources.extend(
+                                candidates(node[attribute], source)
+                            )
 
-        archive.write_text(
-            str(soup),
-            encoding="utf-8"
+                    for img in remote.select(
+                        ".wb-blog img, article img"
+                    )[:8]:
+                        sources.extend(image_sources(img, source))
+
+        except requests.RequestException as exc:
+            print("SOURCE WARNING:", source, str(exc))
+
+        for candidate in dict.fromkeys(sources):
+            cover = download(candidate)
+            if cover:
+                break
+
+    # Update the featured image in the article if it already exists.
+    if cover:
+        first = soup.select_one("article > img")
+
+        if first:
+            first["src"] = prefix + cover
+
+    article.write_text(str(soup), encoding="utf-8")
+
+    return {
+        "slug": slug,
+        "title": post.get("title", ""),
+        "description": post.get("description", ""),
+        "date": post.get("date", ""),
+        "image": cover or "",
+        "url": url,
+        "language": lang
+    }
+
+
+def repair_archive(path, cards, prefix):
+    if not path.exists():
+        return
+
+    soup = BeautifulSoup(
+        path.read_text(encoding="utf-8"),
+        "html.parser"
+    )
+
+    by_slug = {
+        card["slug"]: card
+        for card in cards
+    }
+
+    changed = False
+
+    for anchor in soup.select("a[href]"):
+        href = urlparse(anchor.get("href", "")).path
+        slug = href.rstrip("/").split("/")[-1]
+
+        card = by_slug.get(slug)
+
+        if not card:
+            continue
+
+        img = anchor.select_one("img")
+
+        if not img:
+            continue
+
+        cover = card.get("image", "")
+
+        if cover:
+            new_src = prefix + cover
+
+            if img.get("src") != new_src:
+                img["src"] = new_src
+                changed = True
+
+            for attr in (
+                "srcset", "data-src",
+                "data-original", "data-lazy-src"
+            ):
+                if attr in img.attrs:
+                    del img[attr]
+                    changed = True
+
+    if changed:
+        path.write_text(str(soup), encoding="utf-8")
+
+
+def main():
+    manifest_path = CONTENT / "blog_manifest.json"
+    languages_path = CONTENT / "blog_languages.json"
+
+    if not manifest_path.exists():
+        raise SystemExit(
+            "Missing content/blog_manifest.json"
+        )
+
+    manifest = load_json(manifest_path, {})
+    language_data = load_json(languages_path, {})
+
+    # Italian manifest is retained for compatibility.
+    italian_posts = manifest.get("posts", [])
+
+    feeds = {}
+
+    for lang in LANGS:
+        if lang == "it":
+            posts = language_data.get("it", [])
+
+            # Include older Italian articles retained by importer.
+            known = {
+                p.get("slug")
+                for p in posts
+            }
+
+            posts = posts + [
+                p for p in italian_posts
+                if p.get("slug") not in known
+            ]
+        else:
+            posts = language_data.get(lang, [])
+
+        cards = []
+
+        for post in posts:
+            result = repair_article(post, lang)
+
+            if result:
+                cards.append(result)
+
+        cards.sort(
+            key=lambda x: x.get("date", ""),
+            reverse=True
+        )
+
+        feeds[lang] = cards
+
+        save_json(
+            CONTENT / ("blog_cards_" + lang + ".json"),
+            cards
+        )
+
+        print(
+            lang.upper(),
+            "articles:", len(cards),
+            "with images:",
+            sum(bool(p["image"]) for p in cards)
+        )
+
+    # Existing homepage reads blog_cards.json.
+    # Keep this file compatible with that homepage.
+    save_json(
+        CONTENT / "blog_cards.json",
+        feeds["it"]
+    )
+
+    # Multilingual feed for the next homepage update.
+    save_json(
+        CONTENT / "blog_cards_multilingual.json",
+        feeds
+    )
+
+    # Repair archive images without replacing their layout.
+    repair_archive(
+        ROOT / "Blog" / "index.html",
+        feeds["it"],
+        "../"
+    )
+
+    for lang in LANGS:
+        repair_archive(
+            ROOT / "Blog" / lang / "index.html",
+            feeds[lang],
+            "../../"
         )
 
     print("")
-    print("BLOG MEDIA REPORT")
-    print("-----------------")
-    print("Blog cards:", len(cards))
-    print(
-        "Articles with images:",
-        sum(
-            bool(card["image"])
-            for card in cards
+    print("BLOG MEDIA REPAIR COMPLETE")
+
+    for lang in LANGS:
+        print(
+            lang,
+            len(feeds[lang]),
+            "cards"
         )
-    )
-    print(
-        "Output:",
-        "content/blog_cards.json"
-    )
 
 
 if __name__ == "__main__":
