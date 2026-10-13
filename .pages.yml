@@ -1,0 +1,89 @@
+
+media:
+  input: assets/blog
+  output: /assets/blog
+
+content:
+  - name: blog_en
+    label: "Blog - English"
+    type: collection
+    path: content/posts/en
+    view:
+      fields: [title, date, published]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: date
+        label: Publication date
+        type: date
+      - name: image
+        label: Cover image
+        type: image
+      - name: published
+        label: Published
+        type: boolean
+        default: false
+      - name: body
+        label: Article content
+        type: rich-text
+
+  - name: blog_it
+    label: "Blog - Italiano"
+    type: collection
+    path: content/posts/it
+    view:
+      fields: [title, date, published]
+    fields:
+      - name: title
+        label: Titolo
+        type: string
+        required: true
+      - name: description
+        label: Descrizione
+        type: text
+      - name: date
+        label: Data
+        type: date
+      - name: image
+        label: Immagine
+        type: image
+      - name: published
+        label: Pubblicato
+        type: boolean
+        default: false
+      - name: body
+        label: Contenuto
+        type: rich-text
+
+  - name: blog_pl
+    label: "Blog - Polski"
+    type: collection
+    path: content/posts/pl
+    view:
+      fields: [title, date, published]
+    fields:
+      - name: title
+        label: Tytuł
+        type: string
+        required: true
+      - name: description
+        label: Opis
+        type: text
+      - name: date
+        label: Data publikacji
+        type: date
+      - name: image
+        label: Zdjęcie
+        type: image
+      - name: published
+        label: Opublikowany
+        type: boolean
+        default: false
+      - name: body
+        label: Treść artykułu
+        type: rich-text
