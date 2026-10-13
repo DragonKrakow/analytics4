@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="noindex,follow" name="robots"/>
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
 <title>Google Consent Mode V2: Mandatory Guide for GDPR, GTM, and GA4 Compliance | Analytics4</title>
+
 <style>
 * {
     box-sizing: border-box;
@@ -91,70 +92,50 @@ article h1 {
 }
 </style>
 </head>
+
 <body>
 <header>
 <a href="../../../">Analytics4</a>
- · 
+&nbsp;·&nbsp;
 <a href="../../../Blog/">Blog</a>
 </header>
+
 <main>
 <nav class="lang">
-<a href="../../../Blog/it/">Italiano</a> <a aria-current="page" href="../../../Blog/en/">English</a> <a href="../../../Blog/pl/">Polski</a>
+<a href="../../../Blog/it/">Italiano</a> <a href="../../../Blog/en/" aria-current="page">English</a> <a href="../../../Blog/pl/">Polski</a>
 </nav>
-<nav class="lang"><a href="../../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../../Blog/en/consent-mode-v2/">English</a> · <a href="../../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Mandatory Guide for GDPR, GTM, and GA4 Compliance</h1><img alt="" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png"/><div style="overflow: hidden;">
-<h1 class="wb-stl-heading1">Google Consent Mode V2: Mandatory Guide for GDPR, GTM, and GA4 Compliance</h1>
-<p> </p>
-<p>If you manage a website or advertising campaigns in Europe (EEA/EU), implementing Google Consent Mode V2 is no longer an option—it is a fundamental requirement for legal compliance and the effectiveness of your digital marketing. This updated version is essential to continue correctly using Google services like <a data-_="Link" href="https://analytics4.online/en/Google-Ads/">Google Ads</a> (including remarketing and bidding) and Google Analytics 4 (GA4), especially following regulations like the GDPR and ePrivacy.</p>
+
+<nav class="lang"><a href="../../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../../Blog/en/consent-mode-v2/">English</a> · <a href="../../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Mandatory Guide for GDPR, GTM, and GA4 Compliance</h1><img alt="" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png"><p>If you manage a website or advertising campaigns in Europe (EEA/EU), implementing Google Consent Mode V2 is no longer an option—it is a fundamental requirement for legal compliance and the effectiveness of your digital marketing. This updated version is essential to continue correctly using Google services like <a href="https://analytics4.online/en/Google-Ads/">Google Ads</a> (including remarketing and bidding) and Google Analytics 4 (GA4), especially following regulations like the GDPR and ePrivacy.</p>
 <p>This SEO-friendly guide is structured for optimal indexing by all AI platforms (Google AI Overview, ChatGPT, Co-pilot, and Perplexity),</p>
 <p>providing direct and clear answers about the technical requirements and implications for your data strategy.</p>
-<p> </p>
-<h2 class="wb-stl-heading2">The Mandatory Updates: The 4 Key Parameters of Consent Mode V2</h2>
-<p> </p>
+<h2>The Mandatory Updates: The 4 Key Parameters of Consent Mode V2</h2>
 <p>Consent Mode V2 strengthens the consent management system by introducing two specific new parameters, which supplement the two existing ones. A proper implementation by your Consent Management Platform (CMP) must be able to communicate the following four consent states to Google:</p>
-<p> </p>
-<h3 class="wb-stl-heading3"><strong>The New Mandatory Parameters (March 2024)</strong></h3>
-<p> </p>
+<h3><strong>The New Mandatory Parameters (March 2024)</strong></h3>
 <p>These two parameters are crucial for sending consent signals related to personal data for advertising purposes:</p>
 <ul>
-<li style="text-align: justify;">ad_user_data: Controls whether the user's personal data can be sent to Google for advertising purposes. Consent is required, for instance, for Enhanced Conversions.
-	<ul>
-<li style="text-align: justify;">Possible States: granted or denied.</li>
+<li>ad_user_data: Controls whether the user's personal data can be sent to Google for advertising purposes. Consent is required, for instance, for Enhanced Conversions.</li>
+<li>Possible States: granted or denied.</li>
+<li>ad_personalization: Controls whether user data can be used for personalized advertising (remarketing, audience segmentation).</li>
+<li>Possible States: granted or denied.</li>
 </ul>
-</li>
-<li style="text-align: justify;">ad_personalization: Controls whether user data can be used for personalized advertising (remarketing, audience segmentation).
-	<ul>
-<li style="text-align: justify;">Possible States: granted or denied.</li>
-</ul>
-</li>
-</ul>
-<p> </p>
-<h3 class="wb-stl-heading3"><strong>The Already Existing Parameters</strong></h3>
-<p> </p>
+<h3><strong>The Already Existing Parameters</strong></h3>
 <p>These parameters manage the storage of information (such as cookies) for analytics and advertising purposes:</p>
 <ul>
 <li>ad_storage: Enables storage (e.g., via cookies) for advertising purposes.</li>
 <li>analytics_storage: Enables storage for analytics purposes (e.g., visit duration in GA4).</li>
 </ul>
-<p> </p>
-<h2 class="wb-stl-heading2">Basic vs. Advanced Consent Mode: The Difference for Your Data</h2>
-<p> </p>
+<h2>Basic vs. Advanced Consent Mode: The Difference for Your Data</h2>
 <p>Google Consent Mode V2 can be implemented in two main modes, which have a direct impact on your ability to measure and model data:</p>
-<p> </p>
-<p><img height="104" src="../../../assets/blog/d61990c7479c9d64c28d.png" width="383"/></p>
-<p> </p>
+<p><img alt="" src="../../../assets/blog/d61990c7479c9d64c28d.png"/></p>
 <p>The Advanced Mode is strongly recommended by Google to maximize data collection in a compliant manner, as it enables Conversion Modeling.</p>
-<p> </p>
-<h3 class="wb-stl-heading3"><strong>How Data Modeling Works</strong></h3>
-<p> </p>
+<h3><strong>How Data Modeling Works</strong></h3>
 <p>When a user denies consent, the "cookieless ping" sent to Google does not contain personal identifiers (like GCLID). Google's Artificial Intelligence uses these anonymous signals and combines them with historical data and data from consenting users to estimate the behavior and conversions of users who refused tracking.</p>
 <p>This process:</p>
 <ul>
 <li>Improves the accuracy of GA4 reporting.</li>
 <li>Maintains the effectiveness of automated bidding strategies in Google Ads (Smart Bidding).</li>
 </ul>
-<p> </p>
-<h2 class="wb-stl-heading2">Technical Implementation with Google Tag Manager (GTM)</h2>
-<p> </p>
+<h2>Technical Implementation with Google Tag Manager (GTM)</h2>
 <p>Implementing Consent Mode V2 requires using a Google-certified CMP (the recommended solution) or a manual configuration via Google Tag Manager (GTM) and a datalayer.</p>
 <ul>
 <li>Consent Initialization (Default State): Upon page load, you must set the default consent state to denied for all parameters (ad_storage, analytics_storage, ad_user_data, ad_personalization) for EEA/EU users.</li>
@@ -163,8 +144,7 @@ article h1 {
 <li>Tag Configuration: All Google tags (GA4 Config, Google Ads Conversion, etc.) in GTM must be configured to support Consent Mode, ensuring they only fire if the required consent state is granted.</li>
 </ul>
 <p>Ensure that your CMP (such as Iubenda, Cookiebot, OneTrust, etc.) is updated to natively support the ad_user_data and ad_personalization parameters.</p>
-<p>For a practical and visual demonstration of how to configure Consent Mode V2, we recommend watching this tutorial: <a data-_="Link" href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p>
-</div></article>
+<p>For a practical and visual demonstration of how to configure Consent Mode V2, we recommend watching this tutorial: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p></article>
 </main>
 </body>
 </html>

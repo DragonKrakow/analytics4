@@ -1,1 +1,137 @@
-[]
+[
+  {
+    "slug": "blog-item-a1994dc044c2001b30d9217f81880e62",
+    "title": "Massimizza il tuo Successo con Google Ads, Analytics e Merchant Center",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/1e19fb2be54755d08343.jpg",
+    "language": "it",
+    "url": "Blog/blog-item-a1994dc044c2001b30d9217f81880e62/"
+  },
+  {
+    "slug": "budget-google-ads-ecommerce-quanto-serve",
+    "title": "Budget Google Ads: perché i consigli di Google non sempre portano risultati",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/999ad9db6bf895da2ab1.png",
+    "language": "it",
+    "url": "Blog/budget-google-ads-ecommerce-quanto-serve/"
+  },
+  {
+    "slug": "checkout-e-commerce",
+    "title": "Checkout e-commerce: quale converte di più? Analisi reale sui dati 2024-2025",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/bbc5e071636f36ad109b.png",
+    "language": "it",
+    "url": "Blog/checkout-e-commerce/"
+  },
+  {
+    "slug": "consent-mode-spiegato-facile",
+    "title": "Banner Cookie e Consent Mode: La Guida Completa per il Tuo Sito Web",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/f5ee4719c93ccd51e5cc.webp",
+    "language": "it",
+    "url": "Blog/consent-mode-spiegato-facile/"
+  },
+  {
+    "slug": "consent-mode-v2",
+    "title": "Google Consent Mode V2 : Guida Obbligatoria per Conformità GDPR, GTM e GA4",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/6d40e9f74e22ea3c5ec2.png",
+    "language": "it",
+    "url": "Blog/consent-mode-v2/"
+  },
+  {
+    "slug": "ecommerce---dropshopping",
+    "title": "Come Abbassare il CPA Target per Aumentare i Profitti: Un Caso Studio \"Out of the Box\"",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/11d822686eae58870e41.png",
+    "language": "it",
+    "url": "Blog/ecommerce---dropshopping/"
+  },
+  {
+    "slug": "ecommerce-dropshipping",
+    "title": "E-commerce e dropshipping",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/11d822686eae58870e41.png",
+    "language": "it",
+    "url": "Blog/ecommerce-dropshipping/"
+  },
+  {
+    "slug": "gestione-google-maps-case-study-risultati",
+    "title": "Google Maps e Profilo dell’Attività: Come Trasformare le Ricerche Locali in Nuovi Clienti (Case Study)",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/5ee473047d874e58a504.jpg",
+    "language": "it",
+    "url": "Blog/gestione-google-maps-case-study-risultati/"
+  },
+  {
+    "slug": "google-ads-grant",
+    "title": "Analisi di una Campagna Google Ads Grant: Strategia, Pazienza e Risultati Concreti",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/bb8f0384cbac0c85c8da.png",
+    "language": "it",
+    "url": "Blog/google-ads-grant/"
+  },
+  {
+    "slug": "lead-gen-vincente",
+    "title": "Lead Generation: Quando l'Investimento Ripaga. Un Caso di Studio da 206K Clic e un ROI Eccezionale",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/61c4bfd440f7e9ddb3c8.png",
+    "language": "it",
+    "url": "Blog/lead-gen-vincente/"
+  },
+  {
+    "slug": "lead-generation-b2b-salute-benessere-google-ads",
+    "title": "Lead Generation B2B nel Settore Salute e Benessere: Come Ottimizzare Google Ads per Risultati Reali",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/6593bed54a55affbcdf6.png",
+    "language": "it",
+    "url": "Blog/lead-generation-b2b-salute-benessere-google-ads/"
+  },
+  {
+    "slug": "offerta-promo-google-ads",
+    "title": "Massimizza il tuo Successo con Google Ads, Analytics e Merchant Center",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/1e19fb2be54755d08343.jpg",
+    "language": "it",
+    "url": "Blog/offerta-promo-google-ads/"
+  },
+  {
+    "slug": "ristrutturazione-google-ads-roas-feed-ai",
+    "title": "Ristrutturazione Strategica Google Ads: Oltre 81K Vendite e ROAS in Crescita. Il Segreto per E-commerce e Aziende nell'Era dell'Intelligenza Artificiale",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/50e39a6af2e1d4585b2e.png",
+    "language": "it",
+    "url": "Blog/ristrutturazione-google-ads-roas-feed-ai/"
+  },
+  {
+    "slug": "strategia-lead-generation-certificazione-ambientale",
+    "title": "🌿 Rivoluzione Verde nel B2B: Strategie di Lead Generation per Aziende di Certificazione Ambientale e Finanziamenti",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/da03405578d6c279617c.png",
+    "language": "it",
+    "url": "Blog/strategia-lead-generation-certificazione-ambientale/"
+  },
+  {
+    "slug": "touchpoint-google-ads-e-meta",
+    "title": "Google Ads e Meta: spreco di soldi o investimento strategico? Analisi reale sui percorsi di attribuzione",
+    "description": "",
+    "date": "2026-01-01",
+    "image": "assets/blog/3b12586cc19d16b4d424.jpg",
+    "language": "it",
+    "url": "Blog/touchpoint-google-ads-e-meta/"
+  }
+]
