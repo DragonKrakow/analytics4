@@ -1,0 +1,55 @@
+media:
+  input: assets/blog
+  output: /analytics4/assets/blog
+  rename: safe
+  categories: [image]
+content:
+  - name: italian
+    label: "Italiano — Articles"
+    type: collection
+    path: content/posts/it
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, date, published]
+      primary: title
+    fields: &post_fields
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: description
+        label: Short summary
+        type: text
+      - name: date
+        label: Publication date
+        type: date
+      - name: image
+        label: Cover image
+        type: image
+      - name: published
+        label: Published (turn off for draft)
+        type: boolean
+      - name: body
+        label: Article content
+        type: rich-text
+  - name: english
+    label: "English — Articles"
+    type: collection
+    path: content/posts/en
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, date, published]
+      primary: title
+    fields: *post_fields
+  - name: polish
+    label: "Polski — Artykuły"
+    type: collection
+    path: content/posts/pl
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, date, published]
+      primary: title
+    fields: *post_fields
