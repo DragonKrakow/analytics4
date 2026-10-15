@@ -10,8 +10,7 @@
   <link rel="alternate" hreflang="en" href="https://analytics4.online/en/" />
   <link rel="alternate" hreflang="x-default" href="https://analytics4.online/" />
   <link rel="canonical" href="https://analytics4.online/en/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -893,18 +892,29 @@
     .lang-switch a { cursor:pointer; padding:4px 6px; border-radius:4px; font-size:0.8125rem; font-weight:600; color:var(--gray-500); text-decoration:none; }
     .lang-switch a:hover { color:var(--orange); }
     .lang-switch a.active { color:var(--orange); background:rgba(255,106,0,0.1); }
-  </style>
+  
+    .logo img { height: 36px; width: auto; display: block; }
+    .footer-logo img { height: 24px; width: auto; }
+    .lang-switch a { cursor:pointer; padding:4px 6px; border-radius:4px; font-size:0.8125rem; font-weight:600; color:var(--gray-500); text-decoration:none; }
+    .lang-switch a:hover { color:var(--orange); }
+    .lang-switch a.active { color:var(--orange); background:rgba(255,106,0,0.1); }
+    .benefit-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:40px 0; }
+    .benefit-card { border:1px solid var(--gray-200); border-radius:12px; padding:24px; }
+    .benefit-card h3 { font-size:1.05rem; margin-bottom:8px; }
+    .benefit-card p { color:var(--gray-500); font-size:0.9rem; }
+    .process-list { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:32px 0 48px; }
+    .process-item { background:var(--gray-100); border-radius:12px; padding:20px; }
+    .process-item .num { color:var(--orange); font-weight:800; font-size:1.25rem; }
+    .process-item h4 { margin:8px 0 6px; font-size:1rem; }
+    .process-item p { font-size:0.85rem; color:var(--gray-500); }
+    @media (max-width:800px){ .benefit-grid,.process-list{grid-template-columns:1fr;} }
+</style>
 </head>
 <body>
   <header>
     <div class="header-inner">
       <a href="/en/" class="logo">
-        <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
-          <rect width="100" height="100" rx="8" fill="#FF6A00"/>
-          <path d="M22 18H78V38H52V82H22V18Z" fill="#0A0A0A"/>
-          <rect x="22" y="88" width="28" height="8" rx="2" fill="white"/>
-          <rect x="58" y="82" width="14" height="14" rx="2" fill="#0A0A0A"/>
-        </svg>
+        <img src="/assets/logo.svg" alt="Analytics 4" width="40" height="38" />
         <span class="logo-text">Analytics 4</span>
       </a>
       <nav class="nav-desktop">
@@ -915,199 +925,85 @@
         <a href="#contatti">Contact</a>
       </nav>
       <div class="header-right">
-        <div class="lang-switch">
-        <a href="/">PL</a>
+        <div class="lang-switch"><a href="/">PL</a>
         <a href="/it/">IT</a>
-        <a href="/en/" class="active">EN</a>
-        </div>
+        <a href="/en/" class="active">EN</a></div>
         <a href="#contatti" class="btn btn-primary btn-header">Request consultation</a>
         <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/en/google-ads/">Google Ads</a>
+  <div class="mobile-menu" id="mobileMenu"><a href="/en/google-ads/">Google Ads</a>
     <a href="/en/google-analytics-4/">Google Analytics 4 + Tracking</a>
     <a href="/en/google-merchant-center/">Google Merchant Center</a>
     <a href="/en/google-business-profile/">Google Business Profile</a>
     <a href="/en/ai-digital-strategy/">AI in digital strategy</a>
     <a href="/en/website-integrations-ai/">Website integrations & AI automations</a>
     <a href="/Blog/en/">Case studies & best practices</a>
-    
-    <div class="mobile-cta"><a href="#contatti" class="btn btn-primary" onclick="closeMenu()">Request consultation</a></div>
-  </div>
-
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-          Ex-Googlers from Krakow · +10 years experience
-        </div>
-        <h1>We turn your Google data into <span>real growth</span></h1>
-        <p>Google Ads · Analytics 4 · Merchant Center · Business Profile · AI in digital strategy · Website integrations & AI automations</p>
-        <div class="hero-ctas">
-          <a href="#contatti" class="btn btn-primary">Let's talk for free</a>
-          <a href="#servizi" class="btn btn-outline">Discover services</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="logo-big"><div class="logo-big-shape"></div><div class="logo-big-dot"></div></div>
-      </div>
+    <div class="mobile-cta"><a href="#contatti" class="btn btn-primary" onclick="closeMenu()">Request consultation</a></div></div>
+  <section class="hero"><div class="hero-inner"><div>
+    <div class="hero-badge">Ex-Googlers from Krakow · +10 years experience</div>
+    <h1>We turn your Google data into <span>real growth</span></h1>
+    <p>Google Ads · Analytics 4 · Merchant Center · Business Profile · AI in digital strategy · Website integrations & AI automations</p>
+    <div class="hero-ctas">
+      <a href="#contatti" class="btn btn-primary">Let's talk for free</a>
+      <a href="#servizi" class="btn btn-outline">Discover services</a>
     </div>
-  </section>
-
-  <section class="section" id="servizi">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2>Our services</h2>
-        <p>Complete and integrated solutions to grow your business with Google products and artificial intelligence.</p>
-      </div>
-      <div class="services-grid">
+  </div>
+  <div class="hero-visual"><img src="/assets/logo.svg" alt="Analytics 4" style="width:220px;height:auto;filter:drop-shadow(0 20px 40px rgba(255,106,0,.35));" /></div>
+  </div></section>
+  <section class="section" id="servizi"><div class="section-inner">
+    <div class="section-header"><h2>Our services</h2><p>Complete and integrated solutions to grow your business with Google products and artificial intelligence.</p></div>
+    <div class="services-grid">
           <a href="/en/google-ads/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            </div>
-            <h3>Google Ads</h3>
-            <p>Full management of Search, Shopping and Performance Max campaigns. Medium-long term strategy focused on ROI.</p>
-            <span class="service-link">Learn more →</span>
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+            <h3>Google Ads</h3><p>Full management of Search, Shopping and Performance Max campaigns. Medium-long term strategy focused on ROI.</p><span class="service-link">Learn more →</span>
           </a>
           <a href="/en/google-analytics-4/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-            </div>
-            <h3>Google Analytics 4 + Tracking</h3>
-            <p>Advanced setup, custom events, accurate conversion tracking and clear reporting for data-driven decisions.</p>
-            <span class="service-link">Learn more →</span>
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+            <h3>Google Analytics 4 + Tracking</h3><p>Advanced setup, custom events, accurate conversion tracking and clear reporting for data-driven decisions.</p><span class="service-link">Learn more →</span>
           </a>
           <a href="/en/google-merchant-center/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-            </div>
-            <h3>Google Merchant Center</h3>
-            <p>Optimized feeds, advanced rules and full management of Google Shopping and Performance Max.</p>
-            <span class="service-link">Learn more →</span>
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+            <h3>Google Merchant Center</h3><p>Optimized feeds, advanced rules and full management of Google Shopping and Performance Max.</p><span class="service-link">Learn more →</span>
           </a>
           <a href="/en/google-business-profile/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <h3>Google Business Profile</h3>
-            <p>Complete profile optimization, review management, local insights and Maps visibility.</p>
-            <span class="service-link">Learn more →</span>
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h3>Google Business Profile</h3><p>Complete profile optimization, review management, local insights and Maps visibility.</p><span class="service-link">Learn more →</span>
           </a>
           <a href="/en/ai-digital-strategy/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 14a4 4 0 0 1 4 4v2H4v-2a4 4 0 0 1 4-4h8z"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/></svg>
-            </div>
-            <h3>AI in digital strategy</h3>
-            <p>Using artificial intelligence for audience prediction, creative optimization, bidding and predictive analysis.</p>
-            <span class="service-link">Learn more →</span>
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 14a4 4 0 0 1 4 4v2H4v-2a4 4 0 0 1 4-4h8z"/></svg></div>
+            <h3>AI in digital strategy</h3><p>Using artificial intelligence for audience prediction, creative optimization, bidding and predictive analysis.</p><span class="service-link">Learn more →</span>
           </a>
           <a href="/en/website-integrations-ai/" class="service-card">
-            <div class="service-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
-            </div>
-            <h3>Website integrations & AI automations</h3>
-            <p>GA4 ↔ CRM connection, data layer, intelligent automations and unified dashboards.</p>
-            <span class="service-link">Learn more →</span>
-          </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section why" id="perche">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2>Why Analytics 4</h2>
-        <p>We don’t just use Google tools: we understand them from the inside.</p>
-      </div>
-      <div class="why-grid">
-          <div class="why-item">
-            <div class="why-number">10+</div>
-            <h4>Years at Google</h4>
-            <p>Direct experience in the Krakow offices</p>
-          </div>
-          <div class="why-item">
-            <div class="why-number">100%</div>
-            <h4>ROI Focus</h4>
-            <p>Every action is measured and optimized</p>
-          </div>
-          <div class="why-item">
-            <div class="why-number">1</div>
-            <h4>Account Manager</h4>
-            <p>Dedicated and always available</p>
-          </div>
-          <div class="why-item">
-            <div class="why-number">AI</div>
-            <h4>Smart strategy</h4>
-            <p>Advanced prediction and automation</p>
-          </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2>How we work</h2>
-        <p>A clear, transparent process focused on results.</p>
-      </div>
-      <div class="process-steps">
-          <div class="step">
-            <h4>Analysis & Audit</h4>
-            <p>We analyze accounts, tracking and growth opportunities.</p>
-          </div>
-          <div class="step">
-            <h4>Setup & Tracking</h4>
-            <p>Precise configuration of GA4, events and conversions.</p>
-          </div>
-          <div class="step">
-            <h4>Strategy + AI</h4>
-            <p>Data-driven plan powered by artificial intelligence.</p>
-          </div>
-          <div class="step">
-            <h4>Optimization</h4>
-            <p>Continuous monitoring, reports and monthly improvements.</p>
-          </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="background:var(--gray-100)" id="casi">
-    <div class="section-inner">
-      <div class="section-header">
-        <h2>Case studies & best practices</h2>
-        <p>Articles, insights and real results from our clients.</p>
-      </div>
-      <div style="text-align:center;margin-top:24px;">
-        <a href="/Blog/en/" class="btn btn-primary">See all articles</a>
-      </div>
-    </div>
-  </section>
-
+            <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg></div>
+            <h3>Website integrations & AI automations</h3><p>GA4 ↔ CRM connection, data layer, intelligent automations and unified dashboards.</p><span class="service-link">Learn more →</span>
+          </a></div>
+  </div></section>
+  <section class="section why" id="perche"><div class="section-inner">
+    <div class="section-header"><h2>Why Analytics 4</h2><p>We don’t just use Google tools: we understand them from the inside.</p></div>
+    <div class="why-grid"><div class="why-item"><div class="why-number">10+</div><h4>Years at Google</h4><p>Direct experience in the Krakow offices</p></div><div class="why-item"><div class="why-number">100%</div><h4>ROI Focus</h4><p>Every action is measured and optimized</p></div><div class="why-item"><div class="why-number">1</div><h4>Account Manager</h4><p>Dedicated and always available</p></div><div class="why-item"><div class="why-number">AI</div><h4>Smart strategy</h4><p>Advanced prediction and automation</p></div></div>
+  </div></section>
+  <section class="section"><div class="section-inner">
+    <div class="section-header"><h2>How we work</h2><p>A clear, transparent process focused on results.</p></div>
+    <div class="process-steps"><div class="step"><h4>Analysis & Audit</h4><p>We analyze accounts, tracking and growth opportunities.</p></div><div class="step"><h4>Setup & Tracking</h4><p>Precise configuration of GA4, events and conversions.</p></div><div class="step"><h4>Strategy + AI</h4><p>Data-driven plan powered by artificial intelligence.</p></div><div class="step"><h4>Optimization</h4><p>Continuous monitoring, reports and monthly improvements.</p></div></div>
+  </div></section>
+  <section class="section" style="background:var(--gray-100)" id="casi"><div class="section-inner">
+    <div class="section-header"><h2>Case studies & best practices</h2><p>Articles, insights and real results from our clients.</p></div>
+    <div style="text-align:center"><a href="/Blog/en/" class="btn btn-primary">See all articles</a></div>
+  </div></section>
   <section class="cta-final" id="contatti">
-    <h2>Ready to grow your business?</h2>
-    <p>Contact us for a free personalized consultation based on your real needs.</p>
+    <h2>Ready to grow your business?</h2><p>Contact us for a free personalized consultation.</p>
     <a href="mailto:stefano@analytics4.online" class="btn btn-primary" style="font-size:1rem;padding:14px 32px;">Write to us now</a>
   </section>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <svg width="24" height="24" viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="6" fill="#FF6A00"/><path d="M22 18H78V38H52V82H22V18Z" fill="#0A0A0A"/></svg>
-        Analytics 4
-      </div>
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Cookie</a>
-        <a href="mailto:stefano@analytics4.online">stefano@analytics4.online</a>
-        <a href="tel:+393471988894">+39 347 198 8894</a>
-      </div>
+  <footer><div class="footer-inner">
+    <div class="footer-logo"><img src="/assets/logo.svg" alt="" width="24" height="23" /> Analytics 4</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a><a href="#">Cookie</a>
+      <a href="mailto:stefano@analytics4.online">stefano@analytics4.online</a>
+      <a href="tel:+393471988894">+39 347 198 8894</a>
     </div>
-  </footer>
-
+  </div></footer>
   <button class="wa-float" id="waFloat" aria-label="WhatsApp">
     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 2.824.736 5.552 2.132 7.964L.084 31.25l7.492-1.964A15.94 15.94 0 0016.004 32C24.83 32 32 24.822 32 15.996 32 7.176 24.83 0 16.004 0zm9.288 22.624c-.392 1.104-1.944 2.02-3.18 2.288-.84.18-1.936.324-5.632-1.212-4.728-1.964-7.776-6.768-8.012-7.084-.228-.316-1.9-2.532-1.9-4.828s1.204-3.428 1.632-3.9c.392-.436.852-.544 1.136-.544.284 0 .568.004.816.016.26.012.612-.1.956.732.36.872 1.224 3.004 1.332 3.22.108.216.18.472.036.76-.144.288-.216.468-.432.72-.216.252-.456.564-.652.756-.216.216-.44.448-.188.88.252.432 1.12 1.848 2.404 2.992 1.652 1.472 3.044 1.928 3.476 2.144.432.216.684.18.936-.108.252-.288 1.08-1.26 1.368-1.692.288-.432.576-.36.972-.216.396.144 2.512 1.184 2.944 1.4.432.216.72.324.828.504.108.18.108 1.04-.284 2.144z"/></svg>
     <span class="wa-badge">1</span>
@@ -1126,56 +1022,19 @@
       <input type="text" id="waInput" placeholder="Type a message..." />
       <button class="wa-send-btn" id="waSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
-    <a href="https://wa.me/393471988894?text=Hi,%20I'd%20like%20more%20information%20about%20your%20services" target="_blank" rel="noopener" class="wa-continue" id="waContinue">Continue on WhatsApp →</a>
+    <a href="https://wa.me/393471988894?text=Hi,%20I'd%20like%20more%20information%20about%20your%20services" target="_blank" rel="noopener" class="wa-continue">Continue on WhatsApp →</a>
   </div>
-
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-    });
-    function closeMenu() {
-      hamburger.classList.remove('active');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    const waFloat = document.getElementById('waFloat');
-    const waChat = document.getElementById('waChat');
-    const waClose = document.getElementById('waClose');
-    const waInput = document.getElementById('waInput');
-    const waSend = document.getElementById('waSend');
-    const waBody = document.getElementById('waBody');
-    const waNum = '393471988894';
-    const waReply = 'Perfect! Redirecting you to WhatsApp…';
-    waFloat.addEventListener('click', () => {
-      waChat.classList.toggle('open');
-      const b = waFloat.querySelector('.wa-badge');
-      if (b) b.style.display = 'none';
-    });
-    waClose.addEventListener('click', () => waChat.classList.remove('open'));
-    function handleSend() {
-      const text = waInput.value.trim();
-      if (!text) return;
-      const u = document.createElement('div');
-      u.className = 'wa-msg user';
-      u.innerHTML = text + '<div class="wa-msg-time">now</div>';
-      waBody.appendChild(u);
-      waInput.value = '';
-      waBody.scrollTop = waBody.scrollHeight;
-      setTimeout(() => {
-        const b = document.createElement('div');
-        b.className = 'wa-msg bot';
-        b.innerHTML = waReply + '<div class="wa-msg-time">now</div>';
-        waBody.appendChild(b);
-        waBody.scrollTop = waBody.scrollHeight;
-        setTimeout(() => window.open('https://wa.me/' + waNum + '?text=' + encodeURIComponent(text), '_blank'), 700);
-      }, 500);
-    }
-    waSend.addEventListener('click', handleSend);
-    waInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
+    const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+    if(hamburger){hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';});}
+    function closeMenu(){if(hamburger){hamburger.classList.remove('active');mobileMenu.classList.remove('open');document.body.style.overflow='';}}
+    const waFloat=document.getElementById('waFloat'),waChat=document.getElementById('waChat'),waClose=document.getElementById('waClose');
+    const waInput=document.getElementById('waInput'),waSend=document.getElementById('waSend'),waBody=document.getElementById('waBody');
+    const waNum='393471988894',waReply='Perfect! Redirecting you to WhatsApp…';
+    if(waFloat)waFloat.addEventListener('click',()=>{waChat.classList.toggle('open');const b=waFloat.querySelector('.wa-badge');if(b)b.style.display='none';});
+    if(waClose)waClose.addEventListener('click',()=>waChat.classList.remove('open'));
+    function handleSend(){const text=waInput.value.trim();if(!text)return;const u=document.createElement('div');u.className='wa-msg user';u.innerHTML=text+'<div class="wa-msg-time">now</div>';waBody.appendChild(u);waInput.value='';waBody.scrollTop=waBody.scrollHeight;setTimeout(()=>{const b=document.createElement('div');b.className='wa-msg bot';b.innerHTML=waReply+'<div class="wa-msg-time">now</div>';waBody.appendChild(b);waBody.scrollTop=waBody.scrollHeight;setTimeout(()=>window.open('https://wa.me/'+waNum+'?text='+encodeURIComponent(text),'_blank'),700);},500);}
+    if(waSend)waSend.addEventListener('click',handleSend);
+    if(waInput)waInput.addEventListener('keypress',e=>{if(e.key==='Enter')handleSend();});
   </script>
-</body>
-</html>
+</body></html>
