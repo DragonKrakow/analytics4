@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytics 4 – Anteprima Redesign</title>
+  <title>Analytics 4 – Google Ads, Analytics, AI | Kraków</title>
+  <meta name="description" content="Ex-pracownicy Google z Krakowa. Google Ads, Analytics 4, Merchant Center, Business Profile, AI w strategii cyfrowej i integracje CRM." />
+  <link rel="alternate" hreflang="pl" href="https://analytics4.online/" />
+  <link rel="alternate" hreflang="it" href="https://analytics4.online/it/" />
+  <link rel="alternate" hreflang="en" href="https://analytics4.online/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://analytics4.online/" />
+  <link rel="canonical" href="https://analytics4.online/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -554,13 +560,6 @@
       color: var(--orange);
     }
 
-    /* Imported blog cards — existing homepage palette and grid retained */
-    .case-img.blog-photo { display:block; width:100%; height:190px; object-fit:cover; background:#ececec; }
-    .case-img.blog-placeholder { height:190px; background:linear-gradient(135deg,#FF6A00,#FF8C33); }
-    .case-date { display:block; font-size:.78rem; color:var(--gray-500); margin-bottom:10px; }
-    .case-body h3 { line-height:1.4; }
-    .case-body p { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-
     /* CTA Final */
     .cta-final {
       background: var(--black);
@@ -890,14 +889,16 @@
         right: 16px;
       }
     }
+  
+    .lang-switch a { cursor:pointer; padding:4px 6px; border-radius:4px; font-size:0.8125rem; font-weight:600; color:var(--gray-500); text-decoration:none; }
+    .lang-switch a:hover { color:var(--orange); }
+    .lang-switch a.active { color:var(--orange); background:rgba(255,106,0,0.1); }
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
   <header>
     <div class="header-inner">
-      <a href="#" class="logo" onclick="showPage('home')">
+      <a href="/" class="logo">
         <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
           <rect width="100" height="100" rx="8" fill="#FF6A00"/>
           <path d="M22 18H78V38H52V82H22V18Z" fill="#0A0A0A"/>
@@ -906,1037 +907,275 @@
         </svg>
         <span class="logo-text">Analytics 4</span>
       </a>
-
-      <!-- Desktop navigation -->
       <nav class="nav-desktop">
-        <a href="#" data-i18n="nav_home" onclick="showPage('home')">Home</a>
-        <a href="#servizi" data-i18n="nav_services">Servizi</a>
-        <a href="#perche" data-i18n="nav_why">Perché noi</a>
-        <a href="Blog/" data-i18n="nav_cases">Blog</a>
-        <a href="#contatti" data-i18n="nav_contact">Contatti</a>
+        <a href="/">Strona główna</a>
+        <a href="#servizi">Usługi</a>
+        <a href="#perche">Dlaczego my</a>
+        <a href="/Blog/">Case studies</a>
+        <a href="#contatti">Kontakt</a>
       </nav>
-
       <div class="header-right">
         <div class="lang-switch">
-          <span class="active" data-lang="it">IT</span>
-          <span data-lang="en">EN</span>
-          <span data-lang="pl">PL</span>
+        <a href="/" class="active">PL</a>
+        <a href="/it/">IT</a>
+        <a href="/en/">EN</a>
         </div>
-        <a href="#contatti" class="btn btn-primary btn-header" data-i18n="cta_header">Richiedi consulenza</a>
-
-        <!-- Hamburger -->
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <a href="#contatti" class="btn btn-primary btn-header">Zapytaj o konsultację</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
-  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#" data-i18n="menu_ads" onclick="closeMenu(); showPage('ads')">Google Ads</a>
-    <a href="#" data-i18n="menu_ga4" onclick="closeMenu(); showPage('ga4')">Google Analytics 4 + Tracking</a>
-    <a href="#" data-i18n="menu_merchant" onclick="closeMenu(); showPage('merchant')">Google Merchant Center</a>
-    <a href="#" data-i18n="menu_gbp" onclick="closeMenu(); showPage('gbp')">Google Business Profile</a>
-    <a href="#" data-i18n="menu_ai" onclick="closeMenu(); showPage('ai')">AI nella strategia digitale</a>
-    <a href="#" data-i18n="menu_integrations" onclick="closeMenu(); showPage('integrations')">Integrazioni Siti e automazioni AI</a>
-    <a href="Blog/" data-i18n="menu_cases">Blog e articoli</a>
-
-    <div class="mobile-cta">
-      <a href="#contatti" class="btn btn-primary" data-i18n="cta_header" onclick="closeMenu()">Richiedi consulenza</a>
-    </div>
+    <a href="/google-ads/">Google Ads</a>
+    <a href="/google-analytics-4/">Google Analytics 4 + Tracking</a>
+    <a href="/google-merchant-center/">Google Merchant Center</a>
+    <a href="/google-business-profile/">Google Business Profile</a>
+    <a href="/ai-strategia-cyfrowa/">AI w strategii cyfrowej</a>
+    <a href="/integracje-stron-ai/">Integracje stron i automatyzacje AI</a>
+    <a href="/Blog/">Case studies i dobre praktyki</a>
+    
+    <div class="mobile-cta"><a href="#contatti" class="btn btn-primary" onclick="closeMenu()">Zapytaj o konsultację</a></div>
   </div>
 
-  <!-- ==================== HOME PAGE ==================== -->
-  <div id="page-home">
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-inner">
-        <div>
-          <div class="hero-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-            <span data-i18n="hero_badge">Ex-Googler da Cracovia · +10 anni esperienza</span>
-          </div>
-          <h1 data-i18n="hero_title">Trasformiamo i tuoi dati Google in <span>crescita reale</span></h1>
-          <p data-i18n="hero_subtitle">Google Ads · Analytics 4 · Merchant Center · Business Profile · AI nella strategia digitale · Integrazioni siti web e automazioni AI</p>
-          <div class="hero-ctas">
-            <a href="#contatti" class="btn btn-primary" data-i18n="cta_primary">Parliamone gratis</a>
-            <a href="#servizi" class="btn btn-outline" data-i18n="cta_secondary">Scopri i servizi</a>
-          </div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Byli pracownicy Google z Krakowa · +10 lat doświadczenia
         </div>
-        <div class="hero-visual">
-          <div class="logo-big">
-            <div class="logo-big-shape"></div>
-            <div class="logo-big-dot"></div>
-          </div>
+        <h1>Zamieniamy Twoje dane Google w <span>realny wzrost</span></h1>
+        <p>Google Ads · Analytics 4 · Merchant Center · Business Profile · AI w strategii cyfrowej · Integracje stron i automatyzacje AI</p>
+        <div class="hero-ctas">
+          <a href="#contatti" class="btn btn-primary">Porozmawiajmy za darmo</a>
+          <a href="#servizi" class="btn btn-outline">Poznaj usługi</a>
         </div>
       </div>
-    </section>
+      <div class="hero-visual">
+        <div class="logo-big"><div class="logo-big-shape"></div><div class="logo-big-dot"></div></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section class="section" id="servizi">
-      <div class="section-inner">
-        <div class="section-header">
-          <h2 data-i18n="services_title">I nostri servizi</h2>
-          <p data-i18n="services_subtitle">Soluzioni complete e integrate per far crescere il tuo business con i prodotti Google e l’intelligenza artificiale.</p>
-        </div>
-
-        <div class="services-grid">
-          <!-- Google Ads -->
-          <a href="#" class="service-card" onclick="showPage('ads')">
+  <section class="section" id="servizi">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Nasze usługi</h2>
+        <p>Kompleksowe i zintegrowane rozwiązania do rozwoju Twojego biznesu z produktami Google i sztuczną inteligencją.</p>
+      </div>
+      <div class="services-grid">
+          <a href="/google-ads/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
             </div>
-            <h3 data-i18n="card_ads_title">Google Ads</h3>
-            <p data-i18n="card_ads_desc">Gestione completa di campagne Search, Shopping e Performance Max. Strategia medio-lungo periodo con focus sul ROI.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>Google Ads</h3>
+            <p>Kompleksowe zarządzanie kampaniami Search, Shopping i Performance Max. Strategia średnio- i długoterminowa z naciskiem na ROI.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-
-          <!-- GA4 -->
-          <a href="#" class="service-card" onclick="showPage('ga4')">
+          <a href="/google-analytics-4/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
             </div>
-            <h3 data-i18n="card_ga4_title">Google Analytics 4 + Tracking</h3>
-            <p data-i18n="card_ga4_desc">Setup avanzato, eventi custom, conversion tracking accurato e reportistica chiara per decisioni data-driven.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>Google Analytics 4 + Tracking</h3>
+            <p>Zaawansowana konfiguracja, zdarzenia niestandardowe, dokładne śledzenie konwersji i czytelne raportowanie.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-
-          <!-- Merchant -->
-          <a href="#" class="service-card" onclick="showPage('merchant')">
+          <a href="/google-merchant-center/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
             </div>
-            <h3 data-i18n="card_merchant_title">Google Merchant Center</h3>
-            <p data-i18n="card_merchant_desc">Feed ottimizzati, regole avanzate e gestione completa di Google Shopping e Performance Max.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>Google Merchant Center</h3>
+            <p>Zoptymalizowane feedy, zaawansowane reguły i pełne zarządzanie Google Shopping oraz Performance Max.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-
-          <!-- GBP -->
-          <a href="#" class="service-card" onclick="showPage('gbp')">
+          <a href="/google-business-profile/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
-            <h3 data-i18n="card_gbp_title">Google Business Profile</h3>
-            <p data-i18n="card_gbp_desc">Ottimizzazione completa della scheda, gestione recensioni, insight locali e visibilità su Maps.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>Google Business Profile</h3>
+            <p>Kompleksowa optymalizacja wizytówki, zarządzanie opiniami, lokalne insighty i widoczność w Mapach.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-
-          <!-- AI -->
-          <a href="#" class="service-card" onclick="showPage('ai')">
+          <a href="/ai-strategia-cyfrowa/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 14a4 4 0 0 1 4 4v2H4v-2a4 4 0 0 1 4-4h8z"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/></svg>
             </div>
-            <h3 data-i18n="card_ai_title">AI nella strategia digitale</h3>
-            <p data-i18n="card_ai_desc">Utilizzo di intelligenza artificiale per predizione audience, ottimizzazione creatività, bid e analisi predittiva.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>AI w strategii cyfrowej</h3>
+            <p>Wykorzystanie sztucznej inteligencji do przewidywania audience, optymalizacji kreacji, stawek i analizy predykcyjnej.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-
-          <!-- Integrations -->
-          <a href="#" class="service-card" onclick="showPage('integrations')">
+          <a href="/integracje-stron-ai/" class="service-card">
             <div class="service-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg>
             </div>
-            <h3 data-i18n="card_int_title">Integrazioni Siti e automazioni AI</h3>
-            <p data-i18n="card_int_desc">Collegamento GA4 ↔ CRM, data layer, automazioni intelligenti e dashboard unificate.</p>
-            <span class="service-link" data-i18n="card_link">Scopri di più →</span>
+            <h3>Integracje stron i automatyzacje AI</h3>
+            <p>Połączenie GA4 ↔ CRM, data layer, inteligentne automatyzacje i ujednolicone dashboardy.</p>
+            <span class="service-link">Dowiedz się więcej →</span>
           </a>
-        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- WHY -->
-    <section class="section why" id="perche">
-      <div class="section-inner">
-        <div class="section-header">
-          <h2 data-i18n="why_title">Perché Analytics 4</h2>
-          <p data-i18n="why_subtitle">Non usiamo solo gli strumenti Google: li capiamo dall’interno.</p>
-        </div>
-        <div class="why-grid">
+  <section class="section why" id="perche">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Dlaczego Analytics 4</h2>
+        <p>Nie tylko używamy narzędzi Google – rozumiemy je od środka.</p>
+      </div>
+      <div class="why-grid">
           <div class="why-item">
             <div class="why-number">10+</div>
-            <h4 data-i18n="why_1_title">Anni in Google</h4>
-            <p data-i18n="why_1_desc">Esperienza diretta negli uffici di Cracovia</p>
+            <h4>Lat w Google</h4>
+            <p>Bezpośrednie doświadczenie w biurach w Krakowie</p>
           </div>
           <div class="why-item">
             <div class="why-number">100%</div>
-            <h4 data-i18n="why_2_title">Focus ROI</h4>
-            <p data-i18n="why_2_desc">Ogni azione è misurata e ottimizzata</p>
+            <h4>Fokus na ROI</h4>
+            <p>Każde działanie jest mierzone i optymalizowane</p>
           </div>
           <div class="why-item">
             <div class="why-number">1</div>
-            <h4 data-i18n="why_3_title">Account Manager</h4>
-            <p data-i18n="why_3_desc">Dedicato e sempre disponibile</p>
+            <h4>Account Manager</h4>
+            <p>Dedykowany i zawsze dostępny</p>
           </div>
           <div class="why-item">
             <div class="why-number">AI</div>
-            <h4 data-i18n="why_4_title">Strategia intelligente</h4>
-            <p data-i18n="why_4_desc">Predizione e automazione avanzata</p>
+            <h4>Inteligentna strategia</h4>
+            <p>Zaawansowane przewidywanie i automatyzacja</p>
           </div>
-        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- PROCESS -->
-    <section class="section">
-      <div class="section-inner">
-        <div class="section-header">
-          <h2 data-i18n="process_title">Come lavoriamo</h2>
-          <p data-i18n="process_subtitle">Un processo chiaro, trasparente e orientato ai risultati.</p>
-        </div>
-        <div class="process-steps">
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Jak pracujemy</h2>
+        <p>Przejrzysty proces nastawiony na wyniki.</p>
+      </div>
+      <div class="process-steps">
           <div class="step">
-            <h4 data-i18n="step_1_title">Analisi & Audit</h4>
-            <p data-i18n="step_1_desc">Analizziamo account, tracking e opportunità di crescita.</p>
-          </div>
-          <div class="step">
-            <h4 data-i18n="step_2_title">Setup & Tracking</h4>
-            <p data-i18n="step_2_desc">Configurazione precisa di GA4, eventi e conversioni.</p>
+            <h4>Analiza & Audyt</h4>
+            <p>Analizujemy konta, tracking i możliwości wzrostu.</p>
           </div>
           <div class="step">
-            <h4 data-i18n="step_3_title">Strategia + AI</h4>
-            <p data-i18n="step_3_desc">Piano data-driven potenziato dall’intelligenza artificiale.</p>
+            <h4>Setup & Tracking</h4>
+            <p>Precyzyjna konfiguracja GA4, zdarzeń i konwersji.</p>
           </div>
           <div class="step">
-            <h4 data-i18n="step_4_title">Ottimizzazione</h4>
-            <p data-i18n="step_4_desc">Monitoraggio continuo, report e miglioramenti mensili.</p>
+            <h4>Strategia + AI</h4>
+            <p>Plan oparty na danych wzmocniony sztuczną inteligencją.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CASES TEASER -->
-    <section class="section" style="background:var(--gray-100)" id="casi">
-      <div class="section-inner">
-        <div class="section-header">
-          <h2 data-i18n="cases_title">Casi studio e buone pratiche</h2>
-          <p data-i18n="cases_subtitle">Articoli, approfondimenti e risultati reali dei nostri clienti.</p>
-        </div>
-        <div class="cases-grid" id="latestBlogCards" aria-live="polite">
-          <p id="blogLoading">Caricamento degli articoli…</p>
-        </div>
-        <div style="text-align:center; margin-top:40px;">
-          <a href="Blog/" class="btn btn-primary" data-i18n="cases_all">Vedi tutti gli articoli</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section class="cta-final" id="contatti">
-      <h2 data-i18n="cta_title">Pronto a far crescere il tuo business?</h2>
-      <p data-i18n="cta_desc">Contattaci per una consulenza gratuita e personalizzata basata sulle tue reali esigenze.</p>
-      <a href="mailto:stefano@analytics4.online" id="ctaFinalBtn" class="btn btn-primary" style="font-size:1rem; padding:14px 32px;" data-i18n="cta_button">Scrivici ora</a>
-    </section>
-  </div>
-
-  <!-- ==================== SERVICE PAGES (placeholders) ==================== -->
-  <div id="page-ads" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_ads_title">Google Ads</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_ads_desc">
-          Gestione completa di qualsiasi campagna pubblicitaria su Google Ads. Strategia pianificata di medio-lungo periodo, analisi congiunta e applicazione.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-ga4" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_ga4_title">Google Analytics 4 + Tracking</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_ga4_desc">
-          Setup avanzato, eventi custom, conversion tracking accurato e reportistica chiara.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-merchant" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_merchant_title">Google Merchant Center</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_merchant_desc">
-          Gestione completa del feed, regole e ottimizzazione di Google Shopping.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-gbp" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_gbp_title">Google Business Profile</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_gbp_desc">
-          Ottimizzazione della scheda, gestione recensioni e visibilità locale.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-ai" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_ai_title">AI nella strategia digitale</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_ai_desc">
-          Utilizzo dell’intelligenza artificiale per predizione, ottimizzazione e automazione.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <div id="page-integrations" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_int_title">Integrazioni Siti e automazioni AI</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_int_desc">
-          Collegamento GA4 ↔ CRM, data layer e automazioni intelligenti.
-        </p>
-        <div style="background:var(--gray-100); border-radius:16px; padding:40px; text-align:center; color:var(--gray-500);">
-          Contenuto della pagina in costruzione – qui andranno benefici, processo, casi e form di contatto.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- CASES / ARTICLES PAGE -->
-  <div id="page-cases" class="service-page" style="display:none;">
-    <section class="section" style="padding-top:60px;">
-      <div class="section-inner">
-        <a href="#" onclick="showPage('home')" style="color:var(--orange); font-weight:600; margin-bottom:24px; display:inline-block;">← Torna alla home</a>
-        <h1 data-i18n="page_cases_title">Casi studio e buone pratiche</h1>
-        <p style="font-size:1.125rem; color:var(--gray-500); max-width:700px; margin:16px 0 40px;" data-i18n="page_cases_desc">
-          Tutti gli articoli, le guide e i casi studio che pubblicheremo.
-        </p>
-
-        <div class="cases-grid">
-          <div class="case-card">
-            <div class="case-img">Case Study</div>
-            <div class="case-body">
-              <h3>Come abbiamo aumentato il ROAS del 180%</h3>
-              <p>Strategia Performance Max + ottimizzazione feed Merchant Center per un e-commerce moda.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
+          <div class="step">
+            <h4>Optymalizacja</h4>
+            <p>Ciągły monitoring, raporty i comiesięczne ulepszenia.</p>
           </div>
-          <div class="case-card">
-            <div class="case-img">Guida</div>
-            <div class="case-body">
-              <h3>Setup GA4 corretto: errori da evitare</h3>
-              <p>I 7 errori più comuni nel tracking e come risolverli per dati affidabili.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-img">AI + Ads</div>
-            <div class="case-body">
-              <h3>Come l’AI sta cambiando Google Ads</h3>
-              <p>Dalla predizione delle audience all’ottimizzazione automatica delle creatività.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-img">Merchant</div>
-            <div class="case-body">
-              <h3>Ottimizzare il feed prodotto: guida completa</h3>
-              <p>Come strutturare titoli, descrizioni e attributi per massimizzare le impressioni.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-img">Tracking</div>
-            <div class="case-body">
-              <h3>Conversion tracking avanzato con GTM</h3>
-              <p>Eventi custom, enhanced conversions e server-side tracking spiegati passo passo.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
-          </div>
-          <div class="case-card">
-            <div class="case-img">GBP</div>
-            <div class="case-body">
-              <h3>Google Business Profile: checklist 2025</h3>
-              <p>Tutto quello che serve per dominare i risultati locali e Maps.</p>
-              <span class="case-link">Leggi l'articolo →</span>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
-  <!-- FOOTER -->
+  <section class="section" style="background:var(--gray-100)" id="casi">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Case studies i dobre praktyki</h2>
+        <p>Artykuły, analizy i realne wyniki naszych klientów.</p>
+      </div>
+      <div style="text-align:center;margin-top:24px;">
+        <a href="/Blog/" class="btn btn-primary">Zobacz wszystkie artykuły</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final" id="contatti">
+    <h2>Gotowy, by rozwijać swój biznes?</h2>
+    <p>Skontaktuj się z nami, aby uzyskać bezpłatną, spersonalizowaną konsultację opartą na Twoich realnych potrzebach.</p>
+    <a href="mailto:magda@analytics4.online" class="btn btn-primary" style="font-size:1rem;padding:14px 32px;">Napisz do nas teraz</a>
+  </section>
+
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">
-        <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
-          <rect width="100" height="100" rx="6" fill="#FF6A00"/>
-          <path d="M22 18H78V38H52V82H22V18Z" fill="#0A0A0A"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="6" fill="#FF6A00"/><path d="M22 18H78V38H52V82H22V18Z" fill="#0A0A0A"/></svg>
         Analytics 4
       </div>
       <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Cookie</a>
-        <a href="mailto:stefano@analytics4.online" id="footerEmail">stefano@analytics4.online</a>
-        <a href="tel:+393471988894" id="footerPhone">+39 347 198 8894</a>
+        <a href="mailto:magda@analytics4.online">magda@analytics4.online</a>
+        <a href="tel:+48730031161">+48 730 031 161</a>
       </div>
     </div>
   </footer>
 
-  <!-- WHATSAPP FLOATING BUTTON + CHATBOT -->
-  <button class="wa-float" id="waFloat" aria-label="Chat WhatsApp">
-    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 2.824.736 5.552 2.132 7.964L.084 31.25l7.492-1.964A15.94 15.94 0 0016.004 32C24.83 32 32 24.822 32 15.996 32 7.176 24.83 0 16.004 0zm9.288 22.624c-.392 1.104-1.944 2.02-3.18 2.288-.84.18-1.936.324-5.632-1.212-4.728-1.964-7.776-6.768-8.012-7.084-.228-.316-1.9-2.532-1.9-4.828s1.204-3.428 1.632-3.9c.392-.436.852-.544 1.136-.544.284 0 .568.004.816.016.26.012.612-.1.956.732.36.872 1.224 3.004 1.332 3.22.108.216.18.472.036.76-.144.288-.216.468-.432.72-.216.252-.456.564-.652.756-.216.216-.44.448-.188.88.252.432 1.12 1.848 2.404 2.992 1.652 1.472 3.044 1.928 3.476 2.144.432.216.684.18.936-.108.252-.288 1.08-1.26 1.368-1.692.288-.432.576-.36.972-.216.396.144 2.512 1.184 2.944 1.4.432.216.72.324.828.504.108.18.108 1.04-.284 2.144z"/>
-    </svg>
+  <button class="wa-float" id="waFloat" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 2.824.736 5.552 2.132 7.964L.084 31.25l7.492-1.964A15.94 15.94 0 0016.004 32C24.83 32 32 24.822 32 15.996 32 7.176 24.83 0 16.004 0zm9.288 22.624c-.392 1.104-1.944 2.02-3.18 2.288-.84.18-1.936.324-5.632-1.212-4.728-1.964-7.776-6.768-8.012-7.084-.228-.316-1.9-2.532-1.9-4.828s1.204-3.428 1.632-3.9c.392-.436.852-.544 1.136-.544.284 0 .568.004.816.016.26.012.612-.1.956.732.36.872 1.224 3.004 1.332 3.22.108.216.18.472.036.76-.144.288-.216.468-.432.72-.216.252-.456.564-.652.756-.216.216-.44.448-.188.88.252.432 1.12 1.848 2.404 2.992 1.652 1.472 3.044 1.928 3.476 2.144.432.216.684.18.936-.108.252-.288 1.08-1.26 1.368-1.692.288-.432.576-.36.972-.216.396.144 2.512 1.184 2.944 1.4.432.216.72.324.828.504.108.18.108 1.04-.284 2.144z"/></svg>
     <span class="wa-badge">1</span>
   </button>
-
   <div class="wa-chat" id="waChat">
     <div class="wa-chat-header">
-      <div class="wa-avatar">
-        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 2.824.736 5.552 2.132 7.964L.084 31.25l7.492-1.964A15.94 15.94 0 0016.004 32C24.83 32 32 24.822 32 15.996 32 7.176 24.83 0 16.004 0zm9.288 22.624c-.392 1.104-1.944 2.02-3.18 2.288-.84.18-1.936.324-5.632-1.212-4.728-1.964-7.776-6.768-8.012-7.084-.228-.316-1.9-2.532-1.9-4.828s1.204-3.428 1.632-3.9c.392-.436.852-.544 1.136-.544.284 0 .568.004.816.016.26.012.612-.1.956.732.36.872 1.224 3.004 1.332 3.22.108.216.18.472.036.76-.144.288-.216.468-.432.72-.216.252-.456.564-.652.756-.216.216-.44.448-.188.88.252.432 1.12 1.848 2.404 2.992 1.652 1.472 3.044 1.928 3.476 2.144.432.216.684.18.936-.108.252-.288 1.08-1.26 1.368-1.692.288-.432.576-.36.972-.216.396.144 2.512 1.184 2.944 1.4.432.216.72.324.828.504.108.18.108 1.04-.284 2.144z"/>
-        </svg>
-      </div>
-      <div class="wa-chat-header-info">
-        <h4>Analytics 4</h4>
-        <p data-i18n="wa_online">Online · Rispondiamo in pochi minuti</p>
-      </div>
-      <button class="wa-chat-close" id="waClose" aria-label="Chiudi">×</button>
+      <div class="wa-avatar"><svg viewBox="0 0 32 32"><path fill="white" d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 2.824.736 5.552 2.132 7.964L.084 31.25l7.492-1.964A15.94 15.94 0 0016.004 32C24.83 32 32 24.822 32 15.996 32 7.176 24.83 0 16.004 0z"/></svg></div>
+      <div class="wa-chat-header-info"><h4>Analytics 4</h4><p>Online · Odpowiadamy w kilka minut</p></div>
+      <button class="wa-chat-close" id="waClose">×</button>
     </div>
-
     <div class="wa-chat-body" id="waBody">
-      <div class="wa-msg bot">
-        <span data-i18n="wa_greeting">Ciao! 👋 Sono il team di Analytics 4. Come possiamo aiutarti oggi?</span>
-        <div class="wa-msg-time">ora</div>
-      </div>
-      <div class="wa-msg bot">
-        <span data-i18n="wa_options">Puoi scriverci qui oppure continuare direttamente su WhatsApp.</span>
-        <div class="wa-msg-time">ora</div>
-      </div>
+      <div class="wa-msg bot">Cześć! 👋 Jesteśmy zespołem Analytics 4. W czym możemy pomóc?<div class="wa-msg-time">now</div></div>
+      <div class="wa-msg bot">Możesz napisać tutaj albo kontynuować bezpośrednio na WhatsApp.<div class="wa-msg-time">now</div></div>
     </div>
-
     <div class="wa-chat-footer">
-      <input type="text" id="waInput" data-i18n-placeholder="wa_placeholder" placeholder="Scrivi un messaggio..." autocomplete="off" />
-      <button class="wa-send-btn" id="waSend" aria-label="Invia">
-        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      </button>
+      <input type="text" id="waInput" placeholder="Napisz wiadomość..." />
+      <button class="wa-send-btn" id="waSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
     </div>
-
-    <a href="https://wa.me/393471988894?text=Ciao%2C%20vorrei%20maggiori%20informazioni%20sui%20vostri%20servizi" target="_blank" rel="noopener" class="wa-continue" id="waContinue" data-i18n="wa_continue">
-      Continua su WhatsApp →
-    </a>
+    <a href="https://wa.me/48730031161?text=Cześć,%20chciałbym%20uzyskać%20więcej%20informacji%20o%20Waszych%20usługach" target="_blank" rel="noopener" class="wa-continue" id="waContinue">Kontynuuj na WhatsApp →</a>
   </div>
 
   <script>
-    // ========== TRANSLATIONS ==========
-    const translations = {
-      it: {
-        nav_home: "Home",
-        nav_services: "Servizi",
-        nav_why: "Perché noi",
-        nav_cases: "Casi studio",
-        nav_contact: "Contatti",
-        cta_header: "Richiedi consulenza",
-        menu_ads: "Google Ads",
-        menu_ga4: "Google Analytics 4 + Tracking",
-        menu_merchant: "Google Merchant Center",
-        menu_gbp: "Google Business Profile",
-        menu_ai: "AI nella strategia digitale",
-        menu_integrations: "Integrazioni Siti e automazioni AI",
-        menu_cases: "Casi studio e buone pratiche",
-        hero_badge: "Ex-Googler da Cracovia · +10 anni esperienza",
-        hero_title: "Trasformiamo i tuoi dati Google in <span>crescita reale</span>",
-        hero_subtitle: "Google Ads · Analytics 4 · Merchant Center · Business Profile · AI nella strategia digitale · Integrazioni siti web e automazioni AI",
-        cta_primary: "Parliamone gratis",
-        cta_secondary: "Scopri i servizi",
-        services_title: "I nostri servizi",
-        services_subtitle: "Soluzioni complete e integrate per far crescere il tuo business con i prodotti Google e l’intelligenza artificiale.",
-        card_ads_title: "Google Ads",
-        card_ads_desc: "Gestione completa di campagne Search, Shopping e Performance Max. Strategia medio-lungo periodo con focus sul ROI.",
-        card_ga4_title: "Google Analytics 4 + Tracking",
-        card_ga4_desc: "Setup avanzato, eventi custom, conversion tracking accurato e reportistica chiara per decisioni data-driven.",
-        card_merchant_title: "Google Merchant Center",
-        card_merchant_desc: "Feed ottimizzati, regole avanzate e gestione completa di Google Shopping e Performance Max.",
-        card_gbp_title: "Google Business Profile",
-        card_gbp_desc: "Ottimizzazione completa della scheda, gestione recensioni, insight locali e visibilità su Maps.",
-        card_ai_title: "AI nella strategia digitale",
-        card_ai_desc: "Utilizzo di intelligenza artificiale per predizione audience, ottimizzazione creatività, bid e analisi predittiva.",
-        card_int_title: "Integrazioni Siti e automazioni AI",
-        card_int_desc: "Collegamento GA4 ↔ CRM, data layer, automazioni intelligenti e dashboard unificate.",
-        card_link: "Scopri di più →",
-        why_title: "Perché Analytics 4",
-        why_subtitle: "Non usiamo solo gli strumenti Google: li capiamo dall’interno.",
-        why_1_title: "Anni in Google",
-        why_1_desc: "Esperienza diretta negli uffici di Cracovia",
-        why_2_title: "Focus ROI",
-        why_2_desc: "Ogni azione è misurata e ottimizzata",
-        why_3_title: "Account Manager",
-        why_3_desc: "Dedicato e sempre disponibile",
-        why_4_title: "Strategia intelligente",
-        why_4_desc: "Predizione e automazione avanzata",
-        process_title: "Come lavoriamo",
-        process_subtitle: "Un processo chiaro, trasparente e orientato ai risultati.",
-        step_1_title: "Analisi & Audit",
-        step_1_desc: "Analizziamo account, tracking e opportunità di crescita.",
-        step_2_title: "Setup & Tracking",
-        step_2_desc: "Configurazione precisa di GA4, eventi e conversioni.",
-        step_3_title: "Strategia + AI",
-        step_3_desc: "Piano data-driven potenziato dall’intelligenza artificiale.",
-        step_4_title: "Ottimizzazione",
-        step_4_desc: "Monitoraggio continuo, report e miglioramenti mensili.",
-        cases_title: "Casi studio e buone pratiche",
-        cases_subtitle: "Articoli, approfondimenti e risultati reali dei nostri clienti.",
-        case_1_title: "Come abbiamo aumentato il ROAS del 180%",
-        case_1_desc: "Strategia Performance Max + ottimizzazione feed Merchant Center per un e-commerce moda.",
-        case_2_title: "Setup GA4 corretto: errori da evitare",
-        case_2_desc: "I 7 errori più comuni nel tracking e come risolverli per dati affidabili.",
-        case_3_title: "Come l’AI sta cambiando Google Ads",
-        case_3_desc: "Dalla predizione delle audience all’ottimizzazione automatica delle creatività.",
-        cases_all: "Vedi tutti gli articoli",
-        cta_title: "Pronto a far crescere il tuo business?",
-        cta_desc: "Contattaci per una consulenza gratuita e personalizzata basata sulle tue reali esigenze.",
-        cta_button: "Scrivici ora",
-        page_ads_title: "Google Ads",
-        page_ads_desc: "Gestione completa di qualsiasi campagna pubblicitaria su Google Ads. Strategia pianificata di medio-lungo periodo, analisi congiunta e applicazione.",
-        page_ga4_title: "Google Analytics 4 + Tracking",
-        page_ga4_desc: "Setup avanzato, eventi custom, conversion tracking accurato e reportistica chiara.",
-        page_merchant_title: "Google Merchant Center",
-        page_merchant_desc: "Gestione completa del feed, regole e ottimizzazione di Google Shopping.",
-        page_gbp_title: "Google Business Profile",
-        page_gbp_desc: "Ottimizzazione della scheda, gestione recensioni e visibilità locale.",
-        page_ai_title: "AI nella strategia digitale",
-        page_ai_desc: "Utilizzo dell’intelligenza artificiale per predizione, ottimizzazione e automazione.",
-        page_int_title: "Integrazioni Siti e automazioni AI",
-        page_int_desc: "Collegamento GA4 ↔ CRM, data layer e automazioni intelligenti.",
-        page_cases_title: "Casi studio e buone pratiche",
-        page_cases_desc: "Tutti gli articoli, le guide e i casi studio che pubblicheremo.",
-        wa_online: "Online · Rispondiamo in pochi minuti",
-        wa_greeting: "Ciao! 👋 Sono il team di Analytics 4. Come possiamo aiutarti oggi?",
-        wa_options: "Puoi scriverci qui oppure continuare direttamente su WhatsApp.",
-        wa_placeholder: "Scrivi un messaggio...",
-        wa_continue: "Continua su WhatsApp →",
-        wa_reply: "Perfetto! Ti reindirizziamo su WhatsApp per continuare la conversazione…",
-        wa_default_msg: "Ciao, vorrei maggiori informazioni sui vostri servizi"
-      },
-      en: {
-        nav_home: "Home",
-        nav_services: "Services",
-        nav_why: "Why us",
-        nav_cases: "Case studies",
-        nav_contact: "Contact",
-        cta_header: "Request consultation",
-        menu_ads: "Google Ads",
-        menu_ga4: "Google Analytics 4 + Tracking",
-        menu_merchant: "Google Merchant Center",
-        menu_gbp: "Google Business Profile",
-        menu_ai: "AI in digital strategy",
-        menu_integrations: "Website integrations & AI automations",
-        menu_cases: "Case studies & best practices",
-        hero_badge: "Ex-Googlers from Krakow · +10 years experience",
-        hero_title: "We turn your Google data into <span>real growth</span>",
-        hero_subtitle: "Google Ads · Analytics 4 · Merchant Center · Business Profile · AI in digital strategy · Website integrations & AI automations",
-        cta_primary: "Let's talk for free",
-        cta_secondary: "Discover services",
-        services_title: "Our services",
-        services_subtitle: "Complete and integrated solutions to grow your business with Google products and artificial intelligence.",
-        card_ads_title: "Google Ads",
-        card_ads_desc: "Full management of Search, Shopping and Performance Max campaigns. Medium-long term strategy focused on ROI.",
-        card_ga4_title: "Google Analytics 4 + Tracking",
-        card_ga4_desc: "Advanced setup, custom events, accurate conversion tracking and clear reporting for data-driven decisions.",
-        card_merchant_title: "Google Merchant Center",
-        card_merchant_desc: "Optimized feeds, advanced rules and full management of Google Shopping and Performance Max.",
-        card_gbp_title: "Google Business Profile",
-        card_gbp_desc: "Complete profile optimization, review management, local insights and Maps visibility.",
-        card_ai_title: "AI in digital strategy",
-        card_ai_desc: "Using artificial intelligence for audience prediction, creative optimization, bidding and predictive analysis.",
-        card_int_title: "Website integrations & AI automations",
-        card_int_desc: "GA4 ↔ CRM connection, data layer, intelligent automations and unified dashboards.",
-        card_link: "Learn more →",
-        why_title: "Why Analytics 4",
-        why_subtitle: "We don’t just use Google tools: we understand them from the inside.",
-        why_1_title: "Years at Google",
-        why_1_desc: "Direct experience in the Krakow offices",
-        why_2_title: "ROI Focus",
-        why_2_desc: "Every action is measured and optimized",
-        why_3_title: "Account Manager",
-        why_3_desc: "Dedicated and always available",
-        why_4_title: "Smart strategy",
-        why_4_desc: "Advanced prediction and automation",
-        process_title: "How we work",
-        process_subtitle: "A clear, transparent process focused on results.",
-        step_1_title: "Analysis & Audit",
-        step_1_desc: "We analyze accounts, tracking and growth opportunities.",
-        step_2_title: "Setup & Tracking",
-        step_2_desc: "Precise configuration of GA4, events and conversions.",
-        step_3_title: "Strategy + AI",
-        step_3_desc: "Data-driven plan powered by artificial intelligence.",
-        step_4_title: "Optimization",
-        step_4_desc: "Continuous monitoring, reports and monthly improvements.",
-        cases_title: "Case studies & best practices",
-        cases_subtitle: "Articles, insights and real results from our clients.",
-        case_1_title: "How we increased ROAS by 180%",
-        case_1_desc: "Performance Max strategy + Merchant Center feed optimization for a fashion e-commerce.",
-        case_2_title: "Correct GA4 setup: mistakes to avoid",
-        case_2_desc: "The 7 most common tracking errors and how to fix them for reliable data.",
-        case_3_title: "How AI is changing Google Ads",
-        case_3_desc: "From audience prediction to automatic creative optimization.",
-        cases_all: "See all articles",
-        cta_title: "Ready to grow your business?",
-        cta_desc: "Contact us for a free personalized consultation based on your real needs.",
-        cta_button: "Write to us now",
-        page_ads_title: "Google Ads",
-        page_ads_desc: "Complete management of any Google Ads advertising campaign. Medium to long-term planned strategy, joint analysis and implementation.",
-        page_ga4_title: "Google Analytics 4 + Tracking",
-        page_ga4_desc: "Advanced setup, custom events, accurate conversion tracking and clear reporting.",
-        page_merchant_title: "Google Merchant Center",
-        page_merchant_desc: "Complete feed management, rules and Google Shopping optimization.",
-        page_gbp_title: "Google Business Profile",
-        page_gbp_desc: "Profile optimization, review management and local visibility.",
-        page_ai_title: "AI in digital strategy",
-        page_ai_desc: "Using artificial intelligence for prediction, optimization and automation.",
-        page_int_title: "Website integrations & AI automations",
-        page_int_desc: "GA4 ↔ CRM connection, data layer and intelligent automations.",
-        page_cases_title: "Case studies & best practices",
-        page_cases_desc: "All the articles, guides and case studies we will publish.",
-        wa_online: "Online · We reply within minutes",
-        wa_greeting: "Hi! 👋 We're the Analytics 4 team. How can we help you today?",
-        wa_options: "You can write here or continue directly on WhatsApp.",
-        wa_placeholder: "Type a message...",
-        wa_continue: "Continue on WhatsApp →",
-        wa_reply: "Perfect! We're redirecting you to WhatsApp to continue the conversation…",
-        wa_default_msg: "Hi, I'd like more information about your services"
-      },
-      pl: {
-        nav_home: "Strona główna",
-        nav_services: "Usługi",
-        nav_why: "Dlaczego my",
-        nav_cases: "Case studies",
-        nav_contact: "Kontakt",
-        cta_header: "Zapytaj o konsultację",
-        menu_ads: "Google Ads",
-        menu_ga4: "Google Analytics 4 + Tracking",
-        menu_merchant: "Google Merchant Center",
-        menu_gbp: "Google Business Profile",
-        menu_ai: "AI w strategii cyfrowej",
-        menu_integrations: "Integracje stron i automatyzacje AI",
-        menu_cases: "Case studies i dobre praktyki",
-        hero_badge: "Byli pracownicy Google z Krakowa · +10 lat doświadczenia",
-        hero_title: "Zamieniamy Twoje dane Google w <span>realny wzrost</span>",
-        hero_subtitle: "Google Ads · Analytics 4 · Merchant Center · Business Profile · AI w strategii cyfrowej · Integracje stron i automatyzacje AI",
-        cta_primary: "Porozmawiajmy za darmo",
-        cta_secondary: "Poznaj usługi",
-        services_title: "Nasze usługi",
-        services_subtitle: "Kompleksowe i zintegrowane rozwiązania do rozwoju Twojego biznesu z produktami Google i sztuczną inteligencją.",
-        card_ads_title: "Google Ads",
-        card_ads_desc: "Pełne zarządzanie kampaniami Search, Shopping i Performance Max. Strategia średnio- i długoterminowa z naciskiem na ROI.",
-        card_ga4_title: "Google Analytics 4 + Tracking",
-        card_ga4_desc: "Zaawansowana konfiguracja, zdarzenia niestandardowe, dokładne śledzenie konwersji i czytelne raportowanie.",
-        card_merchant_title: "Google Merchant Center",
-        card_merchant_desc: "Zoptymalizowane feedy, zaawansowane reguły i pełne zarządzanie Google Shopping oraz Performance Max.",
-        card_gbp_title: "Google Business Profile",
-        card_gbp_desc: "Kompleksowa optymalizacja wizytówki, zarządzanie opiniami, lokalne insighty i widoczność w Mapach.",
-        card_ai_title: "AI w strategii cyfrowej",
-        card_ai_desc: "Wykorzystanie sztucznej inteligencji do przewidywania audience, optymalizacji kreacji, stawek i analizy predykcyjnej.",
-        card_int_title: "Integracje stron i automatyzacje AI",
-        card_int_desc: "Połączenie GA4 ↔ CRM, data layer, inteligentne automatyzacje i ujednolicone dashboardy.",
-        card_link: "Dowiedz się więcej →",
-        why_title: "Dlaczego Analytics 4",
-        why_subtitle: "Nie tylko używamy narzędzi Google – rozumiemy je od środka.",
-        why_1_title: "Lat w Google",
-        why_1_desc: "Bezpośrednie doświadczenie w biurach w Krakowie",
-        why_2_title: "Fokus na ROI",
-        why_2_desc: "Każde działanie jest mierzone i optymalizowane",
-        why_3_title: "Account Manager",
-        why_3_desc: "Dedykowany i zawsze dostępny",
-        why_4_title: "Inteligentna strategia",
-        why_4_desc: "Zaawansowane przewidywanie i automatyzacja",
-        process_title: "Jak pracujemy",
-        process_subtitle: "Przejrzysty proces nastawiony na wyniki.",
-        step_1_title: "Analiza & Audyt",
-        step_1_desc: "Analizujemy konta, tracking i możliwości wzrostu.",
-        step_2_title: "Setup & Tracking",
-        step_2_desc: "Precyzyjna konfiguracja GA4, zdarzeń i konwersji.",
-        step_3_title: "Strategia + AI",
-        step_3_desc: "Plan oparty na danych wzmocniony sztuczną inteligencją.",
-        step_4_title: "Optymalizacja",
-        step_4_desc: "Ciągły monitoring, raporty i comiesięczne ulepszenia.",
-        cases_title: "Case studies i dobre praktyki",
-        cases_subtitle: "Artykuły, analizy i realne wyniki naszych klientów.",
-        case_1_title: "Jak zwiększyliśmy ROAS o 180%",
-        case_1_desc: "Strategia Performance Max + optymalizacja feedu Merchant Center dla e-commerce modowego.",
-        case_2_title: "Poprawny setup GA4: błędy, których unikać",
-        case_2_desc: "7 najczęstszych błędów trackingu i jak je naprawić, by mieć wiarygodne dane.",
-        case_3_title: "Jak AI zmienia Google Ads",
-        case_3_desc: "Od przewidywania audience po automatyczną optymalizację kreacji.",
-        cases_all: "Zobacz wszystkie artykuły",
-        cta_title: "Gotowy, by rozwijać swój biznes?",
-        cta_desc: "Skontaktuj się z nami, aby uzyskać bezpłatną, spersonalizowaną konsultację opartą na Twoich realnych potrzebach.",
-        cta_button: "Napisz do nas teraz",
-        page_ads_title: "Google Ads",
-        page_ads_desc: "Kompleksowe zarządzanie każdą kampanią reklamową Google Ads. Strategia średnio- i długoterminowa, wspólna analiza i wdrożenie.",
-        page_ga4_title: "Google Analytics 4 + Tracking",
-        page_ga4_desc: "Zaawansowana konfiguracja, zdarzenia niestandardowe, dokładne śledzenie konwersji i czytelne raportowanie.",
-        page_merchant_title: "Google Merchant Center",
-        page_merchant_desc: "Kompleksowe zarządzanie feedem, regułami i optymalizacja Google Shopping.",
-        page_gbp_title: "Google Business Profile",
-        page_gbp_desc: "Optymalizacja wizytówki, zarządzanie opiniami i lokalna widoczność.",
-        page_ai_title: "AI w strategii cyfrowej",
-        page_ai_desc: "Wykorzystanie sztucznej inteligencji do przewidywania, optymalizacji i automatyzacji.",
-        page_int_title: "Integracje stron i automatyzacje AI",
-        page_int_desc: "Połączenie GA4 ↔ CRM, data layer i inteligentne automatyzacje.",
-        page_cases_title: "Case studies i dobre praktyki",
-        page_cases_desc: "Wszystkie artykuły, przewodniki i case studies, które będziemy publikować.",
-        wa_online: "Online · Odpowiadamy w kilka minut",
-        wa_greeting: "Cześć! 👋 Jesteśmy zespołem Analytics 4. W czym możemy pomóc?",
-        wa_options: "Możesz napisać tutaj albo kontynuować bezpośrednio na WhatsApp.",
-        wa_placeholder: "Napisz wiadomość...",
-        wa_continue: "Kontynuuj na WhatsApp →",
-        wa_reply: "Świetnie! Przekierowujemy Cię na WhatsApp, aby kontynuować rozmowę…",
-        wa_default_msg: "Cześć, chciałbym uzyskać więcej informacji o Waszych usługach"
-      }
-    };
-
-    // ========== LANGUAGE SWITCH ==========
-    let currentLang = 'it';
-
-    function setLanguage(lang) {
-      if (!['it','en','pl'].includes(lang)) lang = 'it';
-      currentLang = lang;
-      try { localStorage.setItem('analytics4_language', lang); } catch(e) {}
-      document.querySelectorAll('.lang-switch span').forEach(el => {
-        el.classList.toggle('active', el.dataset.lang === lang);
-      });
-
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          el.innerHTML = translations[lang][key];
-        }
-      });
-
-      document.documentElement.lang = lang;
-      updateBlogNavigation(lang);
-      loadLatestBlog(lang);
-      document.querySelectorAll('.blog-read-link').forEach(el => { el.textContent = {it:'Leggi l’articolo →',en:'Read article →',pl:'Czytaj artykuł →'}[lang]; });
-    }
-
-    document.querySelectorAll('.lang-switch span').forEach(span => {
-      span.addEventListener('click', () => setLanguage(span.dataset.lang));
-    });
-
-    // ========== HAMBURGER MENU ==========
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       mobileMenu.classList.toggle('open');
       document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
     });
-
     function closeMenu() {
       hamburger.classList.remove('active');
       mobileMenu.classList.remove('open');
       document.body.style.overflow = '';
     }
-
-    // ========== PAGE NAVIGATION ==========
-    function showPage(page) {
-      // Hide all pages
-      document.getElementById('page-home').style.display = 'none';
-      document.querySelectorAll('.service-page').forEach(p => p.style.display = 'none');
-
-      if (page === 'home') {
-        document.getElementById('page-home').style.display = 'block';
-      } else {
-        const pageEl = document.getElementById('page-' + page);
-        if (pageEl) pageEl.style.display = 'block';
-      }
-
-      window.scrollTo(0, 0);
-      closeMenu();
-    }
-
-    // ========== MULTILINGUAL BLOG INTEGRATION ==========
-    const blogText = {
-      it: {read:'Leggi l’articolo →', loading:'Caricamento degli articoli…', empty:'Nessun articolo disponibile in italiano.'},
-      en: {read:'Read article →', loading:'Loading articles…', empty:'No English articles are available yet.'},
-      pl: {read:'Czytaj artykuł →', loading:'Ładowanie artykułów…', empty:'Brak dostępnych artykułów po polsku.'}
-    };
-    let blogLoadVersion = 0;
-
-    function updateBlogNavigation(lang) {
-      const target = 'Blog/' + lang + '/';
-      document.querySelectorAll('a[href="Blog/"], a[data-blog-navigation]').forEach(a => {
-        a.href = target;
-        a.setAttribute('data-blog-navigation', 'true');
-      });
-    }
-
-    async function loadBlogPosts(lang) {
-      const feeds = [
-        {url: 'content/blog_cards_' + lang + '.json', kind: 'cards'},
-        {url: 'content/blog_cards_multilingual.json', kind: 'multilingual'},
-        {url: 'content/blog_languages.json', kind: 'languages'},
-        ...(lang === 'it' ? [
-          {url: 'content/blog_cards.json', kind: 'cards'},
-          {url: 'content/blog_manifest.json', kind: 'manifest'}
-        ] : [])
-      ];
-      for (const feed of feeds) {
-        try {
-          const response = await fetch(feed.url, {cache: 'no-store'});
-          if (!response.ok) continue;
-          const json = await response.json();
-          const posts = feed.kind === 'manifest' ? json.posts :
-            (feed.kind === 'languages' || feed.kind === 'multilingual') ? json[lang] : json;
-          if (Array.isArray(posts) && posts.length) return posts;
-        } catch (error) {
-          console.warn('Blog feed unavailable:', feed.url, error);
-        }
-      }
-      return [];
-    }
-
-    function blogCardUrl(post, lang) {
-      const slug = String(post.slug || '').trim();
-      if (!/^[a-zA-Z0-9_-]+$/.test(slug)) return '';
-      // The importer writes Italian articles at Blog/<slug>/ and
-      // English/Polish articles at Blog/<lang>/<slug>/.
-      return lang === 'it' ? 'Blog/' + slug + '/' : 'Blog/' + lang + '/' + slug + '/';
-    }
-
-    function blogCardImage(post) {
-      const raw = String(post.image || post.cover || '').trim();
-      const match = raw.match(/(?:^|\/)assets\/blog\/([a-zA-Z0-9._-]+)$/);
-      if (match) return 'assets/blog/' + match[1];
-      // Accept original-site gallery URLs when the local image is not yet present.
-      if (/^https:\/\/(?:www\.)?analytics4\.online\//i.test(raw)) return raw;
-      return '';
-    }
-
-    async function loadLatestBlog(lang = currentLang) {
-      const grid = document.getElementById('latestBlogCards');
-      if (!grid) return;
-      const requestVersion = ++blogLoadVersion;
-      const t = blogText[lang] || blogText.it;
-      grid.textContent = t.loading;
-      const posts = await loadBlogPosts(lang);
-      if (requestVersion !== blogLoadVersion) return;
-      grid.replaceChildren();
-      const sorted = posts.slice().sort((a,b) => String(b.date||'').localeCompare(String(a.date||'')));
-      let shown = 0;
-      for (const post of sorted) {
-        if (shown >= 3) break;
-        const path = blogCardUrl(post, lang);
-        if (!path) continue;
-        const card = document.createElement('a');
-        card.className = 'case-card';
-        card.href = path;
-        const photo = blogCardImage(post);
-        if (photo) {
-          const img = document.createElement('img');
-          img.className = 'case-img blog-photo';
-          img.src = photo;
-          img.alt = post.title || '';
-          img.loading = 'lazy';
-          img.onerror = () => {
-            const fallback = document.createElement('div');
-            fallback.className = 'case-img blog-placeholder';
-            fallback.textContent = 'Analytics 4';
-            img.replaceWith(fallback);
-          };
-          card.append(img);
-        } else {
-          const fallback = document.createElement('div');
-          fallback.className = 'case-img blog-placeholder';
-          fallback.textContent = 'Analytics 4';
-          card.append(fallback);
-        }
-        const body = document.createElement('div');
-        body.className = 'case-body';
-        if (post.date) {
-          const date = document.createElement('time');
-          date.className = 'case-date';
-          date.textContent = String(post.date).slice(0,10);
-          body.append(date);
-        }
-        const title = document.createElement('h3');
-        title.textContent = post.title || 'Analytics 4';
-        body.append(title);
-        const description = document.createElement('p');
-        description.textContent = post.description || '';
-        body.append(description);
-        const link = document.createElement('span');
-        link.className = 'case-link blog-read-link';
-        link.textContent = t.read;
-        body.append(link);
-        card.append(body);
-        grid.append(card);
-        shown++;
-      }
-      if (!shown) {
-        grid.textContent = t.empty;
-        console.warn('No blog posts found in available feeds for', lang);
-      }
-    }
-
-    // ========== WHATSAPP CHATBOT ==========
     const waFloat = document.getElementById('waFloat');
     const waChat = document.getElementById('waChat');
     const waClose = document.getElementById('waClose');
-    const waBody = document.getElementById('waBody');
     const waInput = document.getElementById('waInput');
     const waSend = document.getElementById('waSend');
-    const waContinue = document.getElementById('waContinue');
-
-    // Phone numbers by language
-    const waNumbers = {
-      it: '393471988894',
-      en: '393471988894',
-      pl: '48730031161'
-    };
-
-    function getWaLink(text) {
-      const num = waNumbers[currentLang] || waNumbers.it;
-      const msg = encodeURIComponent(text || translations[currentLang].wa_default_msg || 'Ciao, vorrei maggiori informazioni sui vostri servizi');
-      return `https://wa.me/${num}?text=${msg}`;
-    }
-
+    const waBody = document.getElementById('waBody');
+    const waNum = '48730031161';
+    const waReply = 'Świetnie! Przekierowujemy Cię na WhatsApp…';
     waFloat.addEventListener('click', () => {
       waChat.classList.toggle('open');
-      // hide badge when opened
-      const badge = waFloat.querySelector('.wa-badge');
-      if (badge) badge.style.display = 'none';
+      const b = waFloat.querySelector('.wa-badge');
+      if (b) b.style.display = 'none';
     });
-
-    waClose.addEventListener('click', () => {
-      waChat.classList.remove('open');
-    });
-
-    function appendUserMsg(text) {
-      const div = document.createElement('div');
-      div.className = 'wa-msg user';
-      div.innerHTML = `${text}<div class="wa-msg-time">ora</div>`;
-      waBody.appendChild(div);
-      waBody.scrollTop = waBody.scrollHeight;
-    }
-
-    function appendBotMsg(text) {
-      const div = document.createElement('div');
-      div.className = 'wa-msg bot';
-      div.innerHTML = `${text}<div class="wa-msg-time">ora</div>`;
-      waBody.appendChild(div);
-      waBody.scrollTop = waBody.scrollHeight;
-    }
-
+    waClose.addEventListener('click', () => waChat.classList.remove('open'));
     function handleSend() {
       const text = waInput.value.trim();
       if (!text) return;
-
-      appendUserMsg(text);
+      const u = document.createElement('div');
+      u.className = 'wa-msg user';
+      u.innerHTML = text + '<div class="wa-msg-time">now</div>';
+      waBody.appendChild(u);
       waInput.value = '';
-
-      // Simulate bot reply then open WhatsApp
+      waBody.scrollTop = waBody.scrollHeight;
       setTimeout(() => {
-        appendBotMsg(translations[currentLang].wa_reply || 'Perfetto! Ti reindirizziamo su WhatsApp per continuare la conversazione…');
-        setTimeout(() => {
-          window.open(getWaLink(text), '_blank');
-        }, 800);
-      }, 600);
+        const b = document.createElement('div');
+        b.className = 'wa-msg bot';
+        b.innerHTML = waReply + '<div class="wa-msg-time">now</div>';
+        waBody.appendChild(b);
+        waBody.scrollTop = waBody.scrollHeight;
+        setTimeout(() => window.open('https://wa.me/' + waNum + '?text=' + encodeURIComponent(text), '_blank'), 700);
+      }, 500);
     }
-
     waSend.addEventListener('click', handleSend);
-    waInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleSend();
-    });
-
-    // Contacts by language
-    const contacts = {
-      it: {
-        email: 'stefano@analytics4.online',
-        phone: '+39 347 198 8894',
-        phoneHref: 'tel:+393471988894',
-        ctaHref: 'mailto:stefano@analytics4.online'
-      },
-      en: {
-        email: 'stefano@analytics4.online',
-        phone: '+39 347 198 8894',
-        phoneHref: 'tel:+393471988894',
-        ctaHref: 'mailto:stefano@analytics4.online'
-      },
-      pl: {
-        email: 'magda@analytics4.online',
-        phone: '+48 730 031 161',
-        phoneHref: 'tel:+48730031161',
-        ctaHref: 'mailto:magda@analytics4.online'
-      }
-    };
-
-    // Update continue link + contacts when language changes
-    const originalSetLanguage = setLanguage;
-    setLanguage = function(lang) {
-      originalSetLanguage(lang);
-
-      // WhatsApp texts already handled by original; ensure placeholder
-      if (waInput && translations[lang].wa_placeholder) {
-        waInput.placeholder = translations[lang].wa_placeholder;
-      }
-      // WhatsApp continue link
-      if (waContinue) {
-        waContinue.href = getWaLink();
-      }
-
-      // Update footer + CTA contacts
-      const c = contacts[lang] || contacts.it;
-      const footerEmail = document.getElementById('footerEmail');
-      const footerPhone = document.getElementById('footerPhone');
-      const ctaFinalBtn = document.getElementById('ctaFinalBtn');
-
-      if (footerEmail) {
-        footerEmail.href = 'mailto:' + c.email;
-        footerEmail.textContent = c.email;
-      }
-      if (footerPhone) {
-        footerPhone.href = c.phoneHref;
-        footerPhone.textContent = c.phone;
-      }
-      if (ctaFinalBtn) {
-        ctaFinalBtn.href = c.ctaHref;
-      }
-    };
-
-    // Init continue link
-    waContinue.href = getWaLink();
-
-    // Init
-    let savedLanguage = 'it';
-    try { savedLanguage = localStorage.getItem('analytics4_language') || 'it'; } catch(e) {}
-    setLanguage(['it','en','pl'].includes(savedLanguage) ? savedLanguage : 'it');
+    waInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 </body>
 </html>
