@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" role="img" aria-label="Analytics 4">
+  <g fill="#FF6A00">
+    <path d="M20 8 H105 V42 H78 V175 H20 Z"/>
+    <path d="M55 42 H175 V78 H100 V175 H78 V78 H55 Z"/>
+    <rect x="115" y="155" width="32" height="32"/>
+  </g>
+</svg>
