@@ -1,1 +1,53 @@
-PLACEHOLDER
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://analytics4.online/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://analytics4.online/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://analytics4.online/it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://analytics4.online/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://analytics4.online/"/>
+    <changefreq>weekly</changefreq><priority>1.0</priority>
+  </url>
+  <url><loc>https://analytics4.online/it/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://analytics4.online/en/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://analytics4.online/google-ads/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/google-analytics-4/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/google-merchant-center/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/google-business-profile/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/ai-strategia-cyfrowa/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/integracje-stron-ai/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/google-ads/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/google-analytics-4/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/google-merchant-center/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/google-business-profile/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/ai-strategia-digitale/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/it/integrazioni-siti-ai/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/google-ads/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/google-analytics-4/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/google-merchant-center/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/google-business-profile/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/ai-digital-strategy/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/en/website-integrations-ai/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://analytics4.online/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://analytics4.online/blog/it/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://analytics4.online/blog/en/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://analytics4.online/o-nas/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/it/chi-siamo/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/en/about/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/cookie/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/it/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/it/cookie/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/en/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/en/cookie/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://analytics4.online/Blog/consent-mode-v2/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/google-ads-grant/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/ecommerce-dropshipping/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/lead-gen-vincente/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/checkout-e-commerce/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/ristrutturazione-google-ads-roas-feed-ai/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/gestione-google-maps-case-study-risultati/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/lead-generation-b2b-salute-benessere-google-ads/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/budget-google-ads-ecommerce-quanto-serve/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>
