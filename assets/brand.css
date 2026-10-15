@@ -1,0 +1,17 @@
+/* Analytics 4 brand */
+.logo img, .footer-logo img, .hero-visual img {
+  height: auto;
+  max-height: 40px;
+  width: auto;
+  display: block;
+}
+.hero-visual img {
+  max-height: 220px;
+  max-width: 220px;
+  filter: drop-shadow(0 20px 40px rgba(255,106,0,0.35));
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
