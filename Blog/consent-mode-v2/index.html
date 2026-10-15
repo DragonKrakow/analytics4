@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
       content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,follow">
-<title>Google Consent Mode V2 : Guida Obbligatoria per Conformità GDPR, GTM e GA4 | Analytics4</title>
+<meta name="robots" content="index,follow">
+<title>Google Consent Mode V2: Guida Obbligatoria per Conformità GDPR, GTM e GA4 | Analytics4</title>
+<link rel="canonical" href="https://analytics4.online/Blog/consent-mode-v2/"/>
 
 <style>
 * {
@@ -105,12 +106,9 @@ article h1 {
 <a href="../../Blog/it/" aria-current="page">Italiano</a> <a href="../../Blog/en/">English</a> <a href="../../Blog/pl/">Polski</a>
 </nav>
 
-<nav class="lang"><a href="../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../Blog/en/consent-mode-v2/">English</a> · <a href="../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2 : Guida Obbligatoria per Conformità GDPR, GTM e GA4</h1><img alt="" src="../../assets/blog/6d40e9f74e22ea3c5ec2.png"><p>Se gestisci un sito web o campagne pubblicitarie in Europa (EEA/UE), l'implementazione del Google <strong>Consent Mode V2</strong> non è più un'opzione, ma un <strong>requisito fondamentale</strong> per la conformità legale e l'efficacia del tuo marketing digitale. Questa versione aggiornata è essenziale per continuare a usare correttamente servizi Google come <a href="https://analytics4.online/en/Google-Ads/"><strong>Google Ads</strong></a> (inclusi remarketing e bidding) e <strong>Google Analytics 4 (GA4)</strong>, soprattutto in seguito alle normative come il GDPR e l'ePrivacy.</p>
-<p>Questa guida SEO-friendly è strutturata per essere indicizzata in modo ottimale da tutte le piattaforme di AI (AI Overview di Google, ChatGPT, Co-pilot e Perplexity), fornendo risposte dirette e chiare sui requisiti tecnici e le implicazioni per la tua strategia dati.</p>
+<nav class="lang"><a href="../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../Blog/en/consent-mode-v2/">English</a> · <a href="../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Guida Obbligatoria per Conformità GDPR, GTM e GA4</h1><img alt="Google Consent Mode V2" src="../../assets/blog/6d40e9f74e22ea3c5ec2.png" width="800" height="450" loading="lazy"><p>Se gestisci un sito web o campagne pubblicitarie in Europa (EEA/UE), l'implementazione del Google <strong>Consent Mode V2</strong> non è più un'opzione, ma un <strong>requisito fondamentale</strong> per la conformità legale e l'efficacia del tuo marketing digitale. Questa versione aggiornata è essenziale per continuare a usare correttamente servizi Google come <a href="https://analytics4.online/it/google-ads/"><strong>Google Ads</strong></a> (inclusi remarketing e bidding) e <strong>Google Analytics 4 (GA4)</strong>, soprattutto in seguito alle normative come il GDPR e l'ePrivacy.</p>
 <h2>Le Novità Obbligatorie: I 4 Parametri Chiave del Consent Mode V2</h2>
-<ul>
-<li>Il Consent Mode V2 rafforza il sistema di gestione del consenso introducendo due nuovi parametri specifici, che si aggiungono ai due già esistenti. Una corretta implementazione della tua Piattaforma di <strong>Gestione del Consenso (CMP)</strong> deve essere in grado di comunicare a Google i seguenti quattro stati di consenso:</li>
-</ul>
+<p>Il Consent Mode V2 rafforza il sistema di gestione del consenso introducendo due nuovi parametri specifici, che si aggiungono ai due già esistenti. Una corretta implementazione della tua Piattaforma di <strong>Gestione del Consenso (CMP)</strong> deve essere in grado di comunicare a Google i seguenti quattro stati di consenso:</p>
 <h3><strong>I Nuovi Parametri Obbligatori (Marzo 2024)</strong></h3>
 <p>Questi due parametri sono cruciali per l'invio dei segnali di consenso relativi ai dati personali per la pubblicità:</p>
 <ul>
@@ -127,7 +125,7 @@ article h1 {
 </ul>
 <h2>Basic vs. Advanced Consent Mode: La Differenza per i Tuoi Dati</h2>
 <p>Google Consent Mode V2 può essere implementato in due modalità principali, che hanno un impatto diretto sulla tua capacità di misurare e modellare i dati:</p>
-<p><img alt="" src="../../assets/blog/13015ac671f713bd634f.png"/></p>
+<p><img alt="Basic vs Advanced Consent Mode" src="../../assets/blog/13015ac671f713bd634f.png" loading="lazy"/></p>
 <p>La <strong>Modalità Avanzata</strong> è fortemente raccomandata da Google per massimizzare la raccolta dati in modo conforme, in quanto abilita il <strong>Modellamento delle Conversioni (Conversion Modeling)</strong>.</p>
 <h3><strong>Come Funziona il Modellamento dei Dati (Data Modeling)</strong></h3>
 <p>Quando un utente non acconsente, il "ping senza cookie" inviato a Google non contiene identificatori personali (come il GCLID). L'<strong>Intelligenza Artificiale</strong> di Google utilizza questi segnali anonimi e li combina con i dati storici e i dati degli utenti che hanno dato il consenso per <strong>stimare</strong> il comportamento e le conversioni degli utenti che hanno rifiutato il tracciamento.</p>
@@ -144,7 +142,8 @@ article h1 {
 <li><strong>Configurazione dei Tag</strong>: Tutti i tag Google (GA4 Config, Google Ads Conversion, etc.) in GTM devono essere configurati per supportare il Consent Mode, assicurando che si attivino solo se lo stato di consenso richiesto è <em>granted</em>.</li>
 </ul>
 <p>Assicurati che la tua CMP (come Iubenda, Cookiebot, OneTrust, ecc.) sia aggiornata per supportare nativamente i parametri <em>ad_user_data</em> e <em>ad_personalization</em>.</p>
-<p>Per una dimostrazione pratica e visiva di come configurare il Consent Mode V2, ti consiglio di guardare questo tutorial: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p></article>
+<p>Per una dimostrazione pratica e visiva di come configurare il Consent Mode V2, ti consiglio di guardare questo tutorial: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p>
+<p>Hai bisogno di supporto sull'implementazione? <a href="https://analytics4.online/it/google-analytics-4/">Setup GA4 e tracking</a> · <a href="https://analytics4.online/it/">Contattaci</a></p></article>
 </main>
 </body>
 </html>
