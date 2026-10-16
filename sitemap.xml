@@ -52,11 +52,11 @@
   <url><loc>https://analytics4.online/Blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://analytics4.online/Blog/it/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://analytics4.online/Blog/en/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
 
-  <!-- Blog IT (default root posts) -->
+  <!-- Blog IT (root posts) -->
   <url><loc>https://analytics4.online/Blog/consent-mode-v2/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://analytics4.online/Blog/consent-mode-spiegato-facile/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/consent-mode-spiegato-facile/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://analytics4.online/Blog/google-ads-grant/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://analytics4.online/Blog/ecommerce-dropshipping/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://analytics4.online/Blog/lead-gen-vincente/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -65,10 +65,9 @@
   <url><loc>https://analytics4.online/Blog/gestione-google-maps-case-study-risultati/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://analytics4.online/Blog/lead-generation-b2b-salute-benessere-google-ads/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://analytics4.online/Blog/budget-google-ads-ecommerce-quanto-serve/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://analytics4.online/Blog/touchpoint-google-ads-e-meta/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://analytics4.online/Blog/strategia-lead-generation-certificazione-ambientale/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://analytics4.online/Blog/offerta-promo-google-ads/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://analytics4.online/Blog/blog-item-a1994dc044c2001b30d9217f81880e62/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://analytics4.online/Blog/touchpoint-google-ads-e-meta/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://analytics4.online/Blog/strategia-lead-generation-certificazione-ambientale/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://analytics4.online/Blog/offerta-promo-google-ads/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
 
   <!-- Blog EN -->
   <url><loc>https://analytics4.online/Blog/en/consent-mode-v2/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
@@ -79,21 +78,19 @@
   <url><loc>https://analytics4.online/Blog/en/lead-generation-b2b-salute-benessere-google-ads/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://analytics4.online/Blog/en/budget-google-ads-ecommerce-quanto-serve/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://analytics4.online/Blog/en/offerta-promo-google-ads/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/en/blog-item-a1994dc044c2001b30d9217f81880e62/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
-  <!-- Blog PL -->
-  <url><loc>https://analytics4.online/Blog/pl/consent-mode-v2/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/google-ads-grant/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/ecommerce-dropshipping/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/lead-gen-vincente/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/checkout-e-commerce/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/ristrutturazione-google-ads-roas-feed-ai/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/gestione-google-maps-case-study-risultati/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/lead-generation-b2b-salute-benessere-google-ads/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/budget-google-ads-ecommerce-quanto-serve/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <!-- Blog PL (tutti gli articoli indexabili) -->
+  <url><loc>https://analytics4.online/Blog/pl/consent-mode-v2/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/google-ads-grant/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/ecommerce-dropshipping/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/lead-gen-vincente/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/checkout-e-commerce/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/ristrutturazione-google-ads-roas-feed-ai/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/gestione-google-maps-case-study-risultati/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/lead-generation-b2b-salute-benessere-google-ads/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/budget-google-ads-ecommerce-quanto-serve/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://analytics4.online/Blog/pl/offerta-promo-google-ads/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/blog-item-a1994dc044c2001b30d9217f81880e62/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/blog-item-a19bfe95bd600095037002d1060e80ea/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/blog-item-a19bfe95bd600095037002d1060e80ea/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
   <url><loc>https://analytics4.online/Blog/pl/blog-item-a19dbfd1161f00704fa68e32b1cc29c7/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://analytics4.online/Blog/pl/blog-item-a19dbffb03210069f8af44981842eaef/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://analytics4.online/Blog/pl/blog-item-a19dbffb03210069f8af44981842eaef/</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
 </urlset>
