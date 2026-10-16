@@ -2,147 +2,99 @@
 <html lang="pl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4 | Analytics4</title>
-
+<title>Google Consent Mode V2: Obowiązkowy przewodnik RODO, GTM i GA4 | Analytics4</title>
+<meta name="description" content="Consent Mode V2 obowiązkowy w UE: 4 parametry (ad_user_data, ad_personalization, ad_storage, analytics_storage), Basic vs Advanced, wdrożenie GTM i modelowanie konwersji.">
+<link rel="canonical" href="https://analytics4.online/Blog/pl/consent-mode-v2/"/>
+<link rel="alternate" hreflang="it" href="https://analytics4.online/Blog/consent-mode-v2/"/>
+<link rel="alternate" hreflang="en" href="https://analytics4.online/Blog/en/consent-mode-v2/"/>
+<link rel="alternate" hreflang="pl" href="https://analytics4.online/Blog/pl/consent-mode-v2/"/>
+<meta property="og:title" content="Google Consent Mode V2: Obowiązkowy przewodnik RODO, GTM i GA4">
+<meta property="og:description" content="4 parametry, Basic vs Advanced i jak wdrożyć Consent Mode V2 z GTM, by nie tracić danych i być zgodnym z RODO.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://analytics4.online/Blog/pl/consent-mode-v2/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Google Consent Mode V2: Obowiązkowy przewodnik dla zgodności z RODO, GTM i GA4","description":"Przewodnik Consent Mode V2: parametry ad_user_data i ad_personalization, Basic vs Advanced, wdrożenie GTM i Conversion Modeling.","author":{"@type":"Organization","name":"Analytics 4"},"publisher":{"@type":"Organization","name":"Analytics 4","logo":{"@type":"ImageObject","url":"https://analytics4.online/assets/logo-analytics4.png"}},"mainEntityOfPage":"https://analytics4.online/Blog/pl/consent-mode-v2/","datePublished":"2025-09-30","dateModified":"2026-10-16","inLanguage":"pl"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Czym jest Google Consent Mode V2 i dlaczego jest obowiązkowy?","acceptedAnswer":{"@type":"Answer","text":"Consent Mode V2 to system, przez który Google otrzymuje stan zgody użytkownika. W UE/EOG jest obowiązkowy, aby prawidłowo korzystać z Google Ads (remarketing, bidding) i GA4 zgodnie z RODO i ePrivacy."}},{"@type":"Question","name":"Jakie są 4 parametry Consent Mode V2?","acceptedAnswer":{"@type":"Answer","text":"ad_storage i analytics_storage (istniejące) oraz dwa nowe obowiązkowe: ad_user_data (przesyłanie danych osobowych do celów reklamowych) i ad_personalization (reklama spersonalizowana/remarketing). Stany: granted lub denied."}},{"@type":"Question","name":"Jaka jest różnica między Basic a Advanced Consent Mode?","acceptedAnswer":{"@type":"Answer","text":"W Basic tagi nie wysyłają danych przy denied. W Advanced wysyłane są pingi bez ciasteczek/identyfikatorów: Google może modelować konwersje i poprawiać raportowanie oraz Smart Bidding. Advanced jest zalecany."}},{"@type":"Question","name":"Jak wdrożyć Consent Mode V2 z GTM?","acceptedAnswer":{"@type":"Answer","text":"Domyślny stan denied dla użytkowników EOG; CMP wysyła update po wyborze użytkownika; tagi Google w GTM muszą respektować stan zgody. Użyj CMP certyfikowanej przez Google (Iubenda, Cookiebot, OneTrust itd.)."}},{"@type":"Question","name":"Co się stanie, jeśli nie wdrożę Consent Mode V2?","acceptedAnswer":{"@type":"Answer","text":"Ryzyko niezgodności z prawem oraz utrata skuteczności remarketingu, Enhanced Conversions i jakości biddingu, bo Google nie otrzymuje poprawnych sygnałów zgody."}}]}
+</script>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    background: #0b0b0d;
-    color: #eeeeee;
-    font-family: Arial, sans-serif;
-    line-height: 1.7;
-}
-
-header {
-    padding: 20px 5%;
-    border-bottom: 1px solid #333;
-}
-
-main {
-    max-width: 940px;
-    margin: 40px auto;
-    padding: 0 22px;
-}
-
-a {
-    color: #ff963c;
-}
-
-.lang {
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin: 24px 0;
-}
-
-.lang [aria-current] {
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.post {
-    display: block;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 18px 0;
-    text-decoration: none;
-    color: inherit;
-}
-
-.post:hover {
-    border-color: #ff963c;
-}
-
-.post img {
-    max-width: 200px;
-    width: 35%;
-    height: auto;
-    float: right;
-    margin-left: 20px;
-}
-
-article img {
-    max-width: 100%;
-    height: auto;
-}
-
-article {
-    overflow-wrap: anywhere;
-}
-
-article h1 {
-    line-height: 1.2;
-}
-
-@media (max-width: 600px) {
-    .post img {
-        float: none;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 0 15px;
-    }
-}
+*{box-sizing:border-box}body{margin:0;background:#0b0b0d;color:#eeeeee;font-family:Arial,sans-serif;line-height:1.7}header{padding:20px 5%;border-bottom:1px solid #333}main{max-width:940px;margin:40px auto;padding:0 22px}a{color:#ff963c}.lang{display:flex;gap:18px;flex-wrap:wrap;margin:24px 0}.lang [aria-current]{font-weight:bold;text-decoration:underline}article img{max-width:100%;height:auto;border-radius:8px;margin:16px 0}article{overflow-wrap:anywhere}article h1{line-height:1.25;font-size:clamp(1.5rem,4vw,2rem);margin-bottom:12px}article h2{margin-top:36px;margin-bottom:12px;font-size:1.35rem;color:#fff}article h3{margin-top:24px;margin-bottom:8px;font-size:1.1rem}.summary{background:#16161a;border:1px solid #333;border-left:4px solid #ff963c;border-radius:10px;padding:18px 20px;margin:24px 0}.summary strong{color:#ff963c}.summary ul{margin:10px 0 0;padding-left:20px}.faq{margin-top:40px;border-top:1px solid #333;padding-top:24px}.faq details{border:1px solid #333;border-radius:10px;padding:14px 16px;margin:12px 0;background:#121216}.faq summary{cursor:pointer;font-weight:700;color:#fff}.faq details p{margin:12px 0 0;color:#ccc}.cta{margin:40px 0;padding:24px;background:#16161a;border-radius:12px;border:1px solid #333;text-align:center}.cta a{display:inline-block;margin:8px;padding:12px 20px;background:#ff963c;color:#111;font-weight:700;border-radius:8px;text-decoration:none}ul{padding-left:22px}
 </style>
 </head>
-
 <body>
 <header>
 <a href="../../../">Analytics4</a>
 &nbsp;·&nbsp;
 <a href="../../../Blog/">Blog</a>
 </header>
-
 <main>
 <nav class="lang">
-<a href="../../../Blog/it/">Italiano</a> <a href="../../../Blog/en/">English</a> <a href="../../../Blog/pl/" aria-current="page">Polski</a>
+<a href="../../../Blog/it/">Italiano</a>
+<a href="../../../Blog/en/">English</a>
+<a href="../../../Blog/pl/" aria-current="page">Polski</a>
 </nav>
-
-<nav class="lang"><a href="../../../Blog/consent-mode-v2/">Italiano</a> · <a href="../../../Blog/en/consent-mode-v2/">English</a> · <a href="../../../Blog/pl/consent-mode-v2/">Polski</a></nav><article><h1>Google Consent Mode V2: Obowiązkowy Przewodnik dla Zgodności z RODO, GTM i GA4</h1><img alt="" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png"><p>Jeśli zarządzasz stroną internetową lub kampaniami reklamowymi w Europie (EOG/UE), wdrożenie Google Consent Mode V2 nie jest już opcją — jest to fundamentalny wymóg dla zgodności prawnej i skuteczności Twojego marketingu cyfrowego. Ta zaktualizowana wersja jest niezbędna, aby poprawnie korzystać z usług Google, takich jak <a href="https://analytics4.online/en/Google-Ads/">Google Ads</a> (w tym remarketing i określanie stawek) oraz Google Analytics 4 (GA4), zwłaszcza w świetle przepisów RODO i dyrektywy ePrivacy.</p>
-<p>Ten przewodnik przyjazny dla SEO jest skonstruowany tak, aby optymalnie indeksowały go wszystkie platformy AI (Google AI Overview, ChatGPT, Co-pilot i Perplexity), dostarczając bezpośrednich i jasnych odpowiedzi na temat wymagań technicznych i ich implikacji dla Twojej strategii danych.</p>
-<h2>Obowiązkowe Nowości: 4 Kluczowe Parametry Trybu Zgody V2</h2>
-<p>Tryb Zgody V2 wzmacnia system zarządzania zgodami, wprowadzając dwa specyficzne nowe parametry, które uzupełniają dwa już istniejące. Prawidłowa implementacja Twojej Platformy Zarządzania Zgodą (CMP) musi być w stanie komunikować Google następujące cztery stany zgody:</p>
-<p><img alt="" src="../../../assets/blog/2ba537697fd268fc06bb.jpg"/></p>
-<h3><strong>Nowe Obowiązkowe Parametry (Marzec 2024)</strong></h3>
-<p>Te dwa parametry są kluczowe do wysyłania sygnałów zgody dotyczących danych osobowych na potrzeby reklamowe:</p>
+<nav class="lang">
+<a href="../../../Blog/consent-mode-v2/">Italiano</a> ·
+<a href="../../../Blog/en/consent-mode-v2/">English</a> ·
+<a href="../../../Blog/pl/consent-mode-v2/" aria-current="page">Polski</a>
+</nav>
+<article>
+<h1>Google Consent Mode V2: Obowiązkowy przewodnik dla zgodności z RODO, GTM i GA4</h1>
+<img alt="Google Consent Mode V2" src="../../../assets/blog/6d40e9f74e22ea3c5ec2.png" width="800" height="450" loading="eager">
+<div class="summary">
+<strong>W skrócie (30 sekund)</strong>
 <ul>
-<li>ad_user_data: Kontroluje, czy dane osobowe użytkownika mogą być przesyłane do Google w celach reklamowych. Zgoda jest wymagana np. dla ulepszonych konwersji (Enhanced Conversions).</li>
-<li>Możliwe stany: granted (udzielono) lub denied (odmówiono).</li>
-<li>ad_personalization: Kontroluje, czy dane użytkownika mogą być wykorzystywane do reklamy spersonalizowanej (remarketing, segmentacja odbiorców).</li>
-<li>Możliwe stany: granted (udzielono) lub denied (odmówiono).</li>
+<li><strong>Obowiązkowy</strong> w UE/EOG dla zgodnych Ads i GA4 (RODO/ePrivacy).</li>
+<li><strong>4 parametry:</strong> ad_storage, analytics_storage + nowe <em>ad_user_data</em> i <em>ad_personalization</em>.</li>
+<li><strong>Advanced</strong> (zalecany): pingi bez ciasteczek → Conversion Modeling i lepszy Smart Bidding.</li>
+<li><strong>Wdrożenie:</strong> CMP certyfikowana + GTM (domyślnie denied, potem update po wyborze użytkownika).</li>
+<li><strong>Ryzyko bez V2:</strong> utrata remarketingu, Enhanced Conversions i jakości biddingu.</li>
 </ul>
-<h3><strong>Istniejące Parametry</strong></h3>
-<p>Te parametry zarządzają przechowywaniem informacji (np. ciasteczek) do celów analitycznych i reklamowych:</p>
-<p>ad_storage: Włącza przechowywanie (np. za pośrednictwem ciasteczek) na potrzeby reklamowe.</p>
-<p>analytics_storage: Włącza przechowywanie na potrzeby analityczne (np. czas trwania wizyty w GA4).</p>
-<h2>Tryb Podstawowy a Tryb Zaawansowany: Różnica dla Twoich Danych</h2>
-<p>Google Consent Mode V2 można wdrożyć w dwóch głównych trybach, które mają bezpośredni wpływ na Twoją zdolność do mierzenia i modelowania danych:</p>
-<p><img alt="" src="../../../assets/blog/b3ebef49d9c2738073a5.png"/></p>
-<p>Tryb Zaawansowany jest zdecydowanie rekomendowany przez Google, aby zmaksymalizować zbieranie danych w sposób zgodny z przepisami, ponieważ umożliwia Modelowanie Konwersji (Conversion Modeling).</p>
-<h3><strong>Jak Działa Modelowanie Danych (Data Modeling)</strong></h3>
-<p>Gdy użytkownik odmawia zgody, "ping bez ciasteczek" wysyłany do Google nie zawiera identyfikatorów osobistych (takich jak GCLID). Sztuczna Inteligencja Google wykorzystuje te anonimowe sygnały i łączy je z danymi historycznymi oraz danymi użytkowników, którzy wyrazili zgodę, aby oszacować zachowanie i konwersje użytkowników, którzy odmówili śledzenia.</p>
-<p>Ten proces:</p>
+</div>
+<p>Jeśli zarządzasz stroną internetową lub kampaniami reklamowymi w Europie (EOG/UE), wdrożenie Google <strong>Consent Mode V2</strong> nie jest już opcją — to <strong>fundamentalny wymóg</strong> zgodności prawnej i skuteczności marketingu cyfrowego. Ta wersja jest niezbędna, by prawidłowo korzystać z <a href="https://analytics4.online/google-ads/"><strong>Google Ads</strong></a> (remarketing, bidding) oraz <strong>Google Analytics 4 (GA4)</strong> w świetle RODO i ePrivacy.</p>
+<h2>Obowiązkowe nowości: 4 kluczowe parametry Consent Mode V2</h2>
+<p>Consent Mode V2 wzmacnia zarządzanie zgodą o dwa nowe parametry obok dwóch istniejących. Twoja <strong>Platforma Zarządzania Zgodą (CMP)</strong> musi przekazywać Google cztery stany zgody:</p>
+<p><img alt="Parametry Consent Mode V2" src="../../../assets/blog/2ba537697fd268fc06bb.jpg" loading="lazy"/></p>
+<h3>Nowe obowiązkowe parametry (marzec 2024)</h3>
 <ul>
-<li>Poprawia dokładność raportowania w GA4.</li>
-<li>Utrzymuje skuteczność strategii automatycznego określania stawek w Google Ads (Smart Bidding).</li>
+<li><em>ad_user_data</em> — czy dane osobowe mogą trafiać do Google w celach reklamowych (np. Enhanced Conversions). Stany: <em>granted</em> / <em>denied</em>.</li>
+<li><em>ad_personalization</em> — czy dane mogą służyć reklamie spersonalizowanej (remarketing, segmentacja). Stany: <em>granted</em> / <em>denied</em>.</li>
 </ul>
-<h2>Techniczna Implementacja za Pomocą Google Tag Manager (GTM)</h2>
-<p>Wdrożenie Consent Mode V2 wymaga użycia CMP certyfikowanej przez Google (zalecane rozwiązanie) lub ręcznej konfiguracji za pośrednictwem Google Tag Manager (GTM) i datalayer.</p>
+<h3>Parametry już istniejące</h3>
 <ul>
-<li>Inicjalizacja Zgody (Stan Domyślny): Przy ładowaniu strony, musisz ustawić domyślny stan zgody na denied dla wszystkich parametrów (ad_storage, analytics_storage, ad_user_data, ad_personalization) dla użytkowników z EOG/UE.</li>
-<li>Reguła uruchamiająca: Inicjalizacja Zgody - Wszystkie Strony.</li>
-<li>Aktualizacja Zgody (Stan Aktualizowany): Po interakcji użytkownika z banerem (akceptacja lub częściowa odmowa), CMP musi wysłać do GTM komendę aktualizacji (za pomocą zdarzenia update w datalayer) z nowymi, specyficznymi stanami granted lub denied dla każdego parametru.</li>
-<li>Konfiguracja Tagów: Wszystkie tagi Google (GA4 Konfiguracja, Konwersja Google Ads itp.) w GTM muszą być skonfigurowane tak, aby obsługiwały Tryb Zgody, co gwarantuje, że zostaną uruchomione tylko wtedy, gdy wymagany stan zgody to granted.</li>
+<li><em>ad_storage</em> — przechowywanie (np. ciasteczka) na potrzeby reklamowe.</li>
+<li><em>analytics_storage</em> — przechowywanie na potrzeby analityki (np. czas wizyty w GA4).</li>
 </ul>
-<p>Upewnij się, że Twoja CMP (taka jak Iubenda, Cookiebot, OneTrust itp.) jest zaktualizowana i natywnie obsługuje parametry ad_user_data i ad_personalization.</p>
-<p>Aby zobaczyć praktyczną i wizualną demonstrację konfiguracji Consent Mode V2, polecamy obejrzenie tego samouczka: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (with GTM and Cookie Information) - Live Demo.</a></p></article>
+<h2>Basic vs Advanced: różnica dla Twoich danych</h2>
+<p><img alt="Basic vs Advanced Consent Mode" src="../../../assets/blog/b3ebef49d9c2738073a5.png" loading="lazy"/></p>
+<p><strong>Tryb zaawansowany (Advanced)</strong> jest zdecydowanie rekomendowany przez Google: umożliwia <strong>modelowanie konwersji (Conversion Modeling)</strong>.</p>
+<h3>Jak działa modelowanie danych</h3>
+<p>Gdy użytkownik odmawia zgody, „ping bez ciasteczek” nie zawiera identyfikatorów (np. GCLID). AI Google łączy te anonimowe sygnały z danymi historycznymi i danymi użytkowników ze zgodą, by <strong>oszacować</strong> zachowania i konwersje osób, które odmówiły śledzenia. Efekt: lepsza dokładność GA4 i skuteczność Smart Bidding.</p>
+<h2>Wdrożenie techniczne z Google Tag Manager (GTM)</h2>
+<ul>
+<li><strong>Stan domyślny:</strong> przy ładowaniu strony ustaw <em>denied</em> dla wszystkich 4 parametrów u użytkowników EOG/UE.</li>
+<li><strong>Aktualizacja:</strong> po wyborze na banerze CMP wysyła do GTM zdarzenie <em>update</em> z nowymi stanami <em>granted</em>/<em>denied</em>.</li>
+<li><strong>Tagi:</strong> GA4 Config, konwersje Ads itd. muszą respektować Consent Mode i odpalać się tylko przy <em>granted</em>.</li>
+</ul>
+<p>Upewnij się, że CMP (Iubenda, Cookiebot, OneTrust itd.) natywnie obsługuje <em>ad_user_data</em> i <em>ad_personalization</em>.</p>
+<p>Demo: <a href="https://www.youtube.com/watch?v=bUS-kRbu-ws">How to Install Consent Mode V2 (GTM + Cookie Information)</a>.</p>
+<div class="cta">
+<p><strong>Potrzebujesz wsparcia przy wdrożeniu?</strong></p>
+<a href="https://analytics4.online/google-analytics-4/">Setup GA4 i tracking</a>
+<a href="mailto:magda@analytics4.online">Napisz do nas</a>
+</div>
+<section class="faq" id="faq">
+<h2>Najczęściej zadawane pytania o Consent Mode V2</h2>
+<details><summary>1. Czym jest Google Consent Mode V2 i dlaczego jest obowiązkowy?</summary><p>To system, przez który Google otrzymuje stan zgody użytkownika. W UE/EOG jest obowiązkowy dla prawidłowego Ads i GA4 zgodnie z RODO i ePrivacy.</p></details>
+<details><summary>2. Jakie są 4 parametry Consent Mode V2?</summary><p>ad_storage, analytics_storage oraz nowe ad_user_data i ad_personalization. Stany: granted lub denied.</p></details>
+<details><summary>3. Jaka jest różnica między Basic a Advanced?</summary><p>Basic nie wysyła danych przy denied. Advanced wysyła pingi bez identyfikatorów — Google modeluje konwersje. Advanced jest zalecany.</p></details>
+<details><summary>4. Jak wdrożyć Consent Mode V2 z GTM?</summary><p>Domyślnie denied dla EOG; CMP wysyła update po wyborze; tagi Google respektują stan zgody. Użyj CMP certyfikowanej przez Google.</p></details>
+<details><summary>5. Co się stanie bez Consent Mode V2?</summary><p>Ryzyko niezgodności z prawem oraz utrata remarketingu, Enhanced Conversions i jakości biddingu.</p></details>
+</section>
+</article>
 </main>
 </body>
 </html>
