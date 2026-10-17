@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index,follow"/>
 <title>Google Analytics 4 + Tracking | Analytics 4</title>
-<meta name="description" content="Setup avanzato, eventi personalizzati e tracking conversioni accurato."/>
+<meta name="description" content="Setup GA4, data layer, Consent Mode v2, enhanced conversions e report decisionali. Tracking preciso per Ads e CRM."/>
+<link rel="canonical" href="https://analytics4.online/it/google-analytics-4/"/>
 <link rel="alternate" hreflang="pl" href="https://analytics4.online/google-analytics-4/"/>
 <link rel="alternate" hreflang="it" href="https://analytics4.online/it/google-analytics-4/"/>
 <link rel="alternate" hreflang="en" href="https://analytics4.online/en/google-analytics-4/"/>
-<link rel="canonical" href="https://analytics4.online/it/google-analytics-4/"/>
+<link rel="alternate" hreflang="x-default" href="https://analytics4.online/google-analytics-4/"/>
+<meta property="og:title" content="Google Analytics 4 + Tracking | Analytics 4"/>
+<meta property="og:description" content="Data layer, Consent Mode v2, enhanced conversions e report orientati alle decisioni."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://analytics4.online/it/google-analytics-4/"/>
+<meta property="og:image" content="https://analytics4.online/assets/logo-analytics4.png"/>
 <link rel="icon" href="/assets/logo-analytics4.png" type="image/png"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/brand.css"/>
-<style>:root{--orange:#FF6A00;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff}.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}.lead{font-size:1.15rem;color:var(--gray-500);margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card p{color:var(--gray-500);font-size:.9rem}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}footer{background:#111;color:#a3a3a3;padding:32px 24px}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Google Analytics 4 + Tracking","description":"Setup avanzato GA4, data layer, Consent Mode v2, enhanced conversions e report decisionali.","provider":{"@type":"Organization","name":"Analytics 4","url":"https://analytics4.online"},"url":"https://analytics4.online/it/google-analytics-4/","serviceType":"Analytics implementation"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"In cosa differisce un buon setup GA4 da quello di default?","acceptedAnswer":{"@type":"Answer","text":"Il GA4 di default raccoglie traffico base. Un buon setup ha data layer, eventi e-commerce/lead, Consent Mode v2, enhanced conversions e validazione rispetto al CRM — i dati servono al bidding e alle decisioni."}},
+{"@type":"Question","name":"Implementate Consent Mode v2?","acceptedAnswer":{"@type":"Answer","text":"Sì. Consent Mode v2 è lo standard GDPR: modeling delle conversioni senza consenso, senza perdere qualità del segnale per Ads."}},
+{"@type":"Question","name":"Quanto dura l'implementazione del tracking?","acceptedAnswer":{"@type":"Answer","text":"Progetto tipico: 1–3 settimane a seconda di complessità sito, CMS e integrazione CRM. Dopo il go-live validiamo DebugView e confronto con CRM."}},
+{"@type":"Question","name":"Lavorate con GTM e BigQuery?","acceptedAnswer":{"@type":"Answer","text":"Sì. GTM è il layer tag di default; BigQuery lo usiamo su volumi maggiori e report custom (funnel, attribuzione, cohort)."}},
+{"@type":"Question","name":"Cosa include l'audit del tracking?","acceptedAnswer":{"@type":"Answer","text":"Mappa eventi, gap tra Ads e CRM, Consent Mode, enhanced conversions e qualità del segnale per il bidding. Output: priorità e piano di fix."}}
+]}
+</script>
+<style>
+:root{--orange:#FF6A00;--black:#0A0A0A;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;color:var(--black);line-height:1.55}
+a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff;z-index:10}
+.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}
+.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}
+.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}
+main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}
+h2{font-size:1.35rem;margin:32px 0 12px}.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
+.summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:24px 0}.summary strong{color:var(--orange)}.summary ul{margin:10px 0 0;padding-left:20px}
+.faq{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:24px}.faq details{border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--gray-100)}.faq summary{cursor:pointer;font-weight:700}.faq details p{margin:12px 0 0;color:var(--gray-500)}
+footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
+@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <header><div class="inner hi">
@@ -22,12 +57,35 @@
 <a href="/it/" style="color:var(--orange);font-weight:600">← Torna alla home</a>
 <h1>Google Analytics 4 + Tracking</h1>
 <p class="lead">Setup avanzato, eventi personalizzati e tracking conversioni accurato.</p>
-<p>GA4 senza tracking solido sono solo grafici belli. Costruiamo data layer, Consent Mode v2 e enhanced conversions.</p>
+<div class="summary"><strong>In sintesi (30 secondi)</strong><ul>
+<li><strong>Problema:</strong> GA4 senza tracking solido = grafici belli, decisioni deboli e bidding instabile.</li>
+<li><strong>Soluzione:</strong> data layer, GTM, Consent Mode v2, enhanced conversions.</li>
+<li><strong>Effetto:</strong> segnale conversioni stabile per Ads e allineato al CRM.</li>
+<li><strong>Processo:</strong> mapping → implementazione → validazione → manutenzione.</li>
+</ul></div>
+<p class="intro">GA4 senza tracking solido sono solo grafici belli. Costruiamo data layer, Consent Mode v2 e enhanced conversions così i dati servono al bidding e ai report di management.</p>
 <h2>Cosa ottieni</h2>
-<div class="grid"><div class="card"><h3>Data layer e GTM</h3><p>Eventi e-commerce e lead.</p></div><div class="card"><h3>Consent Mode v2</h3><p>Privacy e modeling conversioni.</p></div><div class="card"><h3>Enhanced conversions</h3><p>Matching migliore e bidding stabile.</p></div><div class="card"><h3>Report decisionali</h3><p>Funnel, attribuzione, BigQuery.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Data layer e GTM</h3><p>Eventi e-commerce e lead.</p></div>
+<div class="card"><h3>Consent Mode v2</h3><p>Privacy e modeling conversioni.</p></div>
+<div class="card"><h3>Enhanced conversions</h3><p>Matching migliore e bidding stabile.</p></div>
+<div class="card"><h3>Report decisionali</h3><p>Funnel, attribuzione, BigQuery.</p></div>
+</div>
 <h2>Come lavoriamo</h2>
-<div class="steps"><div class="step"><div class="n">01</div><h4>Mapping</h4><p>Conversioni, eventi, fonti.</p></div><div class="step"><div class="n">02</div><h4>Implementazione</h4><p>GTM, GA4, Consent Mode.</p></div><div class="step"><div class="n">03</div><h4>Validazione</h4><p>DebugView e confronto CRM.</p></div><div class="step"><div class="n">04</div><h4>Manutenzione</h4><p>Documentazione e health-check.</p></div></div>
-<p style="text-align:center;margin-top:32px"><a class="btn" href="mailto:stefano@analytics4.online">Audita il tracking GA4</a></p>
+<div class="steps">
+<div class="step"><div class="n">01</div><h4>Mapping</h4><p>Conversioni, eventi, fonti.</p></div>
+<div class="step"><div class="n">02</div><h4>Implementazione</h4><p>GTM, GA4, Consent Mode.</p></div>
+<div class="step"><div class="n">03</div><h4>Validazione</h4><p>DebugView e confronto CRM.</p></div>
+<div class="step"><div class="n">04</div><h4>Manutenzione</h4><p>Documentazione e health-check.</p></div>
+</div>
+<p style="text-align:center;margin:32px 0"><a class="btn" href="mailto:stefano@analytics4.online">Audita il tracking GA4</a></p>
+<section class="faq" id="faq"><h2>Domande frequenti</h2>
+<details><summary>1. In cosa differisce un buon setup GA4 da quello di default?</summary><p>Il GA4 di default raccoglie traffico base. Un buon setup ha data layer, eventi e-commerce/lead, Consent Mode v2, enhanced conversions e validazione rispetto al CRM — i dati servono al bidding e alle decisioni.</p></details>
+<details><summary>2. Implementate Consent Mode v2?</summary><p>Sì. Consent Mode v2 è lo standard GDPR: modeling delle conversioni senza consenso, senza perdere qualità del segnale per Ads.</p></details>
+<details><summary>3. Quanto dura l'implementazione del tracking?</summary><p>Progetto tipico: 1–3 settimane a seconda di complessità sito, CMS e integrazione CRM. Dopo il go-live validiamo DebugView e confronto con CRM.</p></details>
+<details><summary>4. Lavorate con GTM e BigQuery?</summary><p>Sì. GTM è il layer tag di default; BigQuery lo usiamo su volumi maggiori e report custom (funnel, attribuzione, cohort).</p></details>
+<details><summary>5. Cosa include l'audit del tracking?</summary><p>Mappa eventi, gap tra Ads e CRM, Consent Mode, enhanced conversions e qualità del segnale per il bidding. Output: priorità e piano di fix.</p></details>
+</section>
 </div></main>
 <footer><div class="fi"><div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div><div><a href="mailto:stefano@analytics4.online">stefano@analytics4.online</a> · +39 347 198 8894</div></div></footer>
 </body></html>

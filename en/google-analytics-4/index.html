@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index,follow"/>
 <title>Google Analytics 4 + Tracking | Analytics 4</title>
-<meta name="description" content="Advanced setup, custom events and accurate conversion tracking."/>
+<meta name="description" content="GA4 setup, data layer, Consent Mode v2, enhanced conversions and decision-ready reporting. Accurate tracking for Ads and CRM."/>
+<link rel="canonical" href="https://analytics4.online/en/google-analytics-4/"/>
 <link rel="alternate" hreflang="pl" href="https://analytics4.online/google-analytics-4/"/>
 <link rel="alternate" hreflang="it" href="https://analytics4.online/it/google-analytics-4/"/>
 <link rel="alternate" hreflang="en" href="https://analytics4.online/en/google-analytics-4/"/>
-<link rel="canonical" href="https://analytics4.online/en/google-analytics-4/"/>
+<link rel="alternate" hreflang="x-default" href="https://analytics4.online/google-analytics-4/"/>
+<meta property="og:title" content="Google Analytics 4 + Tracking | Analytics 4"/>
+<meta property="og:description" content="Data layer, Consent Mode v2, enhanced conversions and decision-ready reports."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://analytics4.online/en/google-analytics-4/"/>
+<meta property="og:image" content="https://analytics4.online/assets/logo-analytics4.png"/>
 <link rel="icon" href="/assets/logo-analytics4.png" type="image/png"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/brand.css"/>
-<style>:root{--orange:#FF6A00;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff}.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}.lead{font-size:1.15rem;color:var(--gray-500);margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card p{color:var(--gray-500);font-size:.9rem}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}footer{background:#111;color:#a3a3a3;padding:32px 24px}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Google Analytics 4 + Tracking","description":"Advanced GA4 setup, data layer, Consent Mode v2, enhanced conversions and decision-ready reporting.","provider":{"@type":"Organization","name":"Analytics 4","url":"https://analytics4.online"},"url":"https://analytics4.online/en/google-analytics-4/","serviceType":"Analytics implementation"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is a proper GA4 setup different from the default?","acceptedAnswer":{"@type":"Answer","text":"Default GA4 collects basic traffic. A proper setup has a data layer, e-commerce/lead events, Consent Mode v2, enhanced conversions and CRM validation — data that supports bidding and decisions."}},
+{"@type":"Question","name":"Do you implement Consent Mode v2?","acceptedAnswer":{"@type":"Answer","text":"Yes. Consent Mode v2 is the GDPR standard: conversion modelling without consent, without losing signal quality for Ads."}},
+{"@type":"Question","name":"How long does tracking implementation take?","acceptedAnswer":{"@type":"Answer","text":"Typical project: 1–3 weeks depending on site complexity, CMS and CRM integration. After go-live we validate DebugView and CRM comparison."}},
+{"@type":"Question","name":"Do you work with GTM and BigQuery?","acceptedAnswer":{"@type":"Answer","text":"Yes. GTM is the default tag layer; BigQuery is used for larger volumes and custom reports (funnels, attribution, cohorts)."}},
+{"@type":"Question","name":"What does a tracking audit include?","acceptedAnswer":{"@type":"Answer","text":"Event map, gap between Ads and CRM, Consent Mode, enhanced conversions and bidding signal quality. Output: priority list and fix plan."}}
+]}
+</script>
+<style>
+:root{--orange:#FF6A00;--black:#0A0A0A;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;color:var(--black);line-height:1.55}
+a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff;z-index:10}
+.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}
+.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}
+.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}
+main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}
+h2{font-size:1.35rem;margin:32px 0 12px}.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
+.summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:24px 0}.summary strong{color:var(--orange)}.summary ul{margin:10px 0 0;padding-left:20px}
+.faq{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:24px}.faq details{border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--gray-100)}.faq summary{cursor:pointer;font-weight:700}.faq details p{margin:12px 0 0;color:var(--gray-500)}
+footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
+@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <header><div class="inner hi">
@@ -22,12 +57,35 @@
 <a href="/en/" style="color:var(--orange);font-weight:600">← Back to home</a>
 <h1>Google Analytics 4 + Tracking</h1>
 <p class="lead">Advanced setup, custom events and accurate conversion tracking.</p>
-<p>GA4 without solid tracking is just pretty charts. We build data layer, Consent Mode v2 and enhanced conversions.</p>
+<div class="summary"><strong>In short (30 seconds)</strong><ul>
+<li><strong>Problem:</strong> GA4 without solid tracking = pretty charts, weak decisions and unstable bidding.</li>
+<li><strong>Solution:</strong> data layer, GTM, Consent Mode v2, enhanced conversions.</li>
+<li><strong>Outcome:</strong> stable conversion signal for Ads, aligned with CRM.</li>
+<li><strong>Process:</strong> mapping → implementation → validation → maintenance.</li>
+</ul></div>
+<p class="intro">GA4 without solid tracking is just pretty charts. We build the data layer, Consent Mode v2 and enhanced conversions so data supports bidding and management reporting.</p>
 <h2>What you get</h2>
-<div class="grid"><div class="card"><h3>Data layer and GTM</h3><p>E-commerce and lead events.</p></div><div class="card"><h3>Consent Mode v2</h3><p>Privacy and conversion modeling.</p></div><div class="card"><h3>Enhanced conversions</h3><p>Better matching and stable bidding.</p></div><div class="card"><h3>Decision reports</h3><p>Funnels, attribution, BigQuery.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Data layer &amp; GTM</h3><p>E-commerce and lead events.</p></div>
+<div class="card"><h3>Consent Mode v2</h3><p>Privacy and conversion modelling.</p></div>
+<div class="card"><h3>Enhanced conversions</h3><p>Better matching and stable bidding.</p></div>
+<div class="card"><h3>Decision-ready reports</h3><p>Funnels, attribution, BigQuery.</p></div>
+</div>
 <h2>How we work</h2>
-<div class="steps"><div class="step"><div class="n">01</div><h4>Mapping</h4><p>Conversions, events, sources.</p></div><div class="step"><div class="n">02</div><h4>Implementation</h4><p>GTM, GA4, Consent Mode.</p></div><div class="step"><div class="n">03</div><h4>Validation</h4><p>DebugView and CRM comparison.</p></div><div class="step"><div class="n">04</div><h4>Maintenance</h4><p>Documentation and health-check.</p></div></div>
-<p style="text-align:center;margin-top:32px"><a class="btn" href="mailto:stefano@analytics4.online">Audit your GA4 tracking</a></p>
+<div class="steps">
+<div class="step"><div class="n">01</div><h4>Mapping</h4><p>Conversions, events, sources.</p></div>
+<div class="step"><div class="n">02</div><h4>Implementation</h4><p>GTM, GA4, Consent Mode.</p></div>
+<div class="step"><div class="n">03</div><h4>Validation</h4><p>DebugView and CRM comparison.</p></div>
+<div class="step"><div class="n">04</div><h4>Maintenance</h4><p>Documentation and health-checks.</p></div>
+</div>
+<p style="text-align:center;margin:32px 0"><a class="btn" href="mailto:stefano@analytics4.online">Audit your GA4 tracking</a></p>
+<section class="faq" id="faq"><h2>Frequently asked questions</h2>
+<details><summary>1. How is a proper GA4 setup different from the default?</summary><p>Default GA4 collects basic traffic. A proper setup has a data layer, e-commerce/lead events, Consent Mode v2, enhanced conversions and CRM validation — data that supports bidding and decisions.</p></details>
+<details><summary>2. Do you implement Consent Mode v2?</summary><p>Yes. Consent Mode v2 is the GDPR standard: conversion modelling without consent, without losing signal quality for Ads.</p></details>
+<details><summary>3. How long does tracking implementation take?</summary><p>Typical project: 1–3 weeks depending on site complexity, CMS and CRM integration. After go-live we validate DebugView and CRM comparison.</p></details>
+<details><summary>4. Do you work with GTM and BigQuery?</summary><p>Yes. GTM is the default tag layer; BigQuery is used for larger volumes and custom reports (funnels, attribution, cohorts).</p></details>
+<details><summary>5. What does a tracking audit include?</summary><p>Event map, gap between Ads and CRM, Consent Mode, enhanced conversions and bidding signal quality. Output: priority list and fix plan.</p></details>
+</section>
 </div></main>
 <footer><div class="fi"><div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div><div><a href="mailto:stefano@analytics4.online">stefano@analytics4.online</a> · +39 347 198 8894</div></div></footer>
 </body></html>

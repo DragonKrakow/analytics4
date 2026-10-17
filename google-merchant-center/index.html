@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Google Merchant Center | Analytics 4</title>
-<meta name="description" content="Feed produktów, reguły i optymalizacja pod Shopping i Performance Max."/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index,follow"/>
+<title>Google Merchant Center – feed i Shopping | Analytics 4</title>
+<meta name="description" content="Optymalizacja feedu Merchant Center pod Shopping i Performance Max. Atrybuty, reguły, diagnostyka błędów, ROAS."/>
+<link rel="canonical" href="https://analytics4.online/google-merchant-center/"/>
 <link rel="alternate" hreflang="pl" href="https://analytics4.online/google-merchant-center/"/>
 <link rel="alternate" hreflang="it" href="https://analytics4.online/it/google-merchant-center/"/>
 <link rel="alternate" hreflang="en" href="https://analytics4.online/en/google-merchant-center/"/>
-<link rel="canonical" href="https://analytics4.online/google-merchant-center/"/>
+<link rel="alternate" hreflang="x-default" href="https://analytics4.online/google-merchant-center/"/>
+<meta property="og:title" content="Google Merchant Center – feed i Shopping | Analytics 4"/>
+<meta property="og:description" content="Czysty feed = lepszy ROAS. Atrybuty, reguły, diagnostyka i integracja z Ads."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://analytics4.online/google-merchant-center/"/>
+<meta property="og:image" content="https://analytics4.online/assets/logo-analytics4.png"/>
 <link rel="icon" href="/assets/logo-analytics4.png" type="image/png"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/brand.css"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Google Merchant Center","description":"Optymalizacja feedu produktów, reguły, diagnostyka i integracja z Shopping oraz Performance Max.","provider":{"@type":"Organization","name":"Analytics 4","url":"https://analytics4.online"},"url":"https://analytics4.online/google-merchant-center/","serviceType":"Merchant Center optimization"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Dlaczego feed Merchant Center jest ważny dla ROAS?","acceptedAnswer":{"@type":"Answer","text":"Shopping i Performance Max opierają się na jakości feedu. Braki atrybutów, złe tytuły lub dezaprobaty obniżają zasięg i podnoszą CPA. Czysty feed to fundament ROAS."}},
+{"@type":"Question","name":"Co obejmuje optymalizacja feedu?","acceptedAnswer":{"@type":"Answer","text":"Kompletność atrybutów (GTIN, brand, shipping), tytuły i opisy, reguły suplementów, diagnostykę błędów i synchronizację z kampaniami Ads."}},
+{"@type":"Question","name":"Jak często trzeba monitorować Merchant Center?","acceptedAnswer":{"@type":"Answer","text":"Minimum cotygodniowy przegląd błędów i dezaprobat; przy dużych katalogach — alerty automatyczne i comiesięczny review reguł."}},
+{"@type":"Question","name":"Czy pomagacie przy dezaprobatach produktów?","acceptedAnswer":{"@type":"Answer","text":"Tak. Diagnozujemy przyczynę (polityki, dane, landing), naprawiamy feed i w razie potrzeby odwołujemy decyzje Google."}},
+{"@type":"Question","name":"Ile trwa audyt feedu?","acceptedAnswer":{"@type":"Answer","text":"Pierwszy audyt zwykle 3–7 dni roboczych w zależności od wielkości katalogu i źródła danych (XML, API, plugin sklepu)."}}
+]}
+</script>
 <style>
 :root{--orange:#FF6A00;--black:#0A0A0A;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;color:var(--black);line-height:1.55}
 a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff;z-index:10}
 .inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px;width:auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}
 .lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}
 .btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}
 main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}
-.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:40px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}
-.card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}
-.step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
-footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
+h2{font-size:1.35rem;margin:32px 0 12px}.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
+.summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:24px 0}.summary strong{color:var(--orange)}.summary ul{margin:10px 0 0;padding-left:20px}
+.faq{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:24px}.faq details{border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--gray-100)}.faq summary{cursor:pointer;font-weight:700}.faq details p{margin:12px 0 0;color:var(--gray-500)}
+footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
 @media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}
 </style>
 </head>
@@ -39,16 +57,36 @@ footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max
 <a href="/" style="color:var(--orange);font-weight:600">← Strona główna</a>
 <h1>Google Merchant Center</h1>
 <p class="lead">Feed produktów, reguły i optymalizacja pod Shopping i Performance Max.</p>
-<p class="intro">Czysty feed to podstawa ROAS. Diagnostyka, atrybuty, reguły i synchronizacja z Ads.</p>
+<div class="summary"><strong>W skrócie (30 sekund)</strong><ul>
+<li><strong>Problem:</strong> błędny lub niekompletny feed = niższy zasięg i gorszy ROAS.</li>
+<li><strong>Rozwiązanie:</strong> atrybuty, reguły, diagnostyka, synchronizacja z Ads.</li>
+<li><strong>Cel:</strong> feed gotowy pod Shopping i PMax bez niespodzianek.</li>
+<li><strong>Proces:</strong> audyt → optymalizacja → integracja → monitoring.</li>
+</ul></div>
+<p class="intro">Czysty feed to podstawa ROAS. Diagnostyka, atrybuty, reguły i synchronizacja z Ads — żeby Shopping i Performance Max miały solidne dane produktowe.</p>
 <h2>Co zyskujesz</h2>
-<div class="grid"><div class="card"><h3>Feed i atrybuty</h3><p>Kompletność, tytuły, GTIN, shipping.</p></div><div class="card"><h3>Reguły i suplementy</h3><p>Automatyczne poprawki i etykiety.</p></div><div class="card"><h3>Diagnostyka</h3><p>Błędy, dezaprobaty, pokrycie.</p></div><div class="card"><h3>Shopping + PMax</h3><p>Feed gotowy pod kampanie produktowe.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Feed i atrybuty</h3><p>Kompletność, tytuły, GTIN, shipping.</p></div>
+<div class="card"><h3>Reguły i suplementy</h3><p>Automatyczne poprawki i etykiety.</p></div>
+<div class="card"><h3>Diagnostyka</h3><p>Błędy, dezaprobaty, pokrycie.</p></div>
+<div class="card"><h3>Shopping + PMax</h3><p>Feed gotowy pod kampanie produktowe.</p></div>
+</div>
 <h2>Jak pracujemy</h2>
-<div class="steps"><div class="step"><div class="n">01</div><h4>Audyt feedu</h4><p>Jakość, braki, błędy.</p></div><div class="step"><div class="n">02</div><h4>Optymalizacja</h4><p>Atrybuty, reguły, suplementy.</p></div><div class="step"><div class="n">03</div><h4>Integracja Ads</h4><p>Shopping i Performance Max.</p></div><div class="step"><div class="n">04</div><h4>Monitoring</h4><p>Alerty i comiesięczny review.</p></div></div>
-<p style="text-align:center"><a class="btn" href="mailto:magda@analytics4.online">Zoptymalizuj Merchant Center</a></p>
+<div class="steps">
+<div class="step"><div class="n">01</div><h4>Audyt feedu</h4><p>Jakość, braki, błędy.</p></div>
+<div class="step"><div class="n">02</div><h4>Optymalizacja</h4><p>Atrybuty, reguły, suplementy.</p></div>
+<div class="step"><div class="n">03</div><h4>Integracja Ads</h4><p>Shopping i Performance Max.</p></div>
+<div class="step"><div class="n">04</div><h4>Monitoring</h4><p>Alerty i comiesięczny review.</p></div>
+</div>
+<p style="text-align:center;margin:32px 0"><a class="btn" href="mailto:magda@analytics4.online">Zoptymalizuj Merchant Center</a></p>
+<section class="faq" id="faq"><h2>Najczęściej zadawane pytania</h2>
+<details><summary>1. Dlaczego feed Merchant Center jest ważny dla ROAS?</summary><p>Shopping i Performance Max opierają się na jakości feedu. Braki atrybutów, złe tytuły lub dezaprobaty obniżają zasięg i podnoszą CPA. Czysty feed to fundament ROAS.</p></details>
+<details><summary>2. Co obejmuje optymalizacja feedu?</summary><p>Kompletność atrybutów (GTIN, brand, shipping), tytuły i opisy, reguły suplementów, diagnostykę błędów i synchronizację z kampaniami Ads.</p></details>
+<details><summary>3. Jak często trzeba monitorować Merchant Center?</summary><p>Minimum cotygodniowy przegląd błędów i dezaprobat; przy dużych katalogach — alerty automatyczne i comiesięczny review reguł.</p></details>
+<details><summary>4. Czy pomagacie przy dezaprobatach produktów?</summary><p>Tak. Diagnozujemy przyczynę (polityki, dane, landing), naprawiamy feed i w razie potrzeby odwołujemy decyzje Google.</p></details>
+<details><summary>5. Ile trwa audyt feedu?</summary><p>Pierwszy audyt zwykle 3–7 dni roboczych w zależności od wielkości katalogu i źródła danych (XML, API, plugin sklepu).</p></details>
+</section>
 </div></main>
-<footer><div class="fi">
-<div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div>
-<div><a href="mailto:magda@analytics4.online">magda@analytics4.online</a> · <a href="tel:+48730031161">+48 730 031 161</a></div>
-</div></footer>
-</body>
-</html>
+<footer><div class="fi"><div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div>
+<div><a href="mailto:magda@analytics4.online">magda@analytics4.online</a> · <a href="tel:+48730031161">+48 730 031 161</a></div></div></footer>
+</body></html>
