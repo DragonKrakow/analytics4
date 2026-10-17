@@ -18,6 +18,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Apply light theme to all blog articles
+        run: |
+          python3 << 'PY'
+          import re
+          from pathlib import Path
+
+          LIGHT_STYLE = '''<style>
+          *{box-sizing:border-box}body{margin:0;background:#fff;color:#0a0a0a;font-family:Inter,system-ui,Arial,sans-serif;line-height:1.7}
+          header{padding:16px 5%;background:#0a0a0a;color:#fff;border-bottom:none}header a{color:#fff;text-decoration:none}header a:hover{color:#ff6a00}
+          main{max-width:940px;margin:40px auto;padding:0 22px 48px}a{color:#ff6a00}
+          .lang{display:flex;gap:18px;flex-wrap:wrap;margin:24px 0}.lang [aria-current]{font-weight:bold;text-decoration:underline}
+          article img{max-width:100%;height:auto;border-radius:8px;margin:16px 0}article{overflow-wrap:anywhere}
+          article h1{line-height:1.25;font-size:clamp(1.5rem,4vw,2rem);margin-bottom:12px;color:#0a0a0a}
+          article h2{margin-top:36px;margin-bottom:12px;font-size:1.35rem;color:#0a0a0a}
+          article h3{margin-top:24px;margin-bottom:8px;font-size:1.1rem;color:#0a0a0a}
+          .summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid #ff6a00;border-radius:10px;padding:18px 20px;margin:24px 0}
+          .summary strong{color:#ff6a00}.summary ul{margin:10px 0 0;padding-left:20px}
+          .faq{margin-top:40px;border-top:1px solid #e5e5e5;padding-top:24px}
+          .faq details{border:1px solid #e5e5e5;border-radius:10px;padding:14px 16px;margin:12px 0;background:#f5f5f5}
+          .faq summary{cursor:pointer;font-weight:700;color:#0a0a0a}.faq details p{margin:12px 0 0;color:#525252}
+          .cta{margin:40px 0;padding:24px;background:#f5f5f5;border-radius:12px;border:1px solid #e5e5e5;text-align:center}
+          .cta a{display:inline-block;margin:8px;padding:12px 20px;background:#ff6a00;color:#fff;font-weight:700;border-radius:8px;text-decoration:none}
+          ul{padding-left:22px}
+          footer.blog-footer{background:#111;color:#a3a3a3;padding:28px 5%;text-align:center;font-size:.9rem;margin-top:24px}
+          footer.blog-footer a{color:#a3a3a3}
+          </style>
+          <link rel="stylesheet" href="/assets/blog-article.css"/>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>'''
+
+          SKIP = {
+            'Blog/index.html',
+            'Blog/pl/index.html',
+            'Blog/it/index.html',
+            'Blog/en/index.html',
+          }
+
+          n = 0
+          for path in sorted(Path('Blog').rglob('index.html')):
+            rel = str(path).replace('\\', '/')
+            if rel in SKIP:
+              continue
+            html = path.read_text(encoding='utf-8', errors='replace')
+            # Replace first <style>...</style> with light theme
+            html2, count = re.subn(r'<style>.*?</style>', LIGHT_STYLE, html, count=1, flags=re.S)
+            if count == 0:
+              if 'blog-article.css' not in html:
+                html2 = html.replace('</head>', LIGHT_STYLE + '\n</head>', 1)
+              else:
+                html2 = html
+            if 'blog-footer' not in html2 and '</body>' in html2:
+              html2 = html2.replace('</body>', '<footer class="blog-footer">© Analytics 4</footer>\n</body>', 1)
+            if html2 != html:
+              path.write_text(html2, encoding='utf-8')
+              n += 1
+              print('light:', rel)
+          print(f'Done: {n} articles updated for light theme')
+          PY
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

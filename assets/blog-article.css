@@ -1,4 +1,4 @@
-/* Blog article light theme: black header/footer, white content */
+/* Blog article – light theme (header/footer neri, sfondo bianco) */
 *{box-sizing:border-box}
 body{margin:0!important;background:#fff!important;color:#0a0a0a!important;font-family:Inter,system-ui,Arial,sans-serif;line-height:1.7}
 body>header,header{padding:16px 5%!important;background:#0a0a0a!important;color:#fff!important;border-bottom:none!important}
