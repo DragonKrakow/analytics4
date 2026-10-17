@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index,follow"/>
 <title>AI in digital strategy | Analytics 4</title>
-<meta name="description" content="AI for audience, creatives, bidding and predictive analysis."/>
+<meta name="description" content="AI for audience, creatives, bidding and predictive analysis. High-ROI use cases, implementation and measurement."/>
+<link rel="canonical" href="https://analytics4.online/en/ai-digital-strategy/"/>
 <link rel="alternate" hreflang="pl" href="https://analytics4.online/ai-strategia-cyfrowa/"/>
 <link rel="alternate" hreflang="it" href="https://analytics4.online/it/ai-strategia-digitale/"/>
 <link rel="alternate" hreflang="en" href="https://analytics4.online/en/ai-digital-strategy/"/>
-<link rel="canonical" href="https://analytics4.online/en/ai-digital-strategy/"/>
+<link rel="alternate" hreflang="x-default" href="https://analytics4.online/ai-strategia-cyfrowa/"/>
+<meta property="og:title" content="AI in digital strategy | Analytics 4"/>
+<meta property="og:description" content="AI does not replace strategy — it speeds up tests and precision. Audience, creatives, prediction, automation."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://analytics4.online/en/ai-digital-strategy/"/>
+<meta property="og:image" content="https://analytics4.online/assets/logo-analytics4.png"/>
 <link rel="icon" href="/assets/logo-analytics4.png" type="image/png"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/brand.css"/>
-<style>:root{--orange:#FF6A00;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff}.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}.lead{font-size:1.15rem;color:var(--gray-500);margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card p{color:var(--gray-500);font-size:.9rem}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}footer{background:#111;color:#a3a3a3;padding:32px 24px}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"AI in digital strategy","description":"AI for audience, creatives, bidding and predictive analysis with ROI measurement.","provider":{"@type":"Organization","name":"Analytics 4","url":"https://analytics4.online"},"url":"https://analytics4.online/en/ai-digital-strategy/","serviceType":"AI digital strategy"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does AI replace marketing strategy?","acceptedAnswer":{"@type":"Answer","text":"No. AI speeds up testing, segmentation and reporting. Strategy — goals, KPIs, priorities — stays with people and the partner."}},
+{"@type":"Question","name":"Which use cases should we start with?","acceptedAnswer":{"@type":"Answer","text":"Highest-ROI ones: audience on first-party data, creative variants, demand/budget prediction and automated anomaly alerts."}},
+{"@type":"Question","name":"Do we need a large AI budget?","acceptedAnswer":{"@type":"Answer","text":"Not at the start. Many use cases run on tools you already use (Ads, GA4, CRM) and prompts. We scale after proving the effect."}},
+{"@type":"Question","name":"How do you measure AI impact?","acceptedAnswer":{"@type":"Answer","text":"Before/after KPIs: creative production time, CPA/ROAS, lead quality, reporting time. Without measurement we do not scale."}},
+{"@type":"Question","name":"Is AI only about Google Ads?","acceptedAnswer":{"@type":"Answer","text":"No. Ads is one area. We also work on audience, landings, reports and marketing process automation."}}
+]}
+</script>
+<style>
+:root{--orange:#FF6A00;--black:#0A0A0A;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;color:var(--black);line-height:1.55}
+a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-200);height:72px;display:flex;align-items:center;position:sticky;top:0;background:#fff;z-index:10}
+.inner{max-width:960px;margin:0 auto;padding:0 24px;width:100%}.hi{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}.logo img{height:36px}
+.lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}
+.btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}
+main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}
+h2{font-size:1.35rem;margin:32px 0 12px}.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}.card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}.step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
+.summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:24px 0}.summary strong{color:var(--orange)}.summary ul{margin:10px 0 0;padding-left:20px}
+.faq{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:24px}.faq details{border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--gray-100)}.faq summary{cursor:pointer;font-weight:700}.faq details p{margin:12px 0 0;color:var(--gray-500)}
+footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}.fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
+@media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <header><div class="inner hi">
@@ -22,12 +57,35 @@
 <a href="/en/" style="color:var(--orange);font-weight:600">← Back to home</a>
 <h1>AI in digital strategy</h1>
 <p class="lead">AI for audience, creatives, bidding and predictive analysis.</p>
-<p>AI does not replace strategy - it speeds up tests and precision. Segmentation, creatives, demand prediction and automated reporting.</p>
+<div class="summary"><strong>In short (30 seconds)</strong><ul>
+<li><strong>Principle:</strong> AI does not replace strategy — it speeds up tests and precision.</li>
+<li><strong>Use cases:</strong> audience, creatives, demand prediction, automated reports.</li>
+<li><strong>Start:</strong> highest-ROI priorities, not “AI everywhere”.</li>
+<li><strong>Measure:</strong> before/after KPIs, then scale.</li>
+</ul></div>
+<p class="intro">AI does not replace strategy – it speeds up tests and precision. Segmentation, creatives, demand prediction and automated reporting where they really cut time and lift results.</p>
 <h2>What you get</h2>
-<div class="grid"><div class="card"><h3>Audience</h3><p>Segments and lookalikes on first-party data.</p></div><div class="card"><h3>Creatives</h3><p>Faster ad and landing variants.</p></div><div class="card"><h3>Prediction</h3><p>Demand, seasonality, budget.</p></div><div class="card"><h3>Automation</h3><p>Reports and anomaly alerts.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Audience</h3><p>Segments and lookalikes on first-party data.</p></div>
+<div class="card"><h3>Creatives</h3><p>Faster ad and landing variants.</p></div>
+<div class="card"><h3>Prediction</h3><p>Demand, seasonality, budget.</p></div>
+<div class="card"><h3>Automation</h3><p>Reports and anomaly alerts.</p></div>
+</div>
 <h2>How we work</h2>
-<div class="steps"><div class="step"><div class="n">01</div><h4>Diagnosis</h4><p>Data, processes, bottlenecks.</p></div><div class="step"><div class="n">02</div><h4>AI use-cases</h4><p>Highest-ROI priorities.</p></div><div class="step"><div class="n">03</div><h4>Implementation</h4><p>Tools, prompts, workflows.</p></div><div class="step"><div class="n">04</div><h4>Measurement</h4><p>Before/after KPIs, scaling.</p></div></div>
-<p style="text-align:center;margin-top:32px"><a class="btn" href="mailto:stefano@analytics4.online">Bring AI into your strategy</a></p>
+<div class="steps">
+<div class="step"><div class="n">01</div><h4>Diagnosis</h4><p>Data, processes, bottlenecks.</p></div>
+<div class="step"><div class="n">02</div><h4>AI use-cases</h4><p>Highest-ROI priorities.</p></div>
+<div class="step"><div class="n">03</div><h4>Implementation</h4><p>Tools, prompts, workflows.</p></div>
+<div class="step"><div class="n">04</div><h4>Measurement</h4><p>Before/after KPIs, scaling.</p></div>
+</div>
+<p style="text-align:center;margin:32px 0"><a class="btn" href="mailto:stefano@analytics4.online">Bring AI into your strategy</a></p>
+<section class="faq" id="faq"><h2>Frequently asked questions</h2>
+<details><summary>1. Does AI replace marketing strategy?</summary><p>No. AI speeds up testing, segmentation and reporting. Strategy — goals, KPIs, priorities — stays with people and the partner.</p></details>
+<details><summary>2. Which use cases should we start with?</summary><p>Highest-ROI ones: audience on first-party data, creative variants, demand/budget prediction and automated anomaly alerts.</p></details>
+<details><summary>3. Do we need a large AI budget?</summary><p>Not at the start. Many use cases run on tools you already use (Ads, GA4, CRM) and prompts. We scale after proving the effect.</p></details>
+<details><summary>4. How do you measure AI impact?</summary><p>Before/after KPIs: creative production time, CPA/ROAS, lead quality, reporting time. Without measurement we do not scale.</p></details>
+<details><summary>5. Is AI only about Google Ads?</summary><p>No. Ads is one area. We also work on audience, landings, reports and marketing process automation.</p></details>
+</section>
 </div></main>
 <footer><div class="fi"><div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div><div><a href="mailto:stefano@analytics4.online">stefano@analytics4.online</a> · +39 347 198 8894</div></div></footer>
 </body></html>
