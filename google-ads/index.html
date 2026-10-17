@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Google Ads | Analytics 4</title>
-<meta name="description" content="Kompleksowe zarządzanie kampaniami Search, Shopping i Performance Max."/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="index,follow"/>
+<title>Google Ads – zarządzanie kampaniami Search, Shopping, PMax | Analytics 4</title>
+<meta name="description" content="Kompleksowe zarządzanie Google Ads: Search, Shopping, Performance Max. Struktura konta, ROAS, tracking i raporty biznesowe. Audyt + strategia 90 dni."/>
+<link rel="canonical" href="https://analytics4.online/google-ads/"/>
 <link rel="alternate" hreflang="pl" href="https://analytics4.online/google-ads/"/>
 <link rel="alternate" hreflang="it" href="https://analytics4.online/it/google-ads/"/>
 <link rel="alternate" hreflang="en" href="https://analytics4.online/en/google-ads/"/>
-<link rel="canonical" href="https://analytics4.online/google-ads/"/>
+<link rel="alternate" hreflang="x-default" href="https://analytics4.online/google-ads/"/>
+<meta property="og:title" content="Google Ads – zarządzanie kampaniami | Analytics 4"/>
+<meta property="og:description" content="Search, Shopping, Performance Max. Struktura, ROAS, tracking i raporty pod cele biznesowe."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://analytics4.online/google-ads/"/>
+<meta property="og:image" content="https://analytics4.online/assets/logo-analytics4.png"/>
 <link rel="icon" href="/assets/logo-analytics4.png" type="image/png"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/brand.css"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Google Ads – zarządzanie kampaniami","description":"Kompleksowe zarządzanie kampaniami Search, Shopping i Performance Max z optymalizacją pod ROAS, CPA i LTV.","provider":{"@type":"Organization","name":"Analytics 4","url":"https://analytics4.online","logo":"https://analytics4.online/assets/logo-analytics4.png"},"areaServed":["PL","IT","EU"],"url":"https://analytics4.online/google-ads/","serviceType":"Google Ads management"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Ile kosztuje zarządzanie Google Ads?","acceptedAnswer":{"@type":"Answer","text":"Model ustalamy indywidualnie: fee stałe, % od budżetu mediowego lub wynagrodzenie od wyników. Po audycie konta proponujemy zakres i KPI na 90 dni."}},
+{"@type":"Question","name":"Czy pracujecie z Performance Max i Shopping?","acceptedAnswer":{"@type":"Answer","text":"Tak. PMax i Shopping to standard w e-commerce. Kontrolujemy feed Merchant Center, sygnały konwersji i strukturę, żeby automatyzacja nie działała w ciemno."}},
+{"@type":"Question","name":"Jak szybko widać efekty po starcie?","acceptedAnswer":{"@type":"Answer","text":"Pierwsze 2–4 tygodnie to audyt, tracking i przebudowa struktury. Stabilne sygnały ROAS/CPA zwykle po 30–60 dniach ciągłej optymalizacji, zależnie od budżetu i branży."}},
+{"@type":"Question","name":"Czy potrzebuję własnego budżetu reklamowego?","acceptedAnswer":{"@type":"Answer","text":"Tak – budżet mediowy jest po stronie klienta. My zarządzamy kontem, strategią i optymalizacją. Minimalny sensowny budżet zależy od branży i konkurencji."}},
+{"@type":"Question","name":"Co obejmuje audyt Google Ads?","acceptedAnswer":{"@type":"Answer","text":"Strukturę konta, tracking konwersji, jakość feedu, ustawienia bidding, nakładanie się kampanii i raportowanie. Wynikiem jest plan działań i KPI na 90 dni."}}
+]}
+</script>
 <style>
 :root{--orange:#FF6A00;--black:#0A0A0A;--gray-100:#F5F5F5;--gray-200:#E5E5E5;--gray-500:#737373}
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;color:var(--black);line-height:1.55}
@@ -20,11 +39,16 @@ a{color:inherit;text-decoration:none}header{border-bottom:1px solid var(--gray-2
 .lang a{margin-left:8px;font-size:.8rem;font-weight:600;color:var(--gray-500)}.lang a.active{color:var(--orange)}
 .btn{display:inline-flex;padding:12px 22px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600}
 main{padding:48px 24px 80px}h1{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;margin:16px 0}
-.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:40px}
+h2{font-size:1.35rem;margin:32px 0 12px}.lead{font-size:1.15rem;color:var(--gray-500);max-width:700px;margin-bottom:20px}.intro{max-width:700px;margin-bottom:24px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 40px}.card{border:1px solid var(--gray-200);border-radius:12px;padding:20px}
 .card h3{margin-bottom:6px}.card p{color:var(--gray-500);font-size:.9rem}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 40px}.step{background:var(--gray-100);border-radius:12px;padding:16px}
 .step .n{color:var(--orange);font-weight:800}.step h4{margin:6px 0}.step p{font-size:.85rem;color:var(--gray-500)}
+.summary{background:#FFF8F3;border:1px solid #FFE0CC;border-left:4px solid var(--orange);border-radius:12px;padding:18px 20px;margin:24px 0}
+.summary strong{color:var(--orange)}.summary ul{margin:10px 0 0;padding-left:20px}
+.faq{margin-top:40px;border-top:1px solid var(--gray-200);padding-top:24px}
+.faq details{border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--gray-100)}
+.faq summary{cursor:pointer;font-weight:700}.faq details p{margin:12px 0 0;color:var(--gray-500)}
 footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .fl{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}.fl img{height:24px}
 @media(max-width:800px){.grid,.steps{grid-template-columns:1fr}}
@@ -39,12 +63,46 @@ footer{background:#111;color:#a3a3a3;padding:32px 24px;font-size:.875rem}.fi{max
 <a href="/" style="color:var(--orange);font-weight:600">← Strona główna</a>
 <h1>Google Ads</h1>
 <p class="lead">Kompleksowe zarządzanie kampaniami Search, Shopping i Performance Max.</p>
-<p class="intro">Prowadzimy konta Google Ads jak wewnątrz Google: struktura, testy kreatywne, Performance Max. Każda decyzja oparta o dane i cel biznesowy.</p>
+
+<div class="summary">
+<strong>W skrócie (30 sekund)</strong>
+<ul>
+<li><strong>Co robimy:</strong> prowadzimy konta Google Ads end-to-end — struktura, tracking, feed, kreatywy, bidding.</li>
+<li><strong>Dla kogo:</strong> e-commerce, lead gen B2B/B2C, non-profit (Grant).</li>
+<li><strong>Cel:</strong> ROAS, CPA i LTV — nie tylko kliknięcia.</li>
+<li><strong>Proces:</strong> audyt → strategia 90 dni → go-live → ciągła optymalizacja.</li>
+<li><strong>Następny krok:</strong> bezpłatna konsultacja i diagnostyka konta.</li>
+</ul>
+</div>
+
+<p class="intro">Prowadzimy konta Google Ads jak wewnątrz Google: czysta struktura, testy kreatywne, Performance Max z kontrolą feedu. Każda decyzja oparta o dane i cel biznesowy — nie o „więcej kliknięć”.</p>
+
 <h2>Co zyskujesz</h2>
-<div class="grid"><div class="card"><h3>Struktura konta</h3><p>Czysta hierarchia kampanii – skalowalna i auditowalna.</p></div><div class="card"><h3>Performance Max + Shopping</h3><p>Automatyzacja z kontrolą feedu i konwersji.</p></div><div class="card"><h3>ROI i ROAS</h3><p>Optymalizacja pod CPA, marżę i LTV.</p></div><div class="card"><h3>Raporty biznesowe</h3><p>Dashboardy: przychody, CAC, mix kanałów.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Struktura konta</h3><p>Czysta hierarchia kampanii – skalowalna i auditowalna.</p></div>
+<div class="card"><h3>Performance Max + Shopping</h3><p>Automatyzacja z kontrolą feedu i konwersji.</p></div>
+<div class="card"><h3>ROI i ROAS</h3><p>Optymalizacja pod CPA, marżę i LTV.</p></div>
+<div class="card"><h3>Raporty biznesowe</h3><p>Dashboardy: przychody, CAC, mix kanałów.</p></div>
+</div>
+
 <h2>Jak pracujemy</h2>
-<div class="steps"><div class="step"><div class="n">01</div><h4>Audyt</h4><p>Analiza konta i ścieżek konwersji.</p></div><div class="step"><div class="n">02</div><h4>Strategia</h4><p>Plan mediowy i KPI na 90 dni.</p></div><div class="step"><div class="n">03</div><h4>Uruchomienie</h4><p>Struktura, tracking, feed, kreatywy.</p></div><div class="step"><div class="n">04</div><h4>Optymalizacja</h4><p>Testy, skalowanie, raporty.</p></div></div>
-<p style="text-align:center"><a class="btn" href="mailto:magda@analytics4.online">Umów bezpłatną konsultację Google Ads</a></p>
+<div class="steps">
+<div class="step"><div class="n">01</div><h4>Audyt</h4><p>Analiza konta i ścieżek konwersji.</p></div>
+<div class="step"><div class="n">02</div><h4>Strategia</h4><p>Plan mediowy i KPI na 90 dni.</p></div>
+<div class="step"><div class="n">03</div><h4>Uruchomienie</h4><p>Struktura, tracking, feed, kreatywy.</p></div>
+<div class="step"><div class="n">04</div><h4>Optymalizacja</h4><p>Testy, skalowanie, raporty.</p></div>
+</div>
+
+<p style="text-align:center;margin:32px 0"><a class="btn" href="mailto:magda@analytics4.online">Umów bezpłatną konsultację Google Ads</a></p>
+
+<section class="faq" id="faq">
+<h2>Najczęściej zadawane pytania</h2>
+<details><summary>1. Ile kosztuje zarządzanie Google Ads?</summary><p>Model ustalamy indywidualnie: fee stałe, % od budżetu mediowego lub wynagrodzenie od wyników. Po audycie konta proponujemy zakres i KPI na 90 dni.</p></details>
+<details><summary>2. Czy pracujecie z Performance Max i Shopping?</summary><p>Tak. PMax i Shopping to standard w e-commerce. Kontrolujemy feed Merchant Center, sygnały konwersji i strukturę, żeby automatyzacja nie działała w ciemno.</p></details>
+<details><summary>3. Jak szybko widać efekty po starcie?</summary><p>Pierwsze 2–4 tygodnie to audyt, tracking i przebudowa struktury. Stabilne sygnały ROAS/CPA zwykle po 30–60 dniach ciągłej optymalizacji, zależnie od budżetu i branży.</p></details>
+<details><summary>4. Czy potrzebuję własnego budżetu reklamowego?</summary><p>Tak – budżet mediowy jest po stronie klienta. My zarządzamy kontem, strategią i optymalizacją. Minimalny sensowny budżet zależy od branży i konkurencji.</p></details>
+<details><summary>5. Co obejmuje audyt Google Ads?</summary><p>Strukturę konta, tracking konwersji, jakość feedu, ustawienia bidding, nakładanie się kampanii i raportowanie. Wynikiem jest plan działań i KPI na 90 dni.</p></details>
+</section>
 </div></main>
 <footer><div class="fi">
 <div class="fl"><img src="/assets/logo-analytics4.png" alt=""/> Analytics 4</div>
